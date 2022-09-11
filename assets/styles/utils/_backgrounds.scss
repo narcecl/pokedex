@@ -1,0 +1,45 @@
+// Definitions of type-pokemon backgrounds
+
+.bg{
+    &--grass{background-color: $bg-grass;}
+    &--fire{background-color: $bg-fire;}
+    &--water{background-color: $bg-water;}
+    &--bug{background-color: $bg-bug;}
+    &--normal{background-color: $bg-normal;}
+    &--poison{background-color: $bg-poison;}
+    &--electric{background-color: $bg-electric;}
+    &--ground{background-color: $bg-ground;}
+    &--fighting{background-color: $bg-fighting;}
+    &--psychic{background-color: $bg-psychic;}
+    &--rock{background-color: $bg-rock;}
+    &--ghost{background-color: $bg-ghost;}
+    &--ice{background-color: $bg-ice;}
+    &--dragon{background-color: $bg-dragon;}
+    &--fairy{background-color: $bg-fairy;}
+    &--flying{background-color: $bg-flying;}
+    &--dark{background-color: $bg-dark;}
+    &--steel{background-color: $bg-steel;}
+
+    &--secondary{background-color: #f9f9f9;}
+
+    &-light{
+        &--grass{background-color: rgbaToHex($bg-grass, .2);}
+        &--fire{background-color: rgbaToHex($bg-fire, .2);}
+        &--water{background-color: rgbaToHex($bg-water, .2);}
+        &--bug{background-color: rgbaToHex($bg-bug, .2);}
+        &--normal{background-color: rgbaToHex($bg-normal, .2);}
+        &--poison{background-color: rgbaToHex($bg-poison, .2);}
+        &--electric{background-color: rgbaToHex($bg-electric, .2);}
+        &--ground{background-color: rgbaToHex($bg-ground, .2);}
+        &--fighting{background-color: rgbaToHex($bg-fighting, .2);}
+        &--psychic{background-color: rgbaToHex($bg-psychic, .2);}
+        &--rock{background-color: rgbaToHex($bg-rock, .2);}
+        &--ghost{background-color: rgbaToHex($bg-ghost, .2);}
+        &--ice{background-color: rgbaToHex($bg-ice, .2);}
+        &--dragon{background-color: rgbaToHex($bg-dragon, .2);}
+        &--fairy{background-color: rgbaToHex($bg-fairy, .2);}
+        &--flying{background-color: rgbaToHex($bg-flying, .2);}
+        &--dark{background-color: rgbaToHex($bg-dark, .2);}
+        &--steel{background-color: rgbaToHex($bg-steel, .2);}
+    }
+}

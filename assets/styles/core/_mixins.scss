@@ -1,0 +1,15 @@
+// Global SCSS Mixins
+
+@mixin transition($property: all, $time: .3s, $timing: ease){
+	-webkit-transition: $property $time $timing;
+	-moz-transition: $property $time $timing;
+	-o-transition: $property $time $timing;
+	transition: $property $time $timing;
+}
+
+@function rgbaToHex($color, $percent){
+	$new-color: rgba($color, $percent);
+	$percent: alpha($new-color) * 100%;
+	$opaque: opacify($new-color, 1);
+	@return mix($opaque, #fff, $percent);
+}

@@ -1,0 +1,40 @@
+// Global styles for fonts 
+// headings, paragraphs, fonts-weight, text-colors
+
+h1,h2,h3,h4,h5,h6{font-weight: 500;color:#3B3D3F;line-height:auto;font-family:'Raleway', sans-serif;font-display: swap;}
+p, li, label{font-size:16px;line-height:1.6em;color:#555;}
+mark{font-weight:600;}
+
+.heading{
+    &--1, &--2, &--3, &--4, &--5, &--6{
+        line-height: 1.2em;
+        text-transform: uppercase;
+        color: #333;
+
+        &.fw--medium{font-weight: 500;}
+        &.fw--bold{font-weight: 700;}
+    }
+    
+    &--1{font-size: 36px;}
+    &--2{font-size: 32px;}
+    &--3{font-size: 28px;}
+    &--4{font-size: 24px;}
+    &--5{font-size: 20px;}
+    &--6{font-size: 18px;}
+}
+
+.f{
+    &--xs{font-size: 12px;}
+    &--sm{font-size: 14px;}
+    &--rg{font-size: 16px;}
+    &--md{font-size: 18px;}
+    &--lg{font-size: 20px;}
+}
+
+.fw{
+    &--bold{font-weight: 600;}
+}
+
+.color{
+    &--regular{color:#555;}
+}

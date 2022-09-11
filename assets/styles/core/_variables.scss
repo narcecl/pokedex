@@ -1,0 +1,35 @@
+// Definitions of global SCSS variables
+
+// Breakpoints responsive
+$break-xs: 340px;
+$break-sm: 576px;
+$break-md: 768px;
+$break-lg: 992px;
+$break-xl: 1200px;
+
+// Colors
+$primary-color: #1471b2;
+$primary-button-color: #2073af;
+
+$primary-black: #000;
+$primary-white: #fff;
+
+// Backgrounds types
+$bg-grass: #35b547;
+$bg-fire: #f28f3e;
+$bg-water: #338bd1;
+$bg-bug: #7cb900;
+$bg-normal: #8a929a;
+$bg-poison: #b89dd2;
+$bg-electric: #eec600;
+$bg-ground: #dcb981;
+$bg-fighting: #d52e65;
+$bg-psychic: #ff6676;
+$bg-rock: #bead7f;
+$bg-ghost: #4865a9;
+$bg-ice: #48c6b6;
+$bg-dragon: #0069bf;
+$bg-fairy: #ee82df;
+$bg-flying: #82a1d7;
+$bg-dark: #565061;
+$bg-steel: #55879a;
