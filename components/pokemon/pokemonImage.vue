@@ -1,5 +1,5 @@
 <template>
-	<figure :class="getBackground">
+	<figure :class="getBackground" class="pokemon-image">
 		<nuxt-img :src="getSource" :alt="`Official Artwork for ${name}`" />
 	</figure>
 </template>
@@ -9,7 +9,7 @@ export default {
 	name: 'PokemonImage',
 	props: {
 		name: { type: String, required: true },
-		types: { type: Array, required: true },
+		types: { type: Array, default: () => ([]) },
 		src: { type: Object, required: true },
 		plain: { type: Boolean, default: true },
 		deep: { type: Boolean, default: true }
@@ -28,3 +28,11 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss" scoped>
+	.pokemon-image{
+		&:deep img{
+			display: block;
+		}
+	}
+</style>
