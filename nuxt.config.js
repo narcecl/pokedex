@@ -69,12 +69,12 @@ export default {
 	],
 
 	image: {
-		domains: ['raw.githubusercontent.com']
+		domains: ['https://raw.githubusercontent.com']
 	},
 
 	// Middleware to images
 	serverMiddleware: [
-		{path: '/_ipx', handler: '~/server/middleware/ipx.js'}
+		{ path: '/_ipx', handler: '~/server/middleware/ipx.js' }
 	],
 
 	vite: {
