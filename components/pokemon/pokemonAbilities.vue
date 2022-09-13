@@ -2,7 +2,7 @@
 	<div class="abilities">
 		<div v-for="(ability, index) in abilitiesDetail" :key="index" class="abilities__item">
 			<p class="text-uppercase f--sm fw--bold">
-				{{ ability.name }}  <span v-if="ability.is_hidden">(hidden)</span>
+				{{ getName(index) }}  <span v-if="ability.is_hidden">({{ $t('hidden') }})</span>
 			</p>
 			<p class="f--sm">
 				{{ getDescription(index) }}
@@ -26,10 +26,17 @@ export default {
 	},
 	created: async function(){
 		this.abilitiesDetail = await this.getAbilities( this.abilities );
+		console.info( 'abilitiesDetail =>', this.abilitiesDetail );
 	},
 	methods: {
 		...mapActions(['getAbilities']),
 
+		getName: function( index ){
+			const name = this.abilitiesDetail[index].names.find( item => item.language.name === this.$i18n.locale );
+			if( !name ) return '';
+
+			return name.name;
+		},
 		getDescription: function( index ){
 			const description = this.abilitiesDetail[index].effect_entries.find( item => item.language.name === this.$i18n.locale );
 			if( !description ) return '';

@@ -1,13 +1,22 @@
 {
     "page_title": "Pokédex Regional de Kanto",
-    "starters_title": "Conoce a los iniciales",
+    "Meet the Starters": "Conoce a los iniciales",
     "starters_description": "Al comienzo de su búsqueda, los Entrenadores reciben un Pokémon inicial o un primer compañero Pokémon, en Pokémon Rojo, Verde, Azul, Rojo Fuego y Verde Hoja, el Profesor Oak llevará a los Entrenadores a su laboratorio para darles uno de los siguientes para comenzar su viaje.",
-    "pokedex_title": "Explora Kanto",
+    "Explore Kanto": "Explora Kanto",
     "pokedex_description": "Esta es una lista de Pokémon en el orden dictado por la Pokédex regional de Kanto, lo que significa que los Pokémon iniciales de Kanto aparecerán primero, seguidos por los Pokémon nativos de la región de Kanto.",
     "weight": "peso",
     "height": "altura",
-    "sprites": "Modelos 3D",
+    "Sprites": "Modelos 3D",
     "Abilities": "Habilidades",
     "Damage relations": "Relación de daño",
-    "Evolution chain": "Cadena evolutiva"
+    "Evolution chain": "Cadena evolutiva",
+    "Toggle dark mode": "Alternar modo oscuro",
+    "hidden": "Oculta",
+    "double damage from": "Recibe doble daño de",
+    "double damage to": "Hace doble daño a",
+    "half damage from": "Recibe la mitad de daño de",
+    "half damage to": "Hace la mitad de daño a",
+    "no damage to": "Sin daño a",
+    "no damage from": "Inmune a",
+    "without_evolution_chain": "Este Pokémon no tiene cadena evolutiva."
 }

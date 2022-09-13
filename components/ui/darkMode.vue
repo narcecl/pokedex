@@ -4,7 +4,7 @@
 		<label for="switch" class="label">
 			<i class="fas fa-moon" aria-hidden="true" />
 			<i class="fas fa-sun" aria-hidden="true" />
-			<div class="ball" title="Alternar modo oscuro" />
+			<div class="ball" :title="$t('Toggle dark mode')" />
 		</label>
 	</div>
 </template>
