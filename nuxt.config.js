@@ -7,7 +7,7 @@ export default {
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: 'Kanto Pokédex - PokeAPI',
+		title: 'Kanto Regional Pokédex - PokeAPI',
 		htmlAttrs: {
 			lang: 'es'
 		},
@@ -69,7 +69,7 @@ export default {
 	],
 
 	image: {
-		domains: ['https://raw.githubusercontent.com']
+		domains: ['raw.githubusercontent.com']
 	},
 
 	// Middleware to images

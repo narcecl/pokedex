@@ -1,5 +1,5 @@
 <template>
-	<div class="lds-dual-ring"></div>
+	<div class="lds-dual-ring" />
 </template>
 
 <script>

@@ -1,6 +1,7 @@
 <template>
-	<figure :class="getBackground" class="pokemon-image">
+	<figure :class="getBackground" class="pokemon-image hidden--caption">
 		<nuxt-img :src="getSource" :alt="`Official Artwork for ${name}`" />
+		<figcaption>{{ `Official Artwork for ${name}` }}</figcaption>
 	</figure>
 </template>
 
@@ -10,7 +11,7 @@ export default {
 	props: {
 		name: { type: String, required: true },
 		types: { type: Array, default: () => ([]) },
-		src: { type: Object, required: true },
+		src: { type: Object, deafult: () => ({}), required: true },
 		plain: { type: Boolean, default: true },
 		deep: { type: Boolean, default: true }
 	},

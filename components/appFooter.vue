@@ -10,11 +10,11 @@
 				<div class="col-12 col-sm text-center text-sm-right">
 					<p class="f--sm">
 						Made with
-						<a href="https://vuejs.org/" target="_blank">
+						<a href="https://vuejs.org/" class="link--regular" target="_blank">
 							Vue.js
 						</a>
 						&
-						<a href="https://nuxtjs.org/" target="_blank">
+						<a href="https://nuxtjs.org/" class="link--regular" target="_blank">
 							NuxtJS
 						</a>.
 					</p>

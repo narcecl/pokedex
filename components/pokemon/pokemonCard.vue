@@ -43,11 +43,12 @@ export default {
 		text-decoration: none;
 		display: block;
 		background: #fff;
-		border: 1px solid transparent;
+		border: 1px solid #eee;
 		@include transition;
 
 		&:hover{
 			border-color: #ddd;
+
 			&_info{
 				border-color: #ddd;
 			}
@@ -70,14 +71,22 @@ export default {
 
 		&__info{
 			padding: 42px 12px 16px 12px;
-			border-left: 1px solid #eee;
-			border-right: 1px solid #eee;
-			border-bottom: 1px solid #eee;
 			border-radius: 0 0 8px 8px;
 
 			h3{
 				text-transform: capitalize;
 			}
+		}
+	}
+}
+
+.dark{
+	.pokemon__card{
+		background: transparent;
+		border-color: rgba(255, 255, 255, .1);
+
+		&:hover{
+			border-color: rgba(255, 255, 255, .3);
 		}
 	}
 }

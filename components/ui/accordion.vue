@@ -1,5 +1,5 @@
 <template>
-	<div ref="accordion" class="s-accordion formatted" :class="group">
+	<div ref="accordion" class="accordion formatted" :class="group">
 		<div ref="accordion_title" class="accordion-title">
 			<a href="#" role="button" :aria-expanded="open.toString()" @click.prevent="clickAccordion($event)">
 				<h3>
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.s-accordion{
+.accordion{
 	margin-bottom:12px;
 	@include transition();
 
@@ -119,7 +119,7 @@ export default {
 			z-index: 2;
 			position: relative;
 
-			> *{
+			> * {
 				display: inline-block;
 				vertical-align: middle;
 				position: relative;
@@ -158,6 +158,35 @@ export default {
 		max-height: 0;
 		overflow: hidden;
 		transition: max-height 0.2s ease-out;
+	}
+}
+
+.dark{
+	.accordion{
+
+		&.active, &:hover{
+			.accordion-title{
+				background: #161c28;
+			}
+		}
+
+		&.active{
+			.accordion-title{
+				border-bottom-color: rgba(255, 255, 255, .1);
+			}
+		}
+
+		&.formatted{
+			border-color: rgba(255, 255, 255, .1);
+		}
+
+		.accordion-title{
+			a{
+				.down{
+					color: #fff;
+				}
+			}
+		}
 	}
 }
 </style>

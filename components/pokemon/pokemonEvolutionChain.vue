@@ -31,23 +31,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 	name: 'PokemonEvolutionChain',
 	props: {
-		specie: { type: Object, required: true }
-	},
-	data: function(){
-		return {
-			evolutionChain: null
-		};
-	},
-	created: async function(){
-		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
-	},
-	methods: {
-		...mapActions(['getEvolutionChain'])
+		evolutionChain: { type: Array, required: true, default: () => ([]) }
 	}
 };
 </script>
