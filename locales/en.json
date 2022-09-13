@@ -1,7 +1,6 @@
 {
     "page_title": "Kanto Regional Pokédex",
-    "starters_title": "Meet the Starters",
     "starters_description": "At the beginning of their quest, Trainers are given a starter Pokémon or first partner Pokémon, in Pokémon Red, Green, Blue, FireRed, and LeafGreen, Professor Oak will bring Trainers to his lab to give them one of the following to begin their journey.",
-    "pokedex_title": "Explore Kanto",
-    "pokedex_description": "This is a list of Pokémon in the order dictated by the Kanto regional Pokédex, meaning that the starter Pokémon from Kanto will appear first, followed by Pokémon native to the Kanto region."
+    "pokedex_description": "This is a list of Pokémon in the order dictated by the Kanto regional Pokédex, meaning that the starter Pokémon from Kanto will appear first, followed by Pokémon native to the Kanto region.",
+    "without_evolution_chain": "This Pokémon does not have an evolucion chain."
 }

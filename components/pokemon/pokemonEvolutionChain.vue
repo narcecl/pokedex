@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<p v-else>
-			this pokemon does not have evolucion chain.
+			{{ $t('without_evolution_chain') }}
 		</p>
 	</div>
 </template>

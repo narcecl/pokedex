@@ -7,7 +7,7 @@
 				<div class="container">
 					<div class="mb-32">
 						<h1 class="heading--3 mb-4">
-							{{ $t('starters_title') }}
+							{{ $t('Meet the Starters') }}
 						</h1>
 						<p>
 							{{ $t('starters_description') }}
@@ -31,7 +31,7 @@
 				<div class="container">
 					<div class="mb-32">
 						<h1 class="heading--3 mb-4">
-							{{ $t('pokedex_title') }}
+							{{ $t('Explore Kanto') }}
 						</h1>
 						<p>
 							{{ $t('pokedex_description') }}

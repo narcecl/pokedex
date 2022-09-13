@@ -2,7 +2,7 @@
 	<div>
 		<div v-for="(item, key, i) in damageRelation" :key="i" class="damage-relation__group">
 			<p class="text-uppercase f--sm fw--bold d-block mb-4">
-				{{ key.replaceAll('_', ' ') }}
+				{{ $t(key.replaceAll('_', ' ')) }}
 			</p>
 			<pokemon-type v-for="(scopeType, index) in item" :key="index" :type="scopeType.name" />
 		</div>

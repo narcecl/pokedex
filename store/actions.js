@@ -140,6 +140,7 @@ export default {
 					if( response.data ){
 						ability = {
 							...ability,
+							names: response.data.names,
 							effect_entries: response.data.effect_entries,
 							effect_changes: response.data.effect_changes
 						};

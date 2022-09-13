@@ -33,7 +33,7 @@ export default {
 		display: inline-block;
 
 		+ .pokemon--type{
-			margin-left: 4px;
+			margin-left: 6px;
 		}
 	}
 }
