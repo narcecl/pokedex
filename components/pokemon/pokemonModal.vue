@@ -17,7 +17,7 @@
 						<pokemon-types :types="pokemon.types" />
 					</div>
 
-					<p v-html="getDescription()"></p>
+					<p>{{ getDescription() }}</p>
 				</div>
 
 				<div class="pokemon-modal__block">
@@ -64,7 +64,7 @@
 					</accordion>
 
 					<accordion title="Evolution chain" group="pokemon-details">
-						<pokemon-evolution-chain v-if="specie" :specie="specie" />
+						<pokemon-evolution-chain :evolution-chain="evolutionChain" />
 					</accordion>
 				</div>
 			</div>
@@ -103,11 +103,12 @@ export default {
 	},
 	created: async function(){
 		this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
+		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
 		this.ready = true;
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
-		...mapActions(['getEvolutionChain', 'getSpecie']),
+		...mapActions(['getEvolutionChain', 'getSpecie', 'getEvolutionChain']),
 
 		closeModal: function(){
 			this.SET_POKEMON_MODAL( false );
@@ -154,6 +155,12 @@ export default {
 
 	&__content{
 		padding: 15% 32px 32px;
+	}
+}
+
+.dark{
+	.pokemon-modal{
+		background: #1a202c;
 	}
 }
 </style>

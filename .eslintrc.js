@@ -47,6 +47,14 @@ module.exports = {
 			"ignoreWhenNoAttributes": true,
 			"ignoreWhenEmpty": true,
 			"ignores": ["span"]
+		}],
+		"vue/max-attributes-per-line": ["error", {
+			"singleline": {
+				"max": 6
+			},
+			"multiline": {
+				"max": 6
+			}
 		}]
 	}
 }

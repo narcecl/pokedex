@@ -66,7 +66,15 @@ export default {
 	name: 'IndexPage',
 	data: function(){
 		return {
-			pokemons: []
+			pokemons: [],
+			ready: false
+		};
+	},
+	head: function(){
+		return {
+			htmlAttrs: {
+				class: this.$store.state.darkMode ? 'dark' : null
+			}
 		};
 	},
 	computed: {
@@ -85,12 +93,32 @@ export default {
 			if( response ) this.pokemons = response;
 		});
 	},
+	mounted: function(){
+		// Initial set of color scheme
+		this.checkTheme();
+
+		// Listen for changes in the color scheme
+		window.matchMedia( '(prefers-color-scheme: dark)' )
+			.addEventListener( 'change', this.checkTheme );
+
+		this.$nextTick(() => {
+			// Show the content and remove loader after the first update
+			this.ready = true;
+			setTimeout(() => this.$nuxt.$loading.finish(), 500 );
+		});
+	},
 	methods: {
 		...mapActions(['getAllPokemons']),
 
 		getPaginationNext: function(){
 			if( this.paginationNext ){
 				this.getAllPokemons( this.paginationNext );
+			}
+		},
+		checkTheme: function(){
+			// Check color scheme and change the store value
+			if( window.matchMedia ){
+				this.$store.commit( 'SET_DARK', ( window.matchMedia( '(prefers-color-scheme: dark)' ).matches ));
 			}
 		}
 	}
