@@ -141,7 +141,7 @@ export default {
 						ability = {
 							...ability,
 							names: response.data.names,
-							effect_entries: response.data.effect_entries,
+							effect_entries: response.data.flavor_text_entries,
 							effect_changes: response.data.effect_changes
 						};
 						fullAbilities.push( ability );

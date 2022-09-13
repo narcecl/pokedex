@@ -1,6 +1,6 @@
 <template>
 	<div class="dark-mode-toggle">
-		<input id="switch" v-model="value" type="checkbox" class="switch" @change="toggleDarkMode">
+		<input id="switch" v-model="darkMode" type="checkbox" class="switch">
 		<label for="switch" class="label">
 			<i class="fas fa-moon" aria-hidden="true" />
 			<i class="fas fa-sun" aria-hidden="true" />
@@ -10,16 +10,17 @@
 </template>
 
 <script>
+
 export default {
 	name: 'UiDarkMode',
-	data: function(){
-		return {
-			value: this.$store.state.darkMode
-		};
-	},
-	methods: {
-		toggleDarkMode: function(){
-			this.$store.commit( 'SET_DARK', this.value );
+	computed: {
+		darkMode: {
+			set: function( value ){
+				this.$store.commit( 'SET_DARK', value );
+			},
+			get: function(){
+				return this.$store.state.darkMode;
+			}
 		}
 	}
 };

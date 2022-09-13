@@ -18,5 +18,9 @@
     "half damage to": "Hace la mitad de daño a",
     "no damage to": "Sin daño a",
     "no damage from": "Inmune a",
-    "without_evolution_chain": "Este Pokémon no tiene cadena evolutiva."
+    "without_evolution_chain": "Este Pokémon no tiene cadena evolutiva.",
+    "front_default": "normal",
+    "back_default": "normal",
+    "front_shiny": "variocolor",
+    "back_shiny": "variocolor"
 }

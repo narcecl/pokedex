@@ -38,9 +38,24 @@ header{
 		margin-right: 32px;
 
 		a{
-			color: #fff;
+			color: $color-text;
 			text-decoration: none;
 			font-weight: 700;
+			@include transition;
+
+			&:hover{
+				opacity: .6;
+			}
+		}
+	}
+}
+
+.dark{
+	header{
+		.locale-switch{
+			a {
+				color: #fff;
+			}
 		}
 	}
 }

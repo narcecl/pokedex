@@ -1,9 +1,9 @@
 export default () => ({
 	pokemons: [],
-	pokemonTypes: [], 
+	pokemonTypes: [],
 	selectedPokemon: null,
 	selectedType: null,
-	featuredLimit: 151,
+	featuredLimit: 24,
 	paginationNext: null,
 	limit: 151,
 	offset: 0,

@@ -26,7 +26,6 @@ export default {
 	},
 	created: async function(){
 		this.abilitiesDetail = await this.getAbilities( this.abilities );
-		console.info( 'abilitiesDetail =>', this.abilitiesDetail );
 	},
 	methods: {
 		...mapActions(['getAbilities']),
@@ -41,7 +40,7 @@ export default {
 			const description = this.abilitiesDetail[index].effect_entries.find( item => item.language.name === this.$i18n.locale );
 			if( !description ) return '';
 
-			return description.effect;
+			return description.flavor_text;
 		}
 	}
 };
