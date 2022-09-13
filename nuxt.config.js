@@ -1,13 +1,13 @@
 export default {
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-	ssr: false,
+	ssr: true,
 
 	// Target: https://go.nuxtjs.dev/config-target
 	target: 'static',
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: 'Kanto Regional Pokédex - PokeAPI',
+		title: 'Kanto Regional Pokédex',
 		htmlAttrs: {
 			lang: 'en'
 		},
@@ -96,8 +96,11 @@ export default {
 	},
 
 	i18n: {
+		baseUrl: '/',
+		strategy: 'no_prefix',
 		locales: [ 
-			{ code: 'en', iso: 'en-EN', file: 'en.json', },
+			{ code: 'en', iso: 'en-EN', name: 'EN', file: 'en.json', },
+			{ code: 'es', iso: 'en-EN', name: 'ES', file: 'es.json', },
 		],
 		defaultLocale: 'en',
 		langDir: '~/locales/',

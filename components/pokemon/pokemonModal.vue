@@ -24,7 +24,7 @@
 					<div class="row total mini">
 						<div class="col-12 col-sm">
 							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-								weight
+								{{ $t('weight') }}
 							</h6>
 							<p>
 								{{ Math.round((pokemon.weight * 0.1) * 100) / 100 }} kg
@@ -32,7 +32,7 @@
 						</div>
 						<div class="col-12 col-sm">
 							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-								height
+								{{ $t('height') }}
 							</h6>
 							<p>
 								{{ Math.round((pokemon.height * 0.1) * 100) / 100 }} m
@@ -42,7 +42,7 @@
 				</div>
 
 				<div class="pokemon-modal__block">
-					<accordion title="Sprites" group="pokemon-details">
+					<accordion :title="$t('Sprites')" group="pokemon-details">
 						<div class="row total mini justify-content-center">
 							<div v-for="(sprite, key, i) in sprites" :key="i" class="col-6 col-sm-3">
 								<div class="text-center">
@@ -55,15 +55,15 @@
 						</div>
 					</accordion>
 
-					<accordion title="Abilities" group="pokemon-details">
+					<accordion :title="$t('Abilities')" group="pokemon-details">
 						<pokemon-abilities :abilities="pokemon.abilities" />
 					</accordion>
 
-					<accordion title="Damage relations" group="pokemon-details">
+					<accordion :title="$t('Damage relations')" group="pokemon-details">
 						<pokemon-damage-relation :type="pokemon.types[0].type.name" />
 					</accordion>
 
-					<accordion title="Evolution chain" group="pokemon-details">
+					<accordion :title="$t('Evolution chain')" group="pokemon-details">
 						<pokemon-evolution-chain :evolution-chain="evolutionChain" />
 					</accordion>
 				</div>
@@ -105,6 +105,8 @@ export default {
 		this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
 		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
 		this.ready = true;
+
+		console.info( 'pokemon =>', this.pokemon );
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
