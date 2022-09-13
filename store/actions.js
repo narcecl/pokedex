@@ -49,6 +49,7 @@ export default {
 						if( response.data && response.data?.damage_relations ){
 							types.push({
 								name: item.name,
+								names: response.data.names,
 								damage_relations: response.data.damage_relations
 							});
 						}

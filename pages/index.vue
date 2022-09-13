@@ -7,10 +7,10 @@
 				<div class="container">
 					<div class="mb-32">
 						<h1 class="heading--3 mb-4">
-							Meet the Starters
+							{{ $t('starters_title') }}
 						</h1>
 						<p>
-							At the beginning of their quest, Trainers are given a starter Pokémon or first partner Pokémon, in Pokémon Red, Green, Blue, FireRed, and LeafGreen, Professor Oak will bring Trainers to his lab to give them one of the following to begin their journey:
+							{{ $t('starters_description') }}
 						</p>
 					</div>
 
@@ -31,10 +31,10 @@
 				<div class="container">
 					<div class="mb-32">
 						<h1 class="heading--3 mb-4">
-							Explore Kanto
+							{{ $t('pokedex_title') }}
 						</h1>
 						<p>
-							This is a list of Pokémon in the order dictated by the Kanto regional Pokédex, meaning that the starter Pokémon from Kanto will appear first, followed by Pokémon native to the Kanto region.
+							{{ $t('pokedex_description') }}
 						</p>
 					</div>
 
@@ -73,7 +73,8 @@ export default {
 	head: function(){
 		return {
 			htmlAttrs: {
-				class: this.$store.state.darkMode ? 'dark' : null
+				class: this.$store.state.darkMode ? 'dark' : null,
+				lang: this.$i18n.locale
 			}
 		};
 	},
@@ -89,9 +90,12 @@ export default {
 		}
 	},
 	created: function(){
-		this.getAllPokemons().then( response => {
-			if( response ) this.pokemons = response;
-		});
+		if( !this.pokemons.length ){
+			this.getAllPokemons()
+				.then( response => {
+					if( response ) this.pokemons = response;
+				});
+		}
 	},
 	mounted: function(){
 		// Initial set of color scheme

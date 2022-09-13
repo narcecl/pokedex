@@ -1,15 +1,15 @@
 export default {
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-	ssr: false,
+	ssr: true,
 
 	// Target: https://go.nuxtjs.dev/config-target
 	target: 'static',
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: 'Kanto Regional Pokédex - PokeAPI',
+		title: 'Kanto Regional Pokédex',
 		htmlAttrs: {
-			lang: 'es'
+			lang: 'en'
 		},
 		meta: [
 			{ charset: 'utf-8' },
@@ -18,19 +18,7 @@ export default {
 			{ name: 'format-detection', content: 'telephone=no' }
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' },
-			{
-				rel: 'preload',
-				href: 'https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap',
-				as: 'style',
-				onload: "this.rel='stylesheet'"
-			},
-			{
-				rel: 'preload',
-				href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css',
-				as: 'style',
-				onload: "this.rel='stylesheet'"
-			}
+			{ rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
 		]
 	},
 
@@ -108,8 +96,11 @@ export default {
 	},
 
 	i18n: {
+		baseUrl: '/',
+		strategy: 'no_prefix',
 		locales: [ 
-			{ code: 'en', iso: 'en-EN', file: 'en.json', },
+			{ code: 'en', iso: 'en-EN', name: 'EN', file: 'en.json', },
+			{ code: 'es', iso: 'en-EN', name: 'ES', file: 'es.json', },
 		],
 		defaultLocale: 'en',
 		langDir: '~/locales/',

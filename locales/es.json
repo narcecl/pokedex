@@ -1,0 +1,13 @@
+{
+    "page_title": "Pokédex Regional de Kanto",
+    "starters_title": "Conoce a los iniciales",
+    "starters_description": "Al comienzo de su búsqueda, los Entrenadores reciben un Pokémon inicial o un primer compañero Pokémon, en Pokémon Rojo, Verde, Azul, Rojo Fuego y Verde Hoja, el Profesor Oak llevará a los Entrenadores a su laboratorio para darles uno de los siguientes para comenzar su viaje.",
+    "pokedex_title": "Explora Kanto",
+    "pokedex_description": "Esta es una lista de Pokémon en el orden dictado por la Pokédex regional de Kanto, lo que significa que los Pokémon iniciales de Kanto aparecerán primero, seguidos por los Pokémon nativos de la región de Kanto.",
+    "weight": "peso",
+    "height": "altura",
+    "sprites": "Modelos 3D",
+    "Abilities": "Habilidades",
+    "Damage relations": "Relación de daño",
+    "Evolution chain": "Cadena evolutiva"
+}
