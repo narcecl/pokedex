@@ -1,6 +1,6 @@
 <template>
 	<figure :class="getBackground" class="pokemon-image hidden--caption">
-		<nuxt-img :src="getSource" :alt="`Official Artwork for ${name}`" />
+		<nuxt-img :src="getSource" :alt="`Official Artwork for ${name}`" :lazy="true" />
 		<figcaption>{{ `Official Artwork for ${name}` }}</figcaption>
 	</figure>
 </template>

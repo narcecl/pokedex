@@ -46,9 +46,9 @@
 						<div class="row total mini justify-content-center">
 							<div v-for="(sprite, key, i) in sprites" :key="i" class="col-6 col-sm-3">
 								<div class="text-center">
-									<nuxt-img :src="sprite" />
+									<nuxt-img :src="sprite" :alt="`Sprite ${pokemon.name}`" />
 									<p class="f--xs text-uppercase">
-										{{ key.replaceAll('_', ' ') }}
+										{{ $t(key) }}
 									</p>
 								</div>
 							</div>
@@ -105,8 +105,6 @@ export default {
 		this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
 		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
 		this.ready = true;
-
-		console.info( 'pokemon =>', this.pokemon );
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),

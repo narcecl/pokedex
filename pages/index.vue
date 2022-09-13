@@ -38,11 +38,15 @@
 						</p>
 					</div>
 
-					<div v-if="featuredPokemons.length" class="row total mini">
-						<div v-for="featured in featuredPokemons" :key="featured.id" class="col-6 col-sm-2">
-							<pokemon-card :details="featured" />
+					<div v-if="featuredPokemons.length">
+						<div class="row total mini">
+							<div v-for="featured in featuredPokemons" :key="featured.id" class="col-6 col-sm-2">
+								<pokemon-card :details="featured" />
+							</div>
 						</div>
-						<!-- <a href="#" @click.prevent="getPaginationNext">load more</a> -->
+						<div v-if="featuredLimit < pokemons.length" class="btn--holder d-flex justify-content-center mt-32">
+							<action-button name="load more" :loading="loadingMore" @click="getPaginationNext" />
+						</div>
 					</div>
 					<div v-else class="row total mini">
 						<div v-for="n in featuredLimit" :key="n" class="col-6 col-sm-2">
@@ -67,7 +71,9 @@ export default {
 	data: function(){
 		return {
 			pokemons: [],
-			ready: false
+			featuredLimit: 24,
+			ready: false,
+			loadingMore: false
 		};
 	},
 	head: function(){
@@ -79,7 +85,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(['pokemonModal', 'selectedPokemon', 'featuredLimit', 'paginationNext']),
+		...mapState(['pokemonModal', 'selectedPokemon', 'paginationNext']),
 
 		startersPokemons: function(){
 			const starters = [1, 4, 7];
@@ -97,10 +103,11 @@ export default {
 				});
 		}
 	},
-	mounted: function(){
+	beforeMount: function(){
 		// Initial set of color scheme
 		this.checkTheme();
-
+	},
+	mounted: function(){
 		// Listen for changes in the color scheme
 		window.matchMedia( '(prefers-color-scheme: dark)' )
 			.addEventListener( 'change', this.checkTheme );
@@ -115,8 +122,12 @@ export default {
 		...mapActions(['getAllPokemons']),
 
 		getPaginationNext: function(){
-			if( this.paginationNext ){
-				this.getAllPokemons( this.paginationNext );
+			if( this.featuredLimit < this.pokemons.length ){
+				this.loadingMore = true;
+				setTimeout(() => {
+					this.featuredLimit = this.featuredLimit + this.featuredLimit;
+					this.loadingMore = false;
+				}, 300 );
 			}
 		},
 		checkTheme: function(){

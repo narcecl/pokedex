@@ -32,6 +32,13 @@ export default {
 		value: { type: Boolean, default: false },
 		size: { type: [String, Number], default: 6 }
 	},
+	head: function(){
+		return {
+			bodyAttrs: {
+				class: this.value && 'modal--open'
+			}
+		};
+	},
 	computed: {
 		modalSize: function(){
 			return `col-sm-9 col-lg-${this.size}`;
@@ -43,13 +50,6 @@ export default {
 				maxHeight: `${max}px`,
 				overflow: 'auto'
 			};
-		}
-	},
-	watch: {
-		value: function( newValue ){
-			const body = document.querySelector( 'body' );
-			if( newValue ) body.style.overflow = 'hidden';
-			else body.style.overflow = 'auto';
 		}
 	},
 	methods: {
