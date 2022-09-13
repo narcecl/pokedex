@@ -1,6 +1,6 @@
 <template>
 	<div class="dark-mode-toggle">
-		<input id="switch" v-model="value" :checked="value" type="checkbox" class="switch" @change="toggleDarkMode">
+		<input id="switch" v-model="value" type="checkbox" class="switch" @change="toggleDarkMode">
 		<label for="switch" class="label">
 			<i class="fas fa-moon" aria-hidden="true" />
 			<i class="fas fa-sun" aria-hidden="true" />
@@ -19,7 +19,6 @@ export default {
 	},
 	methods: {
 		toggleDarkMode: function(){
-			// Componente darkmode
 			this.$store.commit( 'SET_DARK', this.value );
 		}
 	}

@@ -89,14 +89,15 @@ export default {
 		}
 	},
 	created: function(){
-		this.getAllPokemons().then( response => {
-			if( response ) this.pokemons = response;
-		});
-	},
-	mounted: function(){
+		this.getAllPokemons()
+			.then( response => {
+				if( response ) this.pokemons = response;
+			});
+
 		// Initial set of color scheme
 		this.checkTheme();
-
+	},
+	mounted: function(){
 		// Listen for changes in the color scheme
 		window.matchMedia( '(prefers-color-scheme: dark)' )
 			.addEventListener( 'change', this.checkTheme );

@@ -9,7 +9,7 @@ export default {
 	head: {
 		title: 'Kanto Regional Pokédex - PokeAPI',
 		htmlAttrs: {
-			lang: 'es'
+			lang: 'en'
 		},
 		meta: [
 			{ charset: 'utf-8' },
@@ -18,19 +18,7 @@ export default {
 			{ name: 'format-detection', content: 'telephone=no' }
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' },
-			{
-				rel: 'preload',
-				href: 'https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap',
-				as: 'style',
-				onload: "this.rel='stylesheet'"
-			},
-			{
-				rel: 'preload',
-				href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css',
-				as: 'style',
-				onload: "this.rel='stylesheet'"
-			}
+			{ rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
 		]
 	},
 
