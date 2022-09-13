@@ -3,7 +3,7 @@ export default {
 	ssr: false,
 
 	// Target: https://go.nuxtjs.dev/config-target
-	target: 'server',
+	target: 'static',
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
@@ -18,7 +18,7 @@ export default {
 			{ name: 'format-detection', content: 'telephone=no' }
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+			{ rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' },
 			{
 				rel: 'preload',
 				href: 'https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap',
