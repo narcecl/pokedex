@@ -72,6 +72,11 @@ export default {
 		domains: ['raw.githubusercontent.com']
 	},
 
+	// Middleware to images
+	serverMiddleware: [
+		{path: '/_ipx', handler: '~/server/middleware/ipx.js'}
+	],
+
 	vite: {
 		/* options for vite */
 		css: {

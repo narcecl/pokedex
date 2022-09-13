@@ -1,6 +1,6 @@
 <template>
 	<modal v-model="$store.state.pokemonModal" :size="7" @close="closeModal">
-		<div v-if="pokemon" class="pokemon-modal">
+		<div v-if="pokemon && ready" class="pokemon-modal">
 			<div class="pokemon-modal__cover">
 				<pokemon-image :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" :plain="false" />
 			</div>
@@ -17,10 +17,7 @@
 						<pokemon-types :types="pokemon.types" />
 					</div>
 
-					<!-- <p>{{ $t(`description_${pokemon.name}`) }}</p> -->
-					<p>
-						Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque, dolore voluptas! Magni cupiditate minima at dignissimos iste maiores reprehenderit animi delectus, illum modi impedit, harum laborum incidunt dolores et ea!
-					</p>
+					<p v-html="getDescription()"></p>
 				</div>
 
 				<div class="pokemon-modal__block">
@@ -41,16 +38,6 @@
 								{{ Math.round((pokemon.height * 0.1) * 100) / 100 }} m
 							</p>
 						</div>
-						<div class="col-12 col-sm">
-							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-								abilities
-							</h6>
-							<p>
-								<span v-for="(ability, index) in pokemon.abilities" :key="index" class="d-block">
-									{{ ability.ability.name }} <span v-if="ability.is_hidden">(hidden)</span>
-								</span>
-							</p>
-						</div>
 					</div>
 				</div>
 
@@ -68,22 +55,22 @@
 						</div>
 					</accordion>
 
+					<accordion title="Abilities" group="pokemon-details">
+						<pokemon-abilities :abilities="pokemon.abilities" />
+					</accordion>
+
 					<accordion title="Damage relations" group="pokemon-details">
 						<pokemon-damage-relation :type="pokemon.types[0].type.name" />
 					</accordion>
 
 					<accordion title="Evolution chain" group="pokemon-details">
-						<div v-if="evolutionChain && evolutionChain.length">
-							<div v-for="(pkm, i) in evolutionChain" :key="i">
-								{{ pkm.species_name }}
-							</div>
-						</div>
-						<p v-else>
-							this pokemon does not have evolucion chain.
-						</p>
+						<pokemon-evolution-chain v-if="specie" :specie="specie" />
 					</accordion>
 				</div>
 			</div>
+		</div>
+		<div v-else class="d-flex align-items-center justify-content-center">
+			<loader />
 		</div>
 	</modal>
 </template>
@@ -99,7 +86,8 @@ export default {
 	data: function(){
 		return {
 			specie: null,
-			evolutionChain: null
+			evolutionChain: null,
+			ready: false
 		};
 	},
 	computed: {
@@ -115,7 +103,7 @@ export default {
 	},
 	created: async function(){
 		this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
-		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
+		this.ready = true;
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
@@ -124,6 +112,10 @@ export default {
 		closeModal: function(){
 			this.SET_POKEMON_MODAL( false );
 			this.SELECT_POKEMON( null );
+		},
+		getDescription: function(){
+			const description = this.specie.flavor_text_entries.find( item => item.language.name === this.$i18n.locale );
+			return description.flavor_text;
 		}
 	}
 };
