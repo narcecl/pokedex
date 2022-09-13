@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row total mini align-items-center justify-content-between">
 				<div class="col-12 col-sm text-center text-sm-left">
-					<nuxt-img src="images/pokemon-logo.png" alt="Logo Pokémon" width="130" />
+					<nuxt-img src="/images/pokemon-logo.png" alt="Logo Pokémon" width="130" />
 				</div>
 				<div class="col-12 col-sm text-center text-sm-right">
 					<p>
