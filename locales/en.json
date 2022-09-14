@@ -6,5 +6,10 @@
     "front_default": "normal",
     "back_default": "normal",
     "front_shiny": "shiny",
-    "back_shiny": "shiny"
+    "back_shiny": "shiny",
+    "back_shiny_female": "shiny female",
+    "back_female": "normal female",
+    "front_female": "normal female",
+    "front_shiny_female": "shiny female",
+    "copyright_personal": "Developed with love by"
 }

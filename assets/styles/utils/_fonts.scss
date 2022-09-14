@@ -38,3 +38,11 @@ mark{font-weight:600;}
 .color{
     &--regular{color: #555;}
 }
+
+.sub{
+    &--title{
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: 600;
+    }
+}

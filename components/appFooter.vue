@@ -1,10 +1,10 @@
 <template>
-	<header>
+	<footer>
 		<div class="container">
 			<div class="row total mini align-items-center justify-content-between">
 				<div class="col-12 col-sm text-center text-sm-left">
 					<p class="f--sm">
-						Developed with love by <mark>Nicolás Arce</mark>.
+						{{ $t('copyright_personal') }} <mark>Nicolás Arce</mark>.
 					</p>
 				</div>
 				<div class="col-12 col-sm text-center text-sm-right">
@@ -16,12 +16,12 @@
 						&
 						<a href="https://nuxtjs.org/" class="link--regular" target="_blank">
 							NuxtJS
-						</a>.
+						</a>
 					</p>
 				</div>
 			</div>
 		</div>
-	</header>
+	</footer>
 </template>
 
 <script>
@@ -31,7 +31,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-header{
+footer{
 	padding: 16px 0;
+
+	.link--regular{
+		font-weight: 700;
+		color: #00dc82;
+	}
 }
 </style>

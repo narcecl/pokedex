@@ -1,7 +1,7 @@
 <template>
 	<div class="abilities">
 		<div v-for="(ability, index) in abilitiesDetail" :key="index" class="abilities__item">
-			<p class="text-uppercase f--sm fw--bold">
+			<p class="sub--title">
 				{{ getName(index) }}  <span v-if="ability.is_hidden">({{ $t('hidden') }})</span>
 			</p>
 			<p class="f--sm">
