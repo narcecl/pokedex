@@ -9,5 +9,5 @@ export default () => ({
 	offset: 0,
 	pokemonModal: false,
 	loading: true,
-	darkMode: false
+	darkMode: true
 });

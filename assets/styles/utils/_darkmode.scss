@@ -9,4 +9,10 @@
     .bg{
         &--secondary{background: $dark-mode-secondary;}
     }
+
+    .sub{
+        &--title{
+            color: #fff;
+        }
+    }
 }

@@ -68,25 +68,27 @@ export default {
 			.catch( error => console.error( 'getSpecie =>', error ));
 	},
 	getEvolutionChain: async function( context, url ){
-		const finalChain = [];
-		const evoChain = [];
-
 		const evolutionChain = await this.$axios( url )
 			.catch( error => console.error( 'getEvolutionChain =>', error ));
 
 		if( evolutionChain ){
 			let evoData = evolutionChain.data?.chain;
+			const evoChain = [];
+			// const finalChain = [];
 
 			if( evoData ){
+				console.info( 'evoData =>', evoData );
 				do {
-					const numberOfEvolutions = evoData.evolves_to.length;
 					const evoDetails = evoData.evolution_details[0];
+					const numberOfEvolutions = evoData.evolves_to.length;
 
 					evoChain.push({
 						species_name: evoData.species.name,
 						min_level: !evoDetails ? 1 : evoDetails.min_level,
 						trigger_name: !evoDetails ? null : evoDetails.trigger.name,
-						item: !evoDetails ? null : evoDetails?.item?.name
+						item: !evoDetails ? null : evoDetails.item,
+						require_hapiness: !evoDetails ? false : evoDetails.min_happiness > 0,
+						known_move: !evoDetails ? false : evoDetails?.known_move?.name
 					});
 
 					if( numberOfEvolutions > 1 ){
@@ -95,34 +97,43 @@ export default {
 								species_name: evoData.evolves_to[i].species.name,
 								min_level: !evoData.evolves_to[i] ? 1 : evoData.evolves_to[i].min_level,
 								trigger_name: !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[0].trigger.name,
-								item: evoData.evolves_to[i].evolution_details[0].trigger.name === 'level-up' ? null : evoData.evolves_to[i].evolution_details[0].item?.name
+								item: evoData.evolves_to[i].evolution_details[0].trigger.name === 'level-up' ? null : evoData.evolves_to[i].evolution_details[0].item?.name,
+								require_hapiness: evoData.evolves_to[i].evolution_details[0].min_happiness
 							});
 						}
 					}
 
 					evoData = evoData.evolves_to[0];
-				} while( evoData !== undefined && evoData.hasOwnProperty( 'evolves_to' )); // eslint-disable-line no-prototype-builtins
+				} while( !!evoData && evoData.hasOwnProperty( 'evolves_to' )); // eslint-disable-line no-prototype-builtins
+
+				console.info( 'evoChain =>', evoChain );
+
+				if( evoChain.length ){
+					await Promise.allSettled(
+						evoChain.map( item => {
+							return this.$axios( `https://pokeapi.co/api/v2/pokemon/${item.species_name}` ).then( response => {
+								if( response.data ){
+									const pokemon = response.data;
+									const pokemonFound = evoChain.findIndex( item => item.species_name === pokemon.name );
+									if( pokemonFound !== -1 ){
+										evoChain[pokemonFound] = {
+											...evoChain[pokemonFound],
+											id: response.data.id,
+											sprites: response.data.sprites
+										};
+									}
+								}
+							});
+						})
+					);
+
+					console.info( 'finalChain =>', evoChain );
+					return evoChain;
+				}
 			}
 		}
 
-		if( evoChain.length ){
-			await Promise.allSettled(
-				evoChain.map( item => {
-					return this.$axios( `https://pokeapi.co/api/v2/pokemon/${item.species_name}` ).then( response => {
-						if( response.data ){
-							finalChain.push({
-								...item,
-								id: response.data.id,
-								sprites: response.data.sprites
-							});
-						}
-					});
-				})
-			);
-
-			finalChain.sort(( a, b ) => ( a.id > b.id ) ? 1 : (( b.id > a.id ) ? -1 : 0 ));
-			return finalChain;
-		}
+		return null;
 	},
 	getAbilities: async function( context, abilities ){
 		const fullAbilities = [];

@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<div v-for="(item, key, i) in damageRelation" :key="i" class="damage-relation__group">
-			<p class="text-uppercase f--sm fw--bold d-block mb-4">
+			<p class="sub--title d-block mb-4">
 				{{ $t(key.replaceAll('_', ' ')) }}
 			</p>
-			<pokemon-type v-for="(scopeType, index) in item" :key="index" :type="scopeType.name" />
+			<pokemon-type v-for="(scopeType, index) in item" :key="index" :type="scopeType.name" size="md" />
 		</div>
 	</div>
 </template>
@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .damage-relation__group{
-	margin-bottom: 16px;
+	margin-bottom: 24px;
 
 	&:last-of-type{
 		margin-bottom: 0;

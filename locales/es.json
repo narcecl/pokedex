@@ -22,5 +22,19 @@
     "front_default": "normal",
     "back_default": "normal",
     "front_shiny": "variocolor",
-    "back_shiny": "variocolor"
+    "back_shiny": "variocolor",
+    "back_shiny_female": "variocolor hembra",
+    "back_female": "normal hembra",
+    "front_female": "normal hembra",
+    "front_shiny_female": "variocolor hembra",
+    "Using": "Usando",
+    "Trade": "Intercambio",
+    "thunder stone": "Piedra Trueno",
+    "fire stone": "Piedra Fuego",
+    "water stone": "Piedra Agua",
+    "leaf stone": "Piedra Hoja",
+    "moon stone": "Piedra Lunar",
+    "sun stone": "Piedra Solar",
+    "load more": "Cargar más",
+    "copyright_personal": "Desarrollado con amor por"
 }

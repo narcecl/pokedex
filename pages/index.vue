@@ -45,7 +45,7 @@
 							</div>
 						</div>
 						<div v-if="featuredLimit < pokemons.length" class="btn--holder d-flex justify-content-center mt-32">
-							<action-button name="load more" :loading="loadingMore" @click="getPaginationNext" />
+							<action-button :name="$t('load more')" :loading="loadingMore" @click="getPaginationNext" />
 						</div>
 					</div>
 					<div v-else class="row total mini">

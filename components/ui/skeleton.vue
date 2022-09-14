@@ -85,4 +85,26 @@ $animation-duration: 1.2s;
 	&--text{height: 14px;}
 	&--image{display: inline-block}
 }
+
+.dark{
+	.skeleton{
+		.border-cont{
+			border-color: rgba(255, 255, 255, .1);
+		}
+
+		&--type{
+			&__card{
+				border-color: rgba(255, 255, 255, .1);
+			}
+		}
+
+		&--element{
+			background: #313742;
+
+			&:after{
+				@include shineGradient(#313742, #2a303c);
+			}
+		}
+	}
+}
 </style>

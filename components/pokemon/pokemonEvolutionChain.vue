@@ -4,20 +4,24 @@
 			<div v-for="(pkm, i) in evolutionChain" :key="i" class="evolution-chain__item">
 				<div class="d-flex align-items-center">
 					<p v-if="pkm.trigger_name === 'level-up'" class="f--sm text-center mr-32">
-						<span class="down fa-solid fa-chevron-right f-28" aria-hidden="true" />
-						<span class="d-block f--xs mt-4">Level {{ pkm.min_level }}</span>
+						<span class="next fa-solid fa-chevron-right f-28" aria-hidden="true" />
+						<span class="d-block f--xs mt-4">
+							Level {{ pkm.min_level }}
+							<span v-if="pkm.require_hapiness" class="fw--bold">+ {{ $t('Hapiness') }}</span>
+							<span v-if="pkm.known_move" class="fw--bold">+ knowing {{ pkm.known_move }}</span>
+						</span>
 					</p>
-					<p v-if="pkm.trigger_name === 'use-item'" class="f--sm text-center mr-32">
-						<span class="down fa-solid fa-chevron-right f-28" aria-hidden="true" />
-						<span class="d-block f--xs mt-4">Using <span class="fw--bold">{{ pkm.item.replaceAll('-', ' ') }}</span></span>
+					<p v-if="pkm.trigger_name === 'use-item' && pkm.item" class="f--sm text-center mr-32">
+						<span class="next fa-solid fa-chevron-right f-28" aria-hidden="true" />
+						<span class="d-block f--xs mt-4">{{ $t('Using') }} <span class="fw--bold">{{ $t(pkm.item.name.replaceAll('-', ' ')) }}</span></span>
 					</p>
 					<p v-if="pkm.trigger_name === 'trade'" class="f--sm text-center mr-32">
-						<span class="down fa-solid fa-chevron-right f-28" aria-hidden="true" />
-						<span class="d-block f--xs mt-4">Trade</span>
+						<span class="next fa-solid fa-chevron-right f-28" aria-hidden="true" />
+						<span class="d-block f--xs mt-4">{{ $t('Trade') }}</span>
 					</p>
 					<div>
 						<pokemon-image :name="pkm.species_name" :plain="true" :src="pkm.sprites" />
-						<p class="text-uppercase text-center f--sm fw--bold mt-8">
+						<p class="sub--title text-center mt-8">
 							{{ pkm.species_name }}
 						</p>
 					</div>
@@ -43,6 +47,7 @@ export default {
 .evolution-chain{
 	&__item{
 		margin-right: 32px;
+
 		&:last-of-type{
 			margin-right:0;
 		}
@@ -50,6 +55,16 @@ export default {
 	&:deep .pokemon-image{
 		img{
 			max-width: 90px;
+		}
+	}
+}
+
+.dark{
+	.evolution-chain{
+		&__item{
+			.next{
+				color: #fff;
+			}
 		}
 	}
 }
