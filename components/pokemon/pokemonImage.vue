@@ -23,8 +23,8 @@ export default {
 			return `bg-light--${firstType}`;
 		},
 		getSource: function(){
-			if( !this.src ) return false;
-			if( this.deep ) return this.src.other['official-artwork'].front_default;
+			if( !Object.keys( this.src ).length ) return '';
+			if( this.deep && Object.keys( this.src ).length ) return this.src.other['official-artwork'].front_default;
 			return this.src;
 		}
 	}

@@ -27,7 +27,7 @@
 
 				<div class="pokemon-modal__block">
 					<div class="row total mini">
-						<div class="col-12 col-sm">
+						<div class="col-12 col-sm-3">
 							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
 								{{ $t('weight') }}
 							</h6>
@@ -35,7 +35,7 @@
 								{{ Math.round((pokemon.weight * 0.1) * 100) / 100 }} kg
 							</p>
 						</div>
-						<div class="col-12 col-sm">
+						<div class="col-12 col-sm-3">
 							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
 								{{ $t('height') }}
 							</h6>
