@@ -25,7 +25,7 @@
 			<div class="container">
 				<ul class="d-flex align-items-center justify-content-between">
 					<li v-for="(region, index) in getRegionNames" :key="index" class="nav__item">
-						<nuxt-link :to="region.slug">
+						<nuxt-link :to="`/${region.slug}`">
 							{{ region.name }}
 						</nuxt-link>
 					</li>
