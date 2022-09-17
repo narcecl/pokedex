@@ -7,7 +7,7 @@ export default {
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		title: 'Kanto Regional Pokédex',
+		title: 'Regional Pokédex',
 		htmlAttrs: {
 			lang: 'en'
 		},
@@ -18,19 +18,7 @@ export default {
 			{ name: 'format-detection', content: 'telephone=no' }
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' },
-			{
-				rel: 'preload',
-				href: 'https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap',
-				as: 'style',
-				onload: "this.rel='stylesheet'"
-			},
-			{
-				rel: 'preload',
-				href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css',
-				as: 'style',
-				onload: "this.rel='stylesheet'"
-			}
+			{ rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
 		]
 	},
 
@@ -57,16 +45,38 @@ export default {
 			'~/components',
 			'~/components/ui',
 			'~/components/pokemon',
+			'~/components/templates',
 		]
 	},
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: [
 		// https://go.nuxtjs.dev/eslint
+		'@nuxtjs/pwa',
 		'@nuxtjs/style-resources',
 		'@nuxtjs/eslint-module',
-		'@nuxt/image',
+		'@nuxtjs/fontawesome',
+		'@nuxt/image'
 	],
+
+	fontawesome: {
+		icons: {
+			solid: true
+		}
+	},
+
+	googleFonts: {
+		display: 'swap',
+		download: true,
+		overwriting: false,
+		preload: true,
+		families: {
+			'Open Sans': true,
+			Raleway: {
+				wght: [400, 500, 700]
+			}
+		}
+	},
 
 	image: {
 		domains: ['raw.githubusercontent.com']
@@ -98,6 +108,7 @@ export default {
 	modules: [
 		// https://go.nuxtjs.dev/axios
 		'@nuxtjs/axios',
+		'@nuxtjs/google-fonts',
 		'@nuxtjs/i18n'
 	],
 
@@ -117,12 +128,23 @@ export default {
 		defaultLocale: 'en',
 		langDir: '~/locales/',
 		vueI18n: {
-		  fallbackLocale: 'en',
+			fallbackLocale: 'en',
+			silentTranslationWarn: true
 		}
+	},
+
+	// PWA module configuration: https://go.nuxtjs.dev/pwa
+	pwa: {
+		manifest: {
+			lang: 'es',
+			name: 'Pokedex',
+			theme_color: '#12181f'
+		},
 	},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
+		postcss: null,
 		loaders: {
 			sass: {
 				implementation: require('sass'),
@@ -130,6 +152,6 @@ export default {
 			scss: {
 				implementation: require('sass'),
 			},
-		}
+		},
 	}
 }

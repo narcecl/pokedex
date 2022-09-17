@@ -2,7 +2,7 @@
 	<button class="d-flex align-items-center" @click.prevent="click()">
 		{{ name }}
 		<loader v-if="loading" />
-		<span v-else class="down fa-solid fa-chevron-down" aria-hidden="true" />
+		<font-awesome-icon v-else icon="chevron-down" aria-hidden="true" />
 	</button>
 </template>
 
@@ -39,23 +39,15 @@ button{
 		background: #4696cf;
 	}
 
-	span{
+	svg{
 		position: absolute;
 		right: 16px;
 	}
 
-	:deep .loader{
-		width: 16px !important;
-		height: 16px !important;
+	:deep(.loader){
+		transform: scale(0.25);
 		position: absolute;
-		right: 16px;
-
-		&::after{
-			width: 16px !important;
-			height: 16px !important;
-			border-width: 2px !important;
-			margin: 0 !important;
-		}
+		right: -17px;
 	}
 }
 

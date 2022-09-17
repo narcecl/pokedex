@@ -2,8 +2,8 @@
 	<div class="dark-mode-toggle">
 		<input id="switch" v-model="darkMode" type="checkbox" class="switch">
 		<label for="switch" class="label">
-			<i class="fas fa-moon" aria-hidden="true" />
-			<i class="fas fa-sun" aria-hidden="true" />
+			<font-awesome-icon icon="moon" />
+			<font-awesome-icon icon="sun" />
 			<div class="ball" :title="$t('Toggle dark mode')" />
 		</label>
 	</div>
