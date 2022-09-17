@@ -1,9 +1,11 @@
+import { state } from './store/state';
+
 export default {
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: true,
 
 	// Target: https://go.nuxtjs.dev/config-target
-	target: 'server',
+	target: 'static',
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
@@ -153,5 +155,10 @@ export default {
 				implementation: require('sass'),
 			},
 		},
+	},
+
+	generate: {
+		fallback: '404.html',
+		routes: ['kanto']
 	}
 }

@@ -33,7 +33,7 @@ export default {
 		margin-right: 6px;
 
 		&--xs{
-			padding: 4px 6px;
+			padding: 4px 8px;
 			font-size: 10px;
 		}
 
