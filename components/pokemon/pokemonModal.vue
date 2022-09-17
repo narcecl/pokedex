@@ -1,5 +1,5 @@
 <template>
-	<modal v-model="$store.state.pokemonModal" :size="7" @close="closeModal">
+	<modal v-model="$store.state.pokemonModal" :size="7" :ready="ready" @close="closeModal">
 		<div v-if="pokemon && ready" class="pokemon-modal">
 			<div class="pokemon-modal__cover">
 				<pokemon-image :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" :plain="false" />
@@ -14,10 +14,15 @@
 						<h6 class="heading--4 mr-16">
 							{{ pokemon.name }}
 						</h6>
-						<pokemon-types :types="pokemon.types" />
+						<pokemon-types :types="pokemon.types" size="md" />
 					</div>
 
-					<p>{{ getDescription() }}</p>
+					<p v-if="description">
+						{{ description }}
+					</p>
+					<p v-else>
+						{{ $t('no_description_pokemon') }}
+					</p>
 				</div>
 
 				<div class="pokemon-modal__block">
@@ -42,7 +47,7 @@
 				</div>
 
 				<div class="pokemon-modal__block">
-					<accordion :title="$t('Sprites')" group="pokemon-details">
+					<accordion v-if="Object.keys(sprites).length" :title="$t('Sprites')" group="pokemon-details">
 						<div class="row total mini justify-content-center">
 							<div v-for="(sprite, key, i) in sprites" :key="i" class="col-6 col-sm-3">
 								<div class="text-center">
@@ -63,14 +68,16 @@
 						<pokemon-damage-relation :type="pokemon.types[0].type.name" />
 					</accordion>
 
-					<accordion :title="$t('Evolution chain')" group="pokemon-details">
+					<accordion v-if="evolutionChain" :title="$t('Evolution chain')" group="pokemon-details">
 						<pokemon-evolution-chain :evolution-chain="evolutionChain" />
 					</accordion>
 				</div>
 			</div>
 		</div>
 		<div v-else class="d-flex align-items-center justify-content-center">
-			<loader />
+			<div class="p-24">
+				<loader />
+			</div>
 		</div>
 	</modal>
 </template>
@@ -99,11 +106,18 @@ export default {
 			});
 
 			return sprites;
+		},
+		description: function(){
+			if( !this.specie ) return false;
+			const description = this.specie.flavor_text_entries.find( item => item.language.name === this.$i18n.locale );
+			return description.flavor_text;
 		}
 	},
 	created: async function(){
 		this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
-		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
+		if( this.specie ){
+			this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
+		}
 		this.ready = true;
 	},
 	methods: {
@@ -113,10 +127,6 @@ export default {
 		closeModal: function(){
 			this.SET_POKEMON_MODAL( false );
 			this.SELECT_POKEMON( null );
-		},
-		getDescription: function(){
-			const description = this.specie.flavor_text_entries.find( item => item.language.name === this.$i18n.locale );
-			return description.flavor_text;
 		}
 	}
 };
@@ -125,6 +135,8 @@ export default {
 <style lang="scss" scoped>
 .pokemon-modal{
 	background-color: #fff;
+	border-radius: 8px;
+	overflow: hidden;
 
 	&__block{
 		+ .pokemon-modal__block{
@@ -139,7 +151,7 @@ export default {
 			height: 140px;
 			position: relative;
 
-			&:deep img{
+			&:deep(img){
 				position: absolute;
 				left: 32px;
 				bottom: -50%;

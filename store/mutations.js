@@ -3,6 +3,7 @@ export default {
 		state.loading = payload;
 	},
 	SET_DARK: function( state, payload ){
+		document.cookie = `dark_mode=${payload.toString()}; SameSite=None; Secure`;
 		state.darkMode = payload;
 	},
 	SET_POKEMONS: function( state, payload ){
@@ -16,5 +17,8 @@ export default {
 	},
 	SET_POKEMON_TYPES: function( state, payload ){
 		state.pokemonTypes = payload;
+	},
+	SET_CURRENT_REGION: function( state, payload ){
+		state.currentRegion = payload;
 	}
 };

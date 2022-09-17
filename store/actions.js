@@ -7,15 +7,17 @@ export default {
 			page_path: pageLocation
 		});
 	},
-	getAllPokemons: async function( context, url = 'https://pokeapi.co/api/v2/pokemon' ){
-		const response = await this.$axios( url, {
+	getAllPokemons: async function( context, region ){
+		const { offset, limit } = region;
+		const response = await this.$axios( 'https://pokeapi.co/api/v2/pokemon', {
 			params: {
-				limit: this.state.limit,
-				offset: this.state.offset
+				offset: offset,
+				limit: limit
 			}
 		}).catch( error => console.error( 'getAllPokemons =>', error ));
 
 		if( response.data && response.data?.results ){
+			this.commit( 'SET_CURRENT_REGION', region );
 			this.dispatch( 'getPokemonTypes' );
 			return this.dispatch( 'getPokemonsInfo', response.data.results );
 		}
@@ -74,10 +76,8 @@ export default {
 		if( evolutionChain ){
 			let evoData = evolutionChain.data?.chain;
 			const evoChain = [];
-			// const finalChain = [];
 
 			if( evoData ){
-				console.info( 'evoData =>', evoData );
 				do {
 					const evoDetails = evoData.evolution_details[0];
 					const numberOfEvolutions = evoData.evolves_to.length;
@@ -106,8 +106,6 @@ export default {
 					evoData = evoData.evolves_to[0];
 				} while( !!evoData && evoData.hasOwnProperty( 'evolves_to' )); // eslint-disable-line no-prototype-builtins
 
-				console.info( 'evoChain =>', evoChain );
-
 				if( evoChain.length ){
 					await Promise.allSettled(
 						evoChain.map( item => {
@@ -127,7 +125,6 @@ export default {
 						})
 					);
 
-					console.info( 'finalChain =>', evoChain );
 					return evoChain;
 				}
 			}

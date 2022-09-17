@@ -60,7 +60,7 @@ export default {
 			height: 110px;
 			position: relative;
 
-			&:deep img{
+			&:deep(img){
 				position: absolute;
 				left: 12px;
 				bottom: -30px;

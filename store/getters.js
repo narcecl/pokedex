@@ -10,5 +10,9 @@ export default {
 			if( locale ) return locale.name;
 		}
 		return type;
+	},
+	getRegionNames: (state) => {
+		const actives = state.regions.filter( item => item.active );
+		return actives.map( item => ({ name: item.name, slug: item.slug }) );
 	}
 };

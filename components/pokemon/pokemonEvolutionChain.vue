@@ -4,7 +4,7 @@
 			<div v-for="(pkm, i) in evolutionChain" :key="i" class="evolution-chain__item">
 				<div class="d-flex align-items-center">
 					<p v-if="pkm.trigger_name === 'level-up'" class="f--sm text-center mr-32">
-						<span class="next fa-solid fa-chevron-right f-28" aria-hidden="true" />
+						<font-awesome-icon class="next f-28" icon="chevron-right" aria-hidden="true" />
 						<span class="d-block f--xs mt-4">
 							Level {{ pkm.min_level }}
 							<span v-if="pkm.require_hapiness" class="fw--bold">+ {{ $t('Hapiness') }}</span>
@@ -12,11 +12,11 @@
 						</span>
 					</p>
 					<p v-if="pkm.trigger_name === 'use-item' && pkm.item" class="f--sm text-center mr-32">
-						<span class="next fa-solid fa-chevron-right f-28" aria-hidden="true" />
+						<font-awesome-icon class="next f-28" icon="chevron-right" aria-hidden="true" />
 						<span class="d-block f--xs mt-4">{{ $t('Using') }} <span class="fw--bold">{{ $t(pkm.item.name.replaceAll('-', ' ')) }}</span></span>
 					</p>
 					<p v-if="pkm.trigger_name === 'trade'" class="f--sm text-center mr-32">
-						<span class="next fa-solid fa-chevron-right f-28" aria-hidden="true" />
+						<font-awesome-icon class="next f-28" icon="chevron-right" aria-hidden="true" />
 						<span class="d-block f--xs mt-4">{{ $t('Trade') }}</span>
 					</p>
 					<div>
@@ -52,7 +52,7 @@ export default {
 			margin-right:0;
 		}
 	}
-	&:deep .pokemon-image{
+	&:deep(.pokemon-image){
 		img{
 			max-width: 90px;
 		}

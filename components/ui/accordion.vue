@@ -2,10 +2,10 @@
 	<div ref="accordion" class="accordion formatted" :class="group">
 		<div ref="accordion_title" class="accordion-title">
 			<a href="#" role="button" :aria-expanded="open.toString()" @click.prevent="clickAccordion($event)">
-				<h3>
+				<h3 class="sub--title">
 					{{ title }}
 				</h3>
-				<span class="down fa-solid fa-chevron-down" aria-hidden="true" />
+				<font-awesome-icon class="down" icon="chevron-down" aria-hidden="true" />
 			</a>
 		</div>
 		<div ref="accordion_content" class="accordion-content">
@@ -94,8 +94,7 @@ export default {
 		.accordion-title{
 			a{
 				@include transition;
-				padding: 12.75px 16px;
-				min-height: 48px;
+				padding: 16px;
 
 				.down{right:16px;}
 			}
@@ -126,8 +125,6 @@ export default {
 				pointer-events: none;
 			}
 
-			h3{padding-right: 36px;}
-
 			.icon{
 				position: absolute !important;
 				top: 0;
@@ -141,7 +138,7 @@ export default {
 			}
 
 			.down{
-				@include transition();
+				@include transition;
 				position: absolute;
 				right: 0;
 				bottom:0;

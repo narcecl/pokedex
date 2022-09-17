@@ -1,6 +1,6 @@
 <template>
 	<figure :class="getBackground" class="pokemon-image hidden--caption">
-		<nuxt-img :src="getSource" :alt="`Official Artwork for ${name}`" :lazy="true" />
+		<nuxt-img v-if="getSource" :src="getSource" :alt="`Official Artwork for ${name}`" :lazy="true" />
 		<figcaption>{{ `Official Artwork for ${name}` }}</figcaption>
 	</figure>
 </template>
@@ -11,7 +11,7 @@ export default {
 	props: {
 		name: { type: String, required: true },
 		types: { type: Array, default: () => ([]) },
-		src: { type: Object, deafult: () => ({}), required: true },
+		src: { type: Object, default: () => ({}), required: true },
 		plain: { type: Boolean, default: true },
 		deep: { type: Boolean, default: true }
 	},
@@ -23,6 +23,7 @@ export default {
 			return `bg-light--${firstType}`;
 		},
 		getSource: function(){
+			if( !this.src ) return false;
 			if( this.deep ) return this.src.other['official-artwork'].front_default;
 			return this.src;
 		}
@@ -32,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 	.pokemon-image{
-		&:deep img{
+		&:deep(img){
 			display: block;
 		}
 	}
