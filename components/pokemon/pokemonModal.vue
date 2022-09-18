@@ -7,7 +7,7 @@
 			<div class="pokemon-modal__content">
 				<div class="pokemon-modal__block">
 					<p class="f--sm">
-						N.º {{ $methods.pad(pokemon.id) }}
+						National N.º {{ $methods.pad(pokemon.id) }}
 					</p>
 
 					<div class="d-flex align-items-center mb-12">
@@ -48,16 +48,7 @@
 
 				<div class="pokemon-modal__block">
 					<accordion v-if="Object.keys(sprites).length" :title="$t('Sprites')" group="pokemon-details">
-						<div class="row total mini justify-content-center">
-							<div v-for="(sprite, key, i) in sprites" :key="i" class="col-6 col-sm-3">
-								<div class="text-center">
-									<nuxt-img :src="sprite" :alt="`Sprite ${pokemon.name}`" />
-									<p class="f--xs text-uppercase">
-										{{ $t(key) }}
-									</p>
-								</div>
-							</div>
-						</div>
+						<pokemon-sprites :sprites="sprites" :name="pokemon.name" />
 					</accordion>
 
 					<accordion :title="$t('Abilities')" group="pokemon-details">
@@ -145,7 +136,7 @@ export default {
 	}
 
 	&__cover{
-		figure{
+		picture{
 			width: 100%;
 			padding: 12px;
 			height: 140px;

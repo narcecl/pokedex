@@ -53,5 +53,6 @@
     "Hapiness": "Amistad",
     "load more": "Cargar más",
     "no_description_pokemon": "No se pudo obtener la descripción de este Pokémon.",
-    "copyright_personal": "Desarrollado con amor por"
+    "copyright_personal": "Desarrollado con amor por",
+    "query_placeholder": "Busca por nombre o ID"
 }

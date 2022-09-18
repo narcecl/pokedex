@@ -7,7 +7,7 @@
 				{{ details.name }}
 			</h3>
 			<p class="f--sm">
-				N.º {{ $methods.pad(details.id) }}
+				N.º {{ $methods.pad(details.entry_number) }}
 			</p>
 
 			<pokemon-types :types="details.types" class="mt-16" />
@@ -38,6 +38,7 @@ export default {
 .pokemon{
 	&__card{
 		width: 100%;
+		height: 100%;
 		border-radius: 8px;
 		overflow: hidden;
 		text-decoration: none;
@@ -54,7 +55,7 @@ export default {
 			}
 		}
 
-		figure{
+		picture{
 			width: 100%;
 			padding: 12px;
 			height: 110px;

@@ -1,11 +1,9 @@
-import { state } from './store/state';
-
 export default {
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: true,
 
 	// Target: https://go.nuxtjs.dev/config-target
-	target: 'static',
+	target: 'server',
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
@@ -39,6 +37,7 @@ export default {
 	plugins: [
 		{ src: '~plugins/methods.js' },
 		{ src: '~plugins/mixins.js', mode: 'client' },
+		{ src: '~plugins/mobile.js', mode: 'client' },
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
@@ -139,7 +138,7 @@ export default {
 	pwa: {
 		manifest: {
 			lang: 'es',
-			name: 'Pokedex',
+			name: 'Pokédex',
 			theme_color: '#12181f'
 		},
 	},

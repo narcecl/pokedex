@@ -32,7 +32,7 @@ export default {
 
 <style lang="scss" scoped>
 footer{
-	padding: 16px 0;
+	padding: 32px 0;
 
 	.link--regular{
 		font-weight: 700;

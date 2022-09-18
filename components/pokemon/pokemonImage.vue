@@ -1,8 +1,8 @@
 <template>
-	<figure :class="getBackground" class="pokemon-image hidden--caption">
-		<nuxt-img v-if="getSource" :src="getSource" :alt="`Official Artwork for ${name}`" :lazy="true" />
+	<picture :class="getBackground" class="pokemon-image hidden--caption">
+		<nuxt-img v-if="getSource" :src="getSource" :alt="`Official Artwork for ${name}`" :lazy="true" :width="width" :height="height" />
 		<figcaption>{{ `Official Artwork for ${name}` }}</figcaption>
-	</figure>
+	</picture>
 </template>
 
 <script>
@@ -13,7 +13,9 @@ export default {
 		types: { type: Array, default: () => ([]) },
 		src: { type: Object, default: () => ({}), required: true },
 		plain: { type: Boolean, default: true },
-		deep: { type: Boolean, default: true }
+		deep: { type: Boolean, default: true },
+		width: { type: [Number, String], default: '100%' },
+		height: { type: [Number, String], default: '100%' }
 	},
 	computed: {
 		getBackground: function(){

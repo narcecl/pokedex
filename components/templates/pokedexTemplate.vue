@@ -1,6 +1,15 @@
 <template>
 	<main v-if="foundRegion">
-		<section v-if="foundRegion.starters.length" class="section bg--secondary">
+		<section class="section bg--secondary">
+			<div class="container">
+				<h1 class="heading--1 mb-4">
+					The {{ foundRegion.name }} Region
+				</h1>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque doloribus suscipit, eligendi aliquam labore et explicabo. Error delectus mollitia id recusandae iste voluptates tempora incidunt aliquam laborum voluptatem, cupiditate dolore?</p>
+			</div>
+		</section>
+
+		<section v-if="foundRegion.starters.length" class="section">
 			<div class="container">
 				<div class="mb-32">
 					<h1 class="heading--3 mb-4">
@@ -12,8 +21,8 @@
 				</div>
 
 				<div v-if="startersPokemons.length" class="row total mini">
-					<div v-for="(featured, index) in startersPokemons" :key="index" class="col-6 col-sm-2">
-						<pokemon-card :details="featured" />
+					<div v-for="(starter, index) in startersPokemons" :key="index" class="col-6 col-sm-2">
+						<pokemon-card :details="starter" />
 					</div>
 				</div>
 				<div v-else class="row total mini">
@@ -24,11 +33,35 @@
 			</div>
 		</section>
 
+		<section v-if="foundRegion.legendaries.length" class="section bg--secondary">
+			<div class="container">
+				<div class="mb-32">
+					<h1 class="heading--3 mb-4">
+						{{ $t('Meet the Legendaries') }}
+					</h1>
+					<p>
+						{{ $t(`${foundRegion.slug}_legendaries_description`) }}
+					</p>
+				</div>
+
+				<div v-if="legendariesPokemons.length" class="row total mini">
+					<div v-for="(legendary, index) in legendariesPokemons" :key="index" class="col-6 col-sm-2">
+						<pokemon-card :details="legendary" />
+					</div>
+				</div>
+				<div v-else class="row total mini">
+					<div v-for="n in foundRegion.legendaries.length" :key="n" class="col-6 col-sm-2">
+						<skeleton />
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<section class="section">
 			<div class="container">
 				<div class="mb-32">
 					<h1 class="heading--3 mb-4">
-						{{ $t('Explore') }} {{ foundRegion.name }}
+						{{ $t('Explore') }} the {{ foundRegion.name }} dex
 					</h1>
 					<p>
 						{{ $t(`${foundRegion.slug}_region_description`) }}
@@ -87,6 +120,11 @@ export default {
 			const starters = this.foundRegion.starters;
 			return this.pokemons.filter( pokemon => starters.includes( pokemon.id ));
 		},
+		legendariesPokemons: function(){
+			if( !this.foundRegion || !this.foundRegion.legendaries ) return false;
+			const legendaries = this.foundRegion.legendaries;
+			return this.pokemons.filter( pokemon => legendaries.includes( pokemon.id ));
+		},
 		featuredPokemons: function(){
 			return this.pokemons.slice( 0, this.featuredLimit );
 		},
@@ -95,12 +133,12 @@ export default {
 		}
 	},
 	created: function(){
-		this.getAllPokemons( this.foundRegion ).then( response => {
+		this.getRegionalPokemons( this.foundRegion ).then( response => {
 			if( response ) this.pokemons = response;
 		});
 	},
 	methods: {
-		...mapActions(['getAllPokemons']),
+		...mapActions(['getRegionalPokemons']),
 
 		getPaginationNext: function(){
 			if( this.featuredLimit < this.pokemons.length ){

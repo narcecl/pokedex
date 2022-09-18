@@ -1,50 +1,62 @@
 <template>
 	<header>
 		<div class="container">
-			<div class="row total mini align-items-center justify-content-between">
+			<div class="row total align-items-center justify-content-between">
 				<div class="col-12 col-sm text-center text-sm-left">
-					<nuxt-img src="/pokemon-logo.png" alt="Logo Pokémon" width="130" />
+					<div class="d-flex align-items-center">
+						<nuxt-img src="/pokemon-logo.png" alt="Logo Pokémon" width="130" />
+						<p class="f--xs text--muted ml-32">
+							Regional Pokédex
+						</p>
+					</div>
 				</div>
 				<div class="col-12 col-sm d-flex align-items-center justify-content-center justify-content-sm-end">
 					<div v-for="locale in availableLocales" :key="locale.code" class="locale-switch">
 						<a href="#" @click.prevent="$i18n.setLocale(locale.code)">
+							<font-awesome-icon icon="earth-americas" class="mr-4" />
 							{{ locale.name }}
 						</a>
 					</div>
 
 					<dark-mode />
 
-					<!-- <a href="#" class="search-toggle">
+					<a href="#" class="search-toggle f-20 hover--opacity" @click.prevent="toggleFilter">
 						<font-awesome-icon icon="magnifying-glass" />
-					</a> -->
+					</a>
+
+					<a href="#" class="d-inline d-sm-none search-toggle f-20 hover--opacity" @click.prevent="toggleMenu">
+						<font-awesome-icon icon="bars" />
+					</a>
 				</div>
 			</div>
 		</div>
 
-		<nav>
-			<div class="container">
-				<ul class="d-flex align-items-center justify-content-between">
-					<li v-for="(region, index) in getRegionNames" :key="index" class="nav__item">
-						<nuxt-link :to="`/${region.slug}`">
-							{{ region.name }}
-						</nuxt-link>
-					</li>
-				</ul>
-			</div>
-		</nav>
+		<app-nav />
+
+		<app-filter v-model="filterActive" />
 	</header>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
 	name: 'AppHeader',
+	data: function(){
+		return {
+			menuOpen: false,
+			filterActive: false
+		};
+	},
 	computed: {
-		...mapGetters(['getRegionNames']),
-
 		availableLocales: function(){
 			return this.$i18n.locales.filter( i => i.code !== this.$i18n.locale );
+		}
+	},
+	methods: {
+		toggleMenu: function(){
+			this.menuOpen = !this.menuOpen;
+		},
+		toggleFilter: function(){
+			this.filterActive = !this.filterActive;
 		}
 	}
 };
@@ -55,7 +67,7 @@ header{
 	padding: 24px 0;
 
 	.locale-switch{
-		margin-right: 32px;
+		margin-right: 42px;
 
 		a{
 			color: $color-text;
@@ -69,43 +81,10 @@ header{
 		}
 	}
 
-	nav{
-		margin-top: 32px;
-
-		ul{
-			padding-top: 24px;
-			border-top: 1px solid rgba($color-text,.2);
-			.nav__item{
-				a{
-					color: $color-text;
-					text-transform: uppercase;
-					font-weight: 700;
-					text-decoration: none;
-					font-size: 14px;
-					@include transition;
-
-					&:hover{
-						opacity: .6;
-					}
-
-					&.nuxt-link-active{
-						color: #fbc905 !important;
-					}
-				}
-			}
-		}
-	}
-
 	.nav-toggle, .search-toggle{
-		font-size: 20px;
 		cursor: pointer;
-		@include transition;
-		margin-left: 32px;
+		margin-left: 42px;
 		color: $color-text;
-
-		&:hover{
-			opacity: .7;
-		}
 	}
 }
 
@@ -119,7 +98,7 @@ header{
 
 		nav{
 			ul{
-				border-top: 1px solid rgba(255,255,255,.2);
+				border-top: 1px solid rgba(255,255,255, .2);
 				.nav__item{
 					a{
 						color: #fff;

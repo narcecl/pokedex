@@ -1,5 +1,14 @@
-// Helpers for animations
+// Helpers for animations and hovers
 // Vue Animations (transition) and enter/leave elements
+
+.hover{
+	&--opacity{
+		@include transition;
+		&:hover{
+			opacity: .6;
+		}
+	}
+}
 
 .fade{
 	&-enter-active, &-leave-active{

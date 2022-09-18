@@ -25,5 +25,6 @@
     "front_female": "normal female",
     "front_shiny_female": "shiny female",
     "no_description_pokemon": "Couldn't get the description for this Pokémon.",
-    "copyright_personal": "Developed with love by"
+    "copyright_personal": "Developed with love by",
+    "query_placeholder": "Search by name or ID"
 }

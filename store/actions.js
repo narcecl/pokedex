@@ -7,19 +7,31 @@ export default {
 			page_path: pageLocation
 		});
 	},
-	getAllPokemons: async function( context, region ){
-		const { offset, limit } = region;
-		const response = await this.$axios( 'https://pokeapi.co/api/v2/pokemon', {
-			params: {
-				offset: offset,
-				limit: limit
-			}
-		}).catch( error => console.error( 'getAllPokemons =>', error ));
+	getAllPokemons: async function( context ){
+		const response = await this.$axios( 'https://pokeapi.co/api/v2/pokedex/1' )
+			.catch( error => console.error( 'getAllPokemons =>', error ));
 
-		if( response.data && response.data?.results ){
-			this.commit( 'SET_CURRENT_REGION', region );
-			this.dispatch( 'getPokemonTypes' );
-			return this.dispatch( 'getPokemonsInfo', response.data.results );
+		if( response.data && response.data?.pokemon_entries.length ){
+			const fullList = response.data.pokemon_entries.map( item => ({ ...item.pokemon_species, id: item.entry_number }));
+			context.commit( 'SET_POKEMONS', fullList );
+			context.dispatch( 'getPokemonTypes' );
+		}
+	},
+	getRegionalPokemons: async function( context, region ){
+		const response = await this.$axios( `https://pokeapi.co/api/v2/pokedex/${region.dexNumber}` )
+			.catch( error => console.error( 'getRegionalPokemons =>', error ));
+
+		if( response.data && response.data?.pokemon_entries.length ){
+			context.commit( 'SET_CURRENT_REGION', region );
+			return context.dispatch( 'getPokemonsInfo', response.data.pokemon_entries );
+		}
+	},
+	getPokemonInfo: async function( context, name ){
+		const response = await this.$axios( `https://pokeapi.co/api/v2/pokemon/${name}` )
+			.catch( error => console.error( 'getPokemonInfo =>', error ));
+
+		if( response.data ){
+			return response.data;
 		}
 	},
 	getPokemonsInfo: async function( context, result ){
@@ -27,14 +39,14 @@ export default {
 
 		await Promise.allSettled(
 			result.map( pokemonItem => {
-				return this.$axios( `https://pokeapi.co/api/v2/pokemon/${pokemonItem.name}` )
+				return this.$axios( `https://pokeapi.co/api/v2/pokemon/${pokemonItem.pokemon_species.name}` )
 					.then( response => {
-						pokemons.push( response.data );
+						pokemons.push({ ...response.data, entry_number: pokemonItem.entry_number });
 					});
 			})
 		);
 
-		pokemons.sort(( a, b ) => ( a.id > b.id ) ? 1 : (( b.id > a.id ) ? -1 : 0 ));
+		pokemons.sort(( a, b ) => ( a.entry_number > b.entry_number ) ? 1 : (( b.entry_number > a.entry_number ) ? -1 : 0 ));
 		return pokemons;
 	},
 	getPokemonTypes: async function( context ){
@@ -64,9 +76,7 @@ export default {
 	},
 	getSpecie: function( context, id ){
 		return this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${id}` )
-			.then( specie => {
-				return specie.data;
-			})
+			.then( specie => specie.data )
 			.catch( error => console.error( 'getSpecie =>', error ));
 	},
 	getEvolutionChain: async function( context, url ){

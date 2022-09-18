@@ -7,7 +7,7 @@ export default {
 		state.darkMode = payload;
 	},
 	SET_POKEMONS: function( state, payload ){
-		state.pokemons = [...state.pokemons, ...payload];
+		state.allPokemons = payload;
 	},
 	SELECT_POKEMON: function( state, payload ){
 		state.selectedPokemon = payload;

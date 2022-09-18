@@ -1,7 +1,9 @@
 <template>
 	<div class="input-cont">
-		<label>{{ label }}</label>
-		<input type="text" class="input" :name="inputName" :value="value" @input="input($event)">
+		<label v-if="label">
+			{{ label }}
+		</label>
+		<input type="text" class="input" :name="inputName" :value="value" :placeholder="placeholder" @input="input($event)">
 	</div>
 </template>
 
@@ -10,9 +12,10 @@ export default {
 	name: 'UiCustomInput',
 	props: {
 		type: { type: String, default: 'text' },
+		placeholder: { type: String, default: '' },
 		name: { type: [String, Boolean], default: false },
-		label: { type: String, required: true },
-		value: { type: [String, Boolean], default: '' }
+		label: { type: [String, Boolean], default: false },
+		value: { type: [String, Number, Boolean], default: '' }
 	},
 	data: function(){
 		return {
@@ -44,11 +47,26 @@ export default {
 		width: 100%;
 		display: block;
 		border: none;
-		padding: 10px 16px;
+		padding: 16px 20px;
 		border-radius: 8px;
 		border: 1px solid #eee;
 		font-size: 16px;
 		line-height: normal;
+		@include transition;
+	}
+}
+
+.dark{
+	.input-cont{
+		input{
+			background: #232935;
+			border-color: rgba(255,255,255, .3);
+			color: #fff;
+
+			&:focus{
+				border-color: rgba(255,255,255, .6);
+			}
+		}
 	}
 }
 </style>
