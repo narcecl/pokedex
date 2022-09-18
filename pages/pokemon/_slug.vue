@@ -1,5 +1,5 @@
 <template>
-	<div v-if="pokemon" class="single">
+	<main v-if="pokemon" class="single">
 		<section :class="getBackground" class="single--cover">
 			<div class="container">
 				<div class="d-flex justify-content-center justify-content-sm-start">
@@ -117,7 +117,7 @@
 				<pokemon-evolution-chain :evolution-chain="evolutionChain" />
 			</div>
 		</section>
-	</div>
+	</main>
 </template>
 
 <script>
@@ -127,11 +127,14 @@ export default {
 	name: 'PokemonInfo',
 	asyncData: async function({ params }){ // eslint-disable-line require-await
 		const slug = params.slug;
-		return { slug }; // eslint-disable-line object-shorthand
+		const id = slug.split( '-' )[0];
+		const name = slug.split( '-' )[1];
+		return { id, name }; // eslint-disable-line object-shorthand
 	},
 	data: function(){
 		return {
-			slug: null,
+			id: null,
+			name: null,
 			pokemon: null,
 			specie: null,
 			evolutionChain: null
@@ -176,8 +179,8 @@ export default {
 		}
 	},
 	created: async function(){
-		console.info( 'created =>', this.slug );
-		this.pokemon = await this.getPokemonInfo( this.slug );
+		console.info( 'created =>', this.id, this.name );
+		this.pokemon = await this.getPokemonInfo( this.id );
 		console.info( 'pokemon =>', this.pokemon );
 		if( this.pokemon ) this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
 		console.info( 'specie =>', this.specie );

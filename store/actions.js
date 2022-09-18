@@ -14,7 +14,6 @@ export default {
 		if( response.data && response.data?.pokemon_entries.length ){
 			const fullList = response.data.pokemon_entries.map( item => ({ ...item.pokemon_species, id: item.entry_number }));
 			context.commit( 'SET_POKEMONS', fullList );
-			context.dispatch( 'getPokemonTypes' );
 		}
 	},
 	getRegionalPokemons: async function( context, region ){
@@ -23,7 +22,7 @@ export default {
 
 		if( response.data && response.data?.pokemon_entries.length ){
 			context.commit( 'SET_CURRENT_REGION', region );
-			return context.dispatch( 'getPokemonsInfo', response.data.pokemon_entries );
+			return response.data.pokemon_entries;
 		}
 	},
 	getPokemonInfo: async function( context, name ){
@@ -39,9 +38,17 @@ export default {
 
 		await Promise.allSettled(
 			result.map( pokemonItem => {
-				return this.$axios( `https://pokeapi.co/api/v2/pokemon/${pokemonItem.pokemon_species.name}` )
+				const key = 'https://pokeapi.co/api/v2/pokemon-species/';
+				const urlSplit = pokemonItem.pokemon_species.url.split( key );
+				const pokemonId = urlSplit[1].replace( '/', '' );
+
+				return this.$axios( `https://pokeapi.co/api/v2/pokemon/${pokemonId}` )
 					.then( response => {
 						pokemons.push({ ...response.data, entry_number: pokemonItem.entry_number });
+					})
+					.catch( error => {
+						console.error( 'getPokemonsInfo =>', error );
+						pokemons.push({ entry_number: pokemonItem.entry_number });
 					});
 			})
 		);
