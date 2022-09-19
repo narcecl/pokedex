@@ -5,11 +5,7 @@
 				<pokemon-image :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" :plain="false" />
 			</div>
 			<div class="pokemon-modal__content">
-				<div class="pokemon-modal__block">
-					<p class="f--sm">
-						National N.º {{ $methods.pad(pokemon.id) }}
-					</p>
-
+				<div class="section__block">
 					<div class="d-flex align-items-center mb-12">
 						<h6 class="heading--4 mr-16">
 							{{ pokemon.name }}
@@ -17,36 +13,14 @@
 						<pokemon-types :types="pokemon.types" size="md" />
 					</div>
 
-					<p v-if="description">
-						{{ description }}
-					</p>
-					<p v-else>
-						{{ $t('no_description_pokemon') }}
-					</p>
+					<p>{{ description || $t('no_description_pokemon') }}</p>
 				</div>
 
-				<div class="pokemon-modal__block">
-					<div class="row total mini">
-						<div class="col-12 col-sm-3">
-							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-								{{ $t('weight') }}
-							</h6>
-							<p>
-								{{ Math.round((pokemon.weight * 0.1) * 100) / 100 }} kg
-							</p>
-						</div>
-						<div class="col-12 col-sm-3">
-							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-								{{ $t('height') }}
-							</h6>
-							<p>
-								{{ Math.round((pokemon.height * 0.1) * 100) / 100 }} m
-							</p>
-						</div>
-					</div>
+				<div class="section__block">
+					<pokemon-info :specie="specie" :weight="pokemon.weight" :height="pokemon.height" :compact="true" />
 				</div>
 
-				<div class="pokemon-modal__block">
+				<div class="section__block">
 					<accordion v-if="Object.keys(sprites).length" :title="$t('Sprites')" group="pokemon-details">
 						<pokemon-sprites :sprites="sprites" :name="pokemon.name" />
 					</accordion>
@@ -128,12 +102,6 @@ export default {
 	background-color: #fff;
 	border-radius: 8px;
 	overflow: hidden;
-
-	&__block{
-		+ .pokemon-modal__block{
-			margin-top: 32px;
-		}
-	}
 
 	&__cover{
 		picture{

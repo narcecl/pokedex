@@ -18,6 +18,12 @@ body{
 	&--sm{
 		padding: 48px 0;
 	}
+
+	&__block{
+		+ .section__block{
+			margin-top: 32px;
+		}
+	}
 }
 
 .link{
