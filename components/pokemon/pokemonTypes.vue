@@ -1,9 +1,7 @@
 <template>
 	<div>
-		<div v-if="types.length">
+		<div v-if="types.length" class="pokemon-types d-flex flex-wrap">
 			<pokemon-type v-for="(type, index) in cleanTypes" :key="index" :type="type" :size="size" />
-		</div>
-		<div v-else>
 		</div>
 	</div>
 </template>
@@ -22,3 +20,13 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss" scoped>
+.pokemon-types{
+	margin: -4px;
+
+	&:deep(div){
+		padding: 4px;
+	}
+}
+</style>

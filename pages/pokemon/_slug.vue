@@ -57,14 +57,14 @@
 			</div>
 		</section>
 
-		<!-- <section v-if="evolutionChain" class="section section--sm">
+		<section v-if="evolutionChain" class="section section--sm">
 			<div class="container">
 				<h2 class="heading--5 mb-32">
 					Evolution Chain
 				</h2>
 				<pokemon-evolution-chain :evolution-chain="evolutionChain" />
 			</div>
-		</section> -->
+		</section>
 	</main>
 </template>
 

@@ -29,7 +29,7 @@ export default {
 		const response = await this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${name}` )
 			.catch( error => console.error( 'getPokemonInfo =>', error ));
 
-		if( !response.data ) return false;
+		if( !response ) return false;
 		return response.data;
 	},
 	getPokemonInfo: async function( context, id ){
@@ -125,18 +125,16 @@ export default {
 				if( evoChain.length ){
 					await Promise.allSettled(
 						evoChain.map( item => {
-							return this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${item.species_name}` ).then( response => {
-								if( response.data ){
-									const pokemon = response.data;
-									const pokemonFound = evoChain.findIndex( item => item.species_name === pokemon.name );
-									if( pokemonFound !== -1 ){
-										evoChain[pokemonFound] = {
-											...evoChain[pokemonFound],
-											id: response.data.id,
-											sprites: response.data.sprites
-										};
-									}
-								}
+							return this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${item.species_name}` ).then( specieResponse => {
+								const pokemon = specieResponse.data;
+								const pokemonFound = evoChain.findIndex( item => item.species_name === pokemon.name );
+								return context.dispatch( 'getPokemonInfo', pokemon.id ).then( infoResponse => {
+									evoChain[pokemonFound] = {
+										...evoChain[pokemonFound],
+										id: pokemon.id,
+										sprites: infoResponse.sprites
+									};
+								});
 							});
 						})
 					);

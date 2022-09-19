@@ -94,9 +94,7 @@ export default {
 	},
 	created: async function(){
 		this.specie = await this.getPokemonSpecie( this.pokemon.id ).then( response => response );
-		if( this.specie ){
-			this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
-		}
+		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
 		this.ready = true;
 	},
 	methods: {

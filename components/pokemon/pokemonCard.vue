@@ -94,6 +94,7 @@ export default {
 
 		&:hover{
 			border-color: rgba(255, 255, 255, .3);
+			background: rgba(255,255,255,.05);
 		}
 	}
 }
