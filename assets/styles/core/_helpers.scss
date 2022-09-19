@@ -20,6 +20,7 @@ body{
 	}
 
 	&__block{
+		display: block;
 		+ .section__block{
 			margin-top: 32px;
 		}

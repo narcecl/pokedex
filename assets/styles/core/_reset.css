@@ -19,3 +19,4 @@ input:focus, textarea:focus{outline:none;}
 
 body, button, input, textarea, select, select option{font-family: 'Open Sans', sans-serif;font-display: swap;}
 html, body{height:100vh;}
+a{text-decoration: none;color:inherit;}

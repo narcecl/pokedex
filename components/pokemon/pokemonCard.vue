@@ -17,9 +17,11 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import mobile from '~/mixins/mobile';
 
 export default {
 	name: 'PokemonCard',
+	mixins: [mobile],
 	props: {
 		details: { type: Object, required: true }
 	},
@@ -27,8 +29,12 @@ export default {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
 
 		selectPokemon: function(){
-			this.SET_POKEMON_MODAL( true );
-			this.SELECT_POKEMON( this.details );
+			if( this.isMobileViewport ){
+				this.$router.push({ name: 'pokemon-slug', params: { slug: this.details.specie_name } });
+			} else{
+				this.SET_POKEMON_MODAL( true );
+				this.SELECT_POKEMON( this.details );
+			}
 		}
 	}
 };

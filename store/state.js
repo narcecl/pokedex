@@ -110,7 +110,7 @@ export default () => ({
 			code: 'generation-ii',
 			dexName: 'hisui',
 			dexNumber: 30,
-			starters: [],
+			starters: [722, 155, 501],
 			legendaries: [],
 			offset: 1133,
 			limit: 20,
