@@ -3,7 +3,7 @@
 		<section :class="getBackground" class="single--cover">
 			<div class="container">
 				<div class="d-flex justify-content-center justify-content-sm-start">
-					<pokemon-image width="350" :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" />
+					<pokemon-image width="350" height="350" :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" />
 				</div>
 			</div>
 		</section>
@@ -14,7 +14,7 @@
 					<div class="pokemon-modal__block">
 						<div class="d-flex align-items-center mb-8">
 							<h1 class="heading--1 mr-16">
-								{{ pokemon.name }}
+								{{ specie.name }}
 							</h1>
 							<pokemon-types :types="pokemon.types" size="md" />
 						</div>
@@ -54,7 +54,7 @@
 							</div>
 							<div v-if="specieName" class="col-6 col-sm-3">
 								<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-									Specie
+									{{ $t('specie') }}
 								</h6>
 								<p>
 									{{ specieName }}
@@ -85,7 +85,7 @@
 		<section v-if="Object.keys(sprites).length" class="section section--sm">
 			<div class="container">
 				<h2 class="heading--5 mb-32">
-					Sprites
+					{{ $t('Sprites') }}
 				</h2>
 				<pokemon-sprites :sprites="sprites" :name="pokemon.name" />
 			</div>
@@ -94,7 +94,7 @@
 		<section class="section section--sm">
 			<div class="container">
 				<h2 class="heading--5 mb-32">
-					Abilities
+					{{ $t('Abilities') }}
 				</h2>
 				<pokemon-abilities :abilities="pokemon.abilities" />
 			</div>
@@ -103,20 +103,20 @@
 		<section v-if="pokemonTypes.length" class="section section--sm">
 			<div class="container">
 				<h2 class="heading--5 mb-32">
-					Damage Relations
+					{{ $t('Damage relations') }}
 				</h2>
 				<pokemon-damage-relation :type="pokemon.types[0].type.name" />
 			</div>
 		</section>
 
-		<section v-if="evolutionChain" class="section section--sm">
+		<!-- <section v-if="evolutionChain" class="section section--sm">
 			<div class="container">
 				<h2 class="heading--5 mb-32">
 					Evolution Chain
 				</h2>
 				<pokemon-evolution-chain :evolution-chain="evolutionChain" />
 			</div>
-		</section>
+		</section> -->
 	</main>
 </template>
 
@@ -125,19 +125,24 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
 	name: 'PokemonInfo',
-	asyncData: async function({ params }){ // eslint-disable-line require-await
-		const slug = params.slug;
-		const id = slug.split( '-' )[0];
-		const name = slug.split( '-' )[1];
-		return { id, name }; // eslint-disable-line object-shorthand
+	asyncData: async function({ store, params, error }){
+		const name = params.slug;
+		const specie = await store.dispatch( 'getPokemonSpecie', name );
+
+		if( !specie ) return error({ statusCode: 404, message: 'Pokémon not found' });
+		return { name, specie }; // eslint-disable-line object-shorthand
 	},
 	data: function(){
 		return {
-			id: null,
 			name: null,
-			pokemon: null,
 			specie: null,
+			pokemon: null,
 			evolutionChain: null
+		};
+	},
+	head: function(){
+		return {
+			title: `${this.specie.id} - ${this.$methods.capitalize( this.specie.name )} | Pokédex Entry`
 		};
 	},
 	computed: {
@@ -174,22 +179,15 @@ export default {
 		pokedexNumbers: function(){
 			if( !this.specie ) return false;
 			const localRegions = this.regions.map( region => region.dexName );
-			console.info( 'localRegions =>', localRegions );
 			return this.specie.pokedex_numbers.filter( dex => localRegions.includes( dex.pokedex.name ));
 		}
 	},
 	created: async function(){
-		console.info( 'created =>', this.id, this.name );
-		this.pokemon = await this.getPokemonInfo( this.id );
-		console.info( 'pokemon =>', this.pokemon );
-		if( this.pokemon ) this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
-		console.info( 'specie =>', this.specie );
-		if( this.specie ) this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
-		console.info( 'evolutionChain =>', this.evolutionChain );
-		this.ready = true;
+		this.pokemon = await this.getPokemonInfo( this.specie.id );
+		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
 	},
 	methods: {
-		...mapActions(['getPokemonInfo', 'getSpecie', 'getEvolutionChain'])
+		...mapActions(['getPokemonInfo', 'getPokemonSpecie', 'getEvolutionChain'])
 	}
 };
 </script>
@@ -198,6 +196,7 @@ export default {
 .single{
 	&--cover{
 		padding: 24px 0 64px;
+		@include transition;
 
 		picture{
 			z-index: 9;

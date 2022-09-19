@@ -24,8 +24,6 @@ export default {
 			const damageRelationTemp = this.getTypeInfo( this.type );
 			const damageRelation = {};
 
-			console.info( 'damageRelationTemp =>', damageRelationTemp );
-
 			Object.entries( damageRelationTemp ).forEach(([key, value]) => {
 				if( value.length ) damageRelation[key] = value;
 			});

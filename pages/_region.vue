@@ -5,7 +5,7 @@
 <script>
 export default {
 	name: 'RegionPage',
-	asyncData: async function({ store, params, error }){ // eslint-disable-line require-await
+	asyncData: function({ store, params, error }){
 		const region = params.region;
 		const foundRegion = store.state.regions.find( item => item.slug === region );
 

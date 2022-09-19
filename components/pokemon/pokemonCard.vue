@@ -4,7 +4,7 @@
 
 		<div class="pokemon__card__info">
 			<h3 class="heading--6 fw--medium">
-				{{ details.name }}
+				{{ details.specie_name }}
 			</h3>
 			<p class="f--sm">
 				N.º {{ $methods.pad(details.entry_number) }}

@@ -105,7 +105,7 @@ export default {
 		}
 	},
 	created: async function(){
-		this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
+		this.specie = await this.getPokemonSpecie( this.pokemon.id ).then( response => response );
 		if( this.specie ){
 			this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
 		}
@@ -113,7 +113,7 @@ export default {
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
-		...mapActions(['getEvolutionChain', 'getSpecie', 'getEvolutionChain']),
+		...mapActions(['getEvolutionChain', 'getPokemonSpecie', 'getEvolutionChain']),
 
 		closeModal: function(){
 			this.SET_POKEMON_MODAL( false );

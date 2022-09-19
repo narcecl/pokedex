@@ -1,5 +1,5 @@
 <template>
-	<main v-if="region">
+	<main>
 		<section class="section bg--secondary">
 			<div class="container">
 				<h1 class="heading--1 mb-4">
@@ -70,8 +70,8 @@
 
 				<div v-if="pokemons.length">
 					<div class="row total mini">
-						<div v-for="featured in pokemons" :key="featured.id" class="col-6 col-sm-2">
-							<pokemon-card :details="featured" />
+						<div v-for="pokemon in pokemons" :key="pokemon.id" class="col-6 col-sm-2">
+							<pokemon-card :details="pokemon" />
 						</div>
 					</div>
 					<div v-if="pokemons.length < fullDex.length" class="btn--holder d-flex justify-content-center mt-32">
@@ -111,7 +111,7 @@ export default {
 	},
 	head: function(){
 		return {
-			title: `${this.region.name} Regional Pokédex`
+			title: `${this.region.name} | Regional Pokédex`
 		};
 	},
 	computed: {
@@ -130,10 +130,11 @@ export default {
 	},
 	created: async function(){
 		this.fullDex = await this.getRegionalPokemons( this.region );
-		this.pokemons = await this.getPokemonsInfo( this.fullDex.slice( 0, this.featuredLimit ));
+		this.pokemons = await this.getPokemonsData( this.fullDex.slice( 0, this.featuredLimit ));
+		console.info( 'pokemons =>', this.pokemons );
 	},
 	methods: {
-		...mapActions(['getRegionalPokemons', 'getPokemonsInfo']),
+		...mapActions(['getRegionalPokemons', 'getPokemonsData']),
 
 		getPaginationNext: async function(){
 			if( this.pokemons.length < this.fullDex.length ){
@@ -144,7 +145,7 @@ export default {
 				const nextLimit = this.featuredLimit * this.currentPage;
 				const arrayNext = this.fullDex.slice( nextStart, nextLimit );
 
-				await this.getPokemonsInfo( arrayNext ).then( response => {
+				await this.getPokemonsData( arrayNext ).then( response => {
 					this.pokemons = [...this.pokemons, ...response];
 					this.loadingMore = false;
 				});

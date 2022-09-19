@@ -12,6 +12,9 @@ Vue.prototype.$methods = {
 		const parts = value.split( `; ${name}=` );
 		if( parts.length === 2 ) return parts.pop().split( ';' ).shift();
 	},
+	capitalize: function( string ){
+		return string[0].toUpperCase() + string.substring( 1 );
+	},
 	getParents: function( node, limit = null ){
 		let current = node;
 		const list = [];

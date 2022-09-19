@@ -1,6 +1,8 @@
 <template>
 	<picture :class="getBackground" class="pokemon-image hidden--caption">
-		<nuxt-img v-if="getSource" :src="getSource" :alt="`Official Artwork for ${name}`" :lazy="true" :width="width" :height="height" />
+		<div :style="{ height: `${height}px` }">
+			<nuxt-img v-if="getSource" :src="getSource" :alt="`Official Artwork for ${name}`" :lazy="true" :width="width" :height="height" />
+		</div>
 		<figcaption>{{ `Official Artwork for ${name}` }}</figcaption>
 	</picture>
 </template>
