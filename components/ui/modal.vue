@@ -26,8 +26,11 @@
 </template>
 
 <script>
+import mobile from '~/mixins/mobile';
+
 export default {
 	name: 'UiModal',
+	mixins: [mobile],
 	props: {
 		value: { type: Boolean, default: false },
 		ready: { type: Boolean, default: false },

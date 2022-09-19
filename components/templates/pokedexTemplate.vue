@@ -5,7 +5,7 @@
 				<h1 class="heading--1 mb-4">
 					The {{ region.name }} Region
 				</h1>
-				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Atque doloribus suscipit, eligendi aliquam labore et explicabo. Error delectus mollitia id recusandae iste voluptates tempora incidunt aliquam laborum voluptatem, cupiditate dolore?</p>
+				<p>{{ $t(`${region.slug}_region_description`) }}</p>
 			</div>
 		</section>
 
@@ -59,12 +59,12 @@
 
 		<section class="section">
 			<div class="container">
-				<div class="mb-32">
+				<div v-if="region" class="mb-32">
 					<h1 class="heading--3 mb-4">
 						{{ $t('Explore') }} the {{ region.name }} dex
 					</h1>
 					<p>
-						{{ $t(`${region.slug}_region_description`) }}
+						{{ $t('dex_description', {name: regionName, count: fullDex.length}) }}
 					</p>
 				</div>
 
@@ -111,7 +111,7 @@ export default {
 	},
 	head: function(){
 		return {
-			title: `${this.region.name} | Regional Pokédex`
+			title: `${this.regionName} | Regional Pokédex`
 		};
 	},
 	computed: {
@@ -126,12 +126,15 @@ export default {
 			if( !this.region.legendaries ) return false;
 			const legendaries = this.region.legendaries;
 			return this.pokemons.filter( pokemon => legendaries.includes( pokemon.id ));
+		},
+		regionName: function(){
+			const region = this.region.dexName.split( '-' ).join( ' ' );
+			return this.$methods.capitalize( region );
 		}
 	},
 	created: async function(){
 		this.fullDex = await this.getRegionalPokemons( this.region );
 		this.pokemons = await this.getPokemonsData( this.fullDex.slice( 0, this.featuredLimit ));
-		console.info( 'pokemons =>', this.pokemons );
 	},
 	methods: {
 		...mapActions(['getRegionalPokemons', 'getPokemonsData']),

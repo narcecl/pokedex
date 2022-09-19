@@ -12,11 +12,11 @@
 			<div class="container">
 				<div class="single--info">
 					<div class="section__block">
-						<div class="d-flex align-items-center mb-8">
-							<h1 class="heading--1 mr-16">
+						<div class="d-sm-flex align-items-center mb-8">
+							<pokemon-types :types="pokemon.types" size="md" class="order-sm-2 mb-16 mb-sm-0" />
+							<h1 class="heading--1 mr-16 order-sm-1">
 								{{ specie.name }}
 							</h1>
-							<pokemon-types :types="pokemon.types" size="md" />
 						</div>
 						<p>
 							{{ description || $t('no_description_pokemon') }}

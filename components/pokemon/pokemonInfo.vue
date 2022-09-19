@@ -1,53 +1,59 @@
 <template>
 	<div class="pokemon-info">
-		<div class="row total mini align-items-center">
-			<div :class="classController">
-				<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-					{{ $t('weight') }}
-				</h6>
-				<p>
-					{{ Math.round((weight * 0.1) * 100) / 100 }} kg
-				</p>
+		<div class="section__block">
+			<div class="row total mini align-items-center">
+				<div :class="classController">
+					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
+						{{ $t('weight') }}
+					</h6>
+					<p>
+						{{ Math.round((weight * 0.1) * 100) / 100 }} kg
+					</p>
+				</div>
+				<div :class="classController">
+					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
+						{{ $t('height') }}
+					</h6>
+					<p>
+						{{ Math.round((height * 0.1) * 100) / 100 }} m
+					</p>
+				</div>
+				<div v-if="generation" :class="classController">
+					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
+						{{ $t('generation') }}
+					</h6>
+					<p>
+						{{ generation.name }} ({{ generation.code }})
+					</p>
+				</div>
+				<div v-if="specieName" :class="classController">
+					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
+						{{ $t('specie') }}
+					</h6>
+					<p>
+						{{ specieName }}
+					</p>
+				</div>
 			</div>
-			<div :class="classController">
-				<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-					{{ $t('height') }}
-				</h6>
-				<p>
-					{{ Math.round((height * 0.1) * 100) / 100 }} m
-				</p>
-			</div>
-			<div v-if="generation" :class="classController">
-				<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-					{{ $t('generation') }}
-				</h6>
-				<p>
-					{{ generation.name }} ({{ generation.code }})
-				</p>
-			</div>
-			<div v-if="specieName" :class="classController">
-				<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-					{{ $t('specie') }}
-				</h6>
-				<p>
-					{{ specieName }}
-				</p>
-			</div>
-			<div :class="classController">
-				<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-					National Dex
-				</h6>
-				<p>
-					N.º {{ $methods.pad(specie.id) }}
-				</p>
-			</div>
-			<div v-for="(dex, i) in pokedexNumbers" :key="i" :class="classController">
-				<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-					{{ dex.pokedex.name.split('-').join(' ') }} dex
-				</h6>
-				<p>
-					N.º {{ $methods.pad(dex.entry_number) }}
-				</p>
+		</div>
+		<div class="dex-entries section__block">
+			<div class="row total mini align-items-center">
+				<div :class="classController">
+					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
+						National Dex
+					</h6>
+					<p>
+						N.º {{ $methods.pad(specie.id) }}
+					</p>
+				</div>
+				<div v-for="(dex, i) in pokedexNumbers" :key="i" :class="classController">
+					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
+						{{ dex.pokedex.name.split('-').join(' ') }} dex
+					</h6>
+					<p>
+						N.º {{ $methods.pad(dex.entry_number) }}
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -69,7 +75,7 @@ export default {
 		...mapGetters(['getGenerationInfo']),
 
 		classController: function(){
-			return `col-12 ${this.compact ? 'col-sm-4' : 'col-sm-3'}`;
+			return `col-6 ${this.compact ? 'col-sm-4' : 'col-sm-3'}`;
 		},
 		generation: function(){
 			if( !this.specie ) return false;
@@ -88,3 +94,16 @@ export default {
 	}
 };
 </script>
+
+<style lang="scss" scoped>
+.dex-entries{
+	border-top: 1px solid rgba(0,0,0,.1);
+	padding-top: 32px;
+}
+
+.dark{
+	.dex-entries{
+		border-top-color: rgba(255,255,255,.1) !important;
+	}
+}
+</style>

@@ -9,11 +9,8 @@
 				</div>
 
 				<h6 class="heading--4 mb-4 text-center">
-					Search a Pokémon
+					find a Pokémon
 				</h6>
-				<p class="text-center">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				</p>
 
 				<div class="my-32">
 					<custom-input v-model="query" :placeholder="$t('query_placeholder')" />
@@ -113,17 +110,22 @@ export default {
 	backdrop-filter: blur(10px);
 
 	&__cont{
-		width: 30%;
+		width: 85%;
 		background: $dark-mode-primary;
 		transform: translate(100%, 0);
 		height: 100%;
-		padding: 48px 32px;
+		padding: 32px 20px;
 		box-sizing: border-box;
 		position: absolute;
 		top: 0;
 		right: 0;
 		overflow-x: auto;
 		@include transition;
+
+		@media screen and (min-width: $break-sm){
+			width: 30%;
+			padding: 48px 32px;
+		}
 
 		&--active{
 			transform: none;

@@ -3,12 +3,26 @@
 		<div v-if="pokemon && ready" class="pokemon-modal">
 			<div class="pokemon-modal__cover">
 				<pokemon-image :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" :plain="false" />
+				<div class="pokemon-modal__actions-links d-flex justify-content-end">
+					<ul class="d-flex align-items-center">
+						<li>
+							<nuxt-link :to="{name: 'pokemon-slug', params: { slug: specie.name }}" class="hover--opacity" title="Permalink">
+								<font-awesome-icon icon="arrow-up-right-from-square" aria-hidden="true" />
+							</nuxt-link>
+						</li>
+						<li>
+							<nuxt-link :to="{name: 'pokemon-slug', params: { slug: specie.name }}" class="hover--opacity" title="Add to favorites">
+								<font-awesome-icon icon="heart" aria-hidden="true" />
+							</nuxt-link>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div class="pokemon-modal__content">
 				<div class="section__block">
 					<div class="d-flex align-items-center mb-12">
 						<h6 class="heading--4 mr-16">
-							{{ pokemon.name }}
+							{{ specie.name }}
 						</h6>
 						<pokemon-types :types="pokemon.types" size="md" />
 					</div>
@@ -103,6 +117,24 @@ export default {
 	border-radius: 8px;
 	overflow: hidden;
 
+	&__actions-links{
+		padding: 16px 32px;
+		ul{
+			li{
+				margin-right: 24px;
+
+				&:last-of-type{
+					margin-right: 0;
+				}
+
+				a{
+					color: #fff;
+					font-size: 20px;
+				}
+			}
+		}
+	}
+
 	&__cover{
 		picture{
 			width: 100%;
@@ -125,7 +157,7 @@ export default {
 	}
 
 	&__content{
-		padding: 15% 32px 32px;
+		padding: 6% 32px 32px;
 	}
 }
 

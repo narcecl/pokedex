@@ -1,9 +1,9 @@
 <template>
-	<nav>
+	<nav :class="{ mobile: isMobileViewport, open: value }">
 		<div class="container">
 			<ul class="align-items-center justify-content-between">
 				<li v-for="(region, index) in getRegionNames" :key="index" class="nav__item">
-					<nuxt-link :to="`/${region.slug}`">
+					<nuxt-link :to="`/${region.slug}`" @click.native="chooseRegion">
 						{{ region.name }}
 					</nuxt-link>
 				</li>
@@ -14,11 +14,21 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import mobile from '~/mixins/mobile';
 
 export default {
 	name: 'AppNav',
+	mixins: [mobile],
+	props: {
+		value: { type: Boolean, default: false }
+	},
 	computed: {
 		...mapGetters(['getRegionNames'])
+	},
+	methods: {
+		chooseRegion: function(){
+			this.$emit( 'input', !this.value );
+		}
 	}
 };
 </script>
@@ -29,8 +39,17 @@ nav{
 		margin-top: 32px;
 	}
 
+	&.mobile{
+		&.open{
+			ul{
+				display: block;
+			}
+		}
+	}
+
 	ul{
 		display: none;
+		margin-top: 24px;
 		padding-top: 24px;
 		border-top: 1px solid rgba($color-text,.2);
 
