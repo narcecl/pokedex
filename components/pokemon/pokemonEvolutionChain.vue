@@ -11,7 +11,7 @@
 							<span v-if="pkm.known_move" class="fw--bold">+ knowing {{ pkm.known_move }}</span>
 						</span>
 					</p>
-					<p v-if="pkm.trigger_name === 'use-item' && pkm.item" class="f--sm text-center mr-32">
+					<p v-if="pkm.trigger_name === 'use-item' && pkm.item?.name" class="f--sm text-center mr-32">
 						<font-awesome-icon class="next f-28" icon="chevron-right" aria-hidden="true" />
 						<span class="d-block f--xs mt-4">{{ $t('Using') }} <span class="fw--bold">{{ $t(pkm.item.name.replaceAll('-', ' ')) }}</span></span>
 					</p>
@@ -19,12 +19,12 @@
 						<font-awesome-icon class="next f-28" icon="chevron-right" aria-hidden="true" />
 						<span class="d-block f--xs mt-4">{{ $t('Trade') }}</span>
 					</p>
-					<div>
+					<nuxt-link :to="{name: 'pokemon-slug', params: { slug: pkm.species_name }}">
 						<pokemon-image :name="pkm.species_name" :plain="true" :src="pkm.sprites" />
 						<p class="sub--title text-center mt-8">
 							{{ pkm.species_name }}
 						</p>
-					</div>
+					</nuxt-link>
 				</div>
 			</div>
 		</div>

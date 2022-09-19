@@ -97,7 +97,7 @@ export default {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba($primary-black, .9);
+	background: rgba($primary-black, .8);
 	z-index: 100;
 	backdrop-filter: blur(10px);
 

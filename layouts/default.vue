@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
 	name: 'LayoutDefault',
 	head: function(){
@@ -17,9 +19,17 @@ export default {
 			}
 		};
 	},
+	computed: {
+		...mapState(['allPokemons', 'pokemonTypes'])
+	},
 	beforeMount: function(){
 		// Initial set of color scheme
 		this.checkCookieDarkMode();
+	},
+	created: function(){
+		// Initial call to all pokemons and types
+		if( !this.allPokemons.length ) this.getAllPokemons();
+		if( !this.pokemonTypes.length ) this.getPokemonTypes();
 	},
 	mounted: function(){
 		// Listen for changes in the color scheme
@@ -32,6 +42,8 @@ export default {
 		});
 	},
 	methods: {
+		...mapActions(['getAllPokemons', 'getPokemonTypes']),
+
 		checkCookieDarkMode: function(){
 			const darkMode = this.$methods.getCookie( 'dark_mode' );
 			if( darkMode !== this.darkMode ) this.$store.commit( 'SET_DARK', ( darkMode === 'true' ));

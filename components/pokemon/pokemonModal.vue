@@ -5,11 +5,7 @@
 				<pokemon-image :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" :plain="false" />
 			</div>
 			<div class="pokemon-modal__content">
-				<div class="pokemon-modal__block">
-					<p class="f--sm">
-						N.º {{ $methods.pad(pokemon.id) }}
-					</p>
-
+				<div class="section__block">
 					<div class="d-flex align-items-center mb-12">
 						<h6 class="heading--4 mr-16">
 							{{ pokemon.name }}
@@ -17,47 +13,16 @@
 						<pokemon-types :types="pokemon.types" size="md" />
 					</div>
 
-					<p v-if="description">
-						{{ description }}
-					</p>
-					<p v-else>
-						{{ $t('no_description_pokemon') }}
-					</p>
+					<p>{{ description || $t('no_description_pokemon') }}</p>
 				</div>
 
-				<div class="pokemon-modal__block">
-					<div class="row total mini">
-						<div class="col-12 col-sm-3">
-							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-								{{ $t('weight') }}
-							</h6>
-							<p>
-								{{ Math.round((pokemon.weight * 0.1) * 100) / 100 }} kg
-							</p>
-						</div>
-						<div class="col-12 col-sm-3">
-							<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
-								{{ $t('height') }}
-							</h6>
-							<p>
-								{{ Math.round((pokemon.height * 0.1) * 100) / 100 }} m
-							</p>
-						</div>
-					</div>
+				<div class="section__block">
+					<pokemon-info :specie="specie" :weight="pokemon.weight" :height="pokemon.height" :compact="true" />
 				</div>
 
-				<div class="pokemon-modal__block">
+				<div class="section__block">
 					<accordion v-if="Object.keys(sprites).length" :title="$t('Sprites')" group="pokemon-details">
-						<div class="row total mini justify-content-center">
-							<div v-for="(sprite, key, i) in sprites" :key="i" class="col-6 col-sm-3">
-								<div class="text-center">
-									<nuxt-img :src="sprite" :alt="`Sprite ${pokemon.name}`" />
-									<p class="f--xs text-uppercase">
-										{{ $t(key) }}
-									</p>
-								</div>
-							</div>
-						</div>
+						<pokemon-sprites :sprites="sprites" :name="pokemon.name" />
 					</accordion>
 
 					<accordion :title="$t('Abilities')" group="pokemon-details">
@@ -114,7 +79,7 @@ export default {
 		}
 	},
 	created: async function(){
-		this.specie = await this.getSpecie( this.pokemon.id ).then( response => response );
+		this.specie = await this.getPokemonSpecie( this.pokemon.id ).then( response => response );
 		if( this.specie ){
 			this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
 		}
@@ -122,7 +87,7 @@ export default {
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
-		...mapActions(['getEvolutionChain', 'getSpecie', 'getEvolutionChain']),
+		...mapActions(['getEvolutionChain', 'getPokemonSpecie', 'getEvolutionChain']),
 
 		closeModal: function(){
 			this.SET_POKEMON_MODAL( false );
@@ -138,14 +103,8 @@ export default {
 	border-radius: 8px;
 	overflow: hidden;
 
-	&__block{
-		+ .pokemon-modal__block{
-			margin-top: 32px;
-		}
-	}
-
 	&__cover{
-		figure{
+		picture{
 			width: 100%;
 			padding: 12px;
 			height: 140px;

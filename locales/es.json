@@ -17,6 +17,7 @@
     "galar_starters_description": "En Pokémon Sword y Pokémon Shield, el personaje del jugador y Hop reciben a su primer compañero Pokémon Grookey, Scorbunny o Sobble en Postwick de manos de Leon, el Campeón Pokémon de Galar.",
     "galar_region_description": "Galar (Galar en inglés, ガラル Galar en japonés) es una región del mundo Pokémon donde se desarrollará la trama de los videojuegos Pokémon Espada y Pokémon Escudo de la octava generación.",
     "Explore": "Explora",
+    "specie": "especie",
     "weight": "peso",
     "height": "altura",
     "Sprites": "Modelos 3D",
@@ -53,5 +54,6 @@
     "Hapiness": "Amistad",
     "load more": "Cargar más",
     "no_description_pokemon": "No se pudo obtener la descripción de este Pokémon.",
-    "copyright_personal": "Desarrollado con amor por"
+    "copyright_personal": "Desarrollado con amor por",
+    "query_placeholder": "Busca por nombre o ID"
 }
