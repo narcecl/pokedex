@@ -118,7 +118,7 @@ export default {
 	},
 
 	i18n: {
-		baseUrl: '/',
+		baseUrl: process.env.NODE_ENV === 'development' ? '/' : '/pokedex',
 		strategy: 'no_prefix',
 		locales: [ 
 			{ code: 'en', iso: 'en-EN', name: 'EN', file: 'en.json', },

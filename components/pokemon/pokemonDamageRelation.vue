@@ -4,7 +4,7 @@
 			<p class="sub--title d-block mb-8">
 				{{ $t(key.replaceAll('_', ' ')) }}
 			</p>
-			<pokemon-type v-for="(scopeType, index) in item" :key="index" :type="scopeType.name" size="md" />
+			<pokemon-types :types="item" size="md" />
 		</div>
 	</div>
 </template>
@@ -25,7 +25,8 @@ export default {
 			const damageRelation = {};
 
 			Object.entries( damageRelationTemp ).forEach(([key, value]) => {
-				if( value.length ) damageRelation[key] = value;
+				const mappedArr = value.map( item => ({ type: { name: item.name } }));
+				if( value.length ) damageRelation[key] = mappedArr;
 			});
 
 			return damageRelation;

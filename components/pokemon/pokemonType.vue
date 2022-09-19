@@ -1,7 +1,9 @@
 <template>
-	<span :class="[`bg--${type}`, `pokemon-type--${size}`]" class="pokemon-type">
-		{{ getLocaleName }}
-	</span>
+	<div class="pokemon-type">
+		<span :class="[`bg--${type}`, `size--${size}`]">
+			{{ getLocaleName }}
+		</span>
+	</div>
 </template>
 
 <script>
@@ -24,26 +26,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pokemon{
-	&-type{
+.pokemon-type{
+	span{
 		border-radius: 6px;
 		text-transform: uppercase;
 		color: #fff;
 		display: inline-block;
-		margin-right: 6px;
 
-		&--xs{
-			padding: 4px 8px;
-			font-size: 10px;
-		}
+		&.size{
+			&--xs{
+				padding: 4px 8px;
+				font-size: 10px;
+			}
 
-		&--md{
-			padding: 6px 12px;
-			font-size: 12px;
-		}
-
-		&:last-of-type{
-			margin-right: 0;
+			&--md{
+				padding: 6px 12px;
+				font-size: 12px;
+			}
 		}
 	}
 }

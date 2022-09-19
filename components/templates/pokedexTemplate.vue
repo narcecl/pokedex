@@ -3,7 +3,7 @@
 		<section class="section bg--secondary">
 			<div class="container">
 				<h1 class="heading--1 mb-4">
-					The {{ region.name }} Region
+					{{ $t('region_title', {name: region.name}) }}
 				</h1>
 				<p>{{ $t(`${region.slug}_region_description`) }}</p>
 			</div>
@@ -32,30 +32,6 @@
 				</div>
 			</div>
 		</section>
-
-		<!-- <section v-if="region.legendaries.length" class="section bg--secondary">
-			<div class="container">
-				<div class="mb-32">
-					<h1 class="heading--3 mb-4">
-						{{ $t('Meet the Legendaries') }}
-					</h1>
-					<p>
-						{{ $t(`${region.slug}_legendaries_description`) }}
-					</p>
-				</div>
-
-				<div v-if="legendariesPokemons.length" class="row total mini">
-					<div v-for="(legendary, index) in legendariesPokemons" :key="index" class="col-6 col-sm-2">
-						<pokemon-card :details="legendary" />
-					</div>
-				</div>
-				<div v-else class="row total mini">
-					<div v-for="n in region.legendaries.length" :key="n" class="col-6 col-sm-2">
-						<skeleton />
-					</div>
-				</div>
-			</div>
-		</section> -->
 
 		<section class="section">
 			<div class="container">
