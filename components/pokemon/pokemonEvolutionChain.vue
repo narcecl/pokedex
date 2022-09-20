@@ -4,7 +4,7 @@
 			<div v-for="(pkm, i) in evolutionChain" :key="i" class="evolution-chain__item">
 				<div class="d-block d-sm-flex align-items-center">
 					<p v-if="pkm.trigger_name === 'level-up'" class="f--sm text-center mr-24">
-						<font-awesome-icon class="d-none next f-28" icon="chevron-right" aria-hidden="true" />
+						<font-awesome-icon class="d-none d-sm-inline next f-28" icon="chevron-right" aria-hidden="true" />
 						<span class="d-block f--xs mt-4">
 							Level {{ pkm.min_level }}
 							<span v-if="pkm.require_hapiness" class="fw--bold">+ {{ $t('Hapiness') }}</span>
@@ -12,11 +12,11 @@
 						</span>
 					</p>
 					<p v-if="pkm.trigger_name === 'use-item' && pkm.item?.name" class="f--sm text-center mr-24">
-						<font-awesome-icon class="d-none next f-28" icon="chevron-right" aria-hidden="true" />
+						<font-awesome-icon class="d-none d-sm-inline next f-28" icon="chevron-right" aria-hidden="true" />
 						<span class="d-block f--xs mt-4">{{ $t('Using') }} <span class="fw--bold">{{ $t(pkm.item.name.replaceAll('-', ' ')) }}</span></span>
 					</p>
 					<p v-if="pkm.trigger_name === 'trade'" class="f--sm text-center mr-24">
-						<font-awesome-icon class="d-none next f-28" icon="chevron-right" aria-hidden="true" />
+						<font-awesome-icon class="d-none d-sm-inline next f-28" icon="chevron-right" aria-hidden="true" />
 						<span class="d-block f--xs mt-4">{{ $t('Trade') }}</span>
 					</p>
 					<div class="box--light">
