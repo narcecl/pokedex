@@ -1,5 +1,7 @@
 {
     "region_title": "La región {name}",
+    "pokemon_varieties_title": "Estas son las variedades de {name} (normal incluida):",
+    "pokemon_sprites_title": "Estas son las capturas del modelo 3D de {name}:",
     "Meet the Starters": "Conoce a los iniciales",
     "kanto_starters_description": "Al comienzo de su búsqueda, los Entrenadores reciben un Pokémon inicial o un primer compañero Pokémon, en Pokémon Rojo, Verde, Azul, Rojo Fuego y Verde Hoja, el Profesor Oak llevará a los Entrenadores a su laboratorio para darles uno de los siguientes para comenzar su viaje.",
     "kanto_region_description": "Kanto (Kanto en inglés, カントー Kantō en japonés) es una región del mundo Pokémon situada al este de Johto y al sur de Sinnoh. Su paisaje está inspirado en la zona de Japón del mismo nombre, la región de Kantō.",
@@ -24,6 +26,7 @@
     "weight": "peso",
     "height": "altura",
     "Sprites": "Modelos 3D",
+    "Varieties": "Variedades",
     "Abilities": "Habilidades",
     "Damage relations": "Relación de daño",
     "Evolution chain": "Cadena evolutiva",

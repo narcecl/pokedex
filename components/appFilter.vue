@@ -8,9 +8,12 @@
 					</a>
 				</div>
 
-				<h6 class="heading--4 mb-4 text-center">
-					find a Pokémon
-				</h6>
+				<div class="text-center">
+					<h6 class="heading--4 mb-4">
+						Find a Pokémon
+					</h6>
+					<p>Search between {{ allPokemons.length }} Pokémons.</p>
+				</div>
 
 				<div class="my-32">
 					<custom-input v-model="query" :placeholder="$t('query_placeholder')" />
@@ -39,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
 	name: 'AppFilter',
@@ -62,10 +65,12 @@ export default {
 		};
 	},
 	computed: {
+		...mapState(['allPokemons']),
 		...mapGetters(['getPokemonByQuery']),
 
 		filterResults: function(){
-			const results = this.getPokemonByQuery( this.query );
+			const query = this.query.toLowerCase();
+			const results = this.getPokemonByQuery( query );
 			if( results.length > this.showLimit ){
 				return results.slice( 0, this.showLimit );
 			}
@@ -76,9 +81,6 @@ export default {
 		value: function( val ){
 			if( val ) this.showPanel();
 		}
-	},
-	mounted: function(){
-		this.showPanel();
 	},
 	methods: {
 		showPanel: function(){
@@ -110,7 +112,8 @@ export default {
 	backdrop-filter: blur(10px);
 
 	&__cont{
-		width: 85%;
+		width: 100%;
+		max-width: 85%;
 		background: $dark-mode-primary;
 		transform: translate(100%, 0);
 		height: 100%;
@@ -123,7 +126,7 @@ export default {
 		@include transition;
 
 		@media screen and (min-width: $break-sm){
-			width: 30%;
+			max-width: 30%;
 			padding: 48px 32px;
 		}
 
