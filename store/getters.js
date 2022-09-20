@@ -12,7 +12,7 @@ export default {
 			return {
 				name: generationFound.name,
 				slug: generationFound.slug,
-				code: `${generationCode[0].charAt(0).toUpperCase() + generationCode[0].slice(1)} ${generationCode[1].toUpperCase()}`
+				code: `Gen ${generationCode[1].toUpperCase()}`
 			};
 		}
 	},
