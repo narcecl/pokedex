@@ -23,10 +23,10 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-types{
-	margin: -4px;
+	margin: -3px;
 
 	&:deep(div){
-		padding: 4px;
+		padding: 3px;
 	}
 }
 </style>

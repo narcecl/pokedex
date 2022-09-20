@@ -23,9 +23,7 @@ export default {
 		...mapState(['allPokemons', 'pokemonTypes'])
 	},
 	watch: {
-		$route: function( to, from ){
-			// console.info( 'route change to', to );
-			// console.info( 'route change from', from );
+		$route: function(){
 			this.SET_POKEMON_MODAL( false );
 			this.SELECT_POKEMON( null );
 		}

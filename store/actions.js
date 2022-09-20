@@ -174,5 +174,23 @@ export default {
 
 		fullAbilities.sort(( a, b ) => ( a.slot > b.slot ) ? 1 : (( b.slot > a.slot ) ? -1 : 0 ));
 		return fullAbilities;
+	},
+	getVarietiesInfo: async function( context, varieties ){
+		const fullVarieties = [];
+
+		await Promise.allSettled(
+			varieties.map( variety => {
+				return this.$axios( variety.url ).then( response => {
+					if( response.data ) fullVarieties.push( response.data );
+				});
+			})
+		);
+
+		fullVarieties.sort(( a, b ) => ( a.id > b.id ) ? 1 : (( b.id > a.id ) ? -1 : 0 ));
+		return fullVarieties.map( variety => ({
+			id: variety.id,
+			name: variety.name,
+			sprites: variety.sprites
+		}));
 	}
 };

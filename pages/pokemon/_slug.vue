@@ -3,7 +3,7 @@
 		<section :class="getBackground" class="single--cover">
 			<div class="container">
 				<div class="d-flex justify-content-center justify-content-sm-start">
-					<pokemon-image width="350" height="350" :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" />
+					<pokemon-image width="350" height="350" :name="specie.name" :types="pokemon.types" :src="pokemon.sprites" />
 				</div>
 			</div>
 		</section>
@@ -32,10 +32,25 @@
 
 		<section v-if="Object.keys(sprites).length" class="section section--sm">
 			<div class="container">
-				<h2 class="heading--5 mb-32">
-					{{ $t('Sprites') }}
-				</h2>
-				<pokemon-sprites :sprites="sprites" :name="pokemon.name" />
+				<div class="mb-32">
+					<h2 class="heading--5">
+						{{ $t('Sprites') }}
+					</h2>
+					<p>{{ $t('pokemon_sprites_title', { name: $methods.capitalize(specie.name) }) }}</p>
+				</div>
+				<pokemon-sprites :sprites="sprites" :name="specie.name" />
+			</div>
+		</section>
+
+		<section v-if="specie.varieties.length > 1" class="section section--sm">
+			<div class="container">
+				<div class="mb-32">
+					<h2 class="heading--5">
+						{{ $t('Varieties') }}
+					</h2>
+					<p>{{ $t('pokemon_varieties_title', { name: $methods.capitalize(specie.name) }) }}</p>
+				</div>
+				<pokemon-varieties :varieties="specie.varieties" />
 			</div>
 		</section>
 
@@ -90,7 +105,7 @@ export default {
 	},
 	head: function(){
 		return {
-			title: `${this.$methods.capitalize( this.specie.name )} -  ${this.specie.id} | Pokédex Entry`
+			title: `${this.$methods.capitalize( this.specie.name )} -  ${this.$methods.pad( this.specie.id )} | Pokédex Entry`
 		};
 	},
 	computed: {

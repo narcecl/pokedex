@@ -7,6 +7,12 @@
 	transition: $property $time $timing;
 }
 
+@mixin box(){
+	border-radius: 8px;
+	padding: 16px;
+	box-sizing: border-box;
+}
+
 @function rgbaToHex($color, $percent){
 	$new-color: rgba($color, $percent);
 	$percent: alpha($new-color) * 100%;

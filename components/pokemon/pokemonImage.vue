@@ -13,7 +13,7 @@ export default {
 	props: {
 		name: { type: String, required: true },
 		types: { type: Array, default: () => ([]) },
-		src: { type: Object, default: () => ({}), required: true },
+		src: { type: [Object, String], default: () => ({}) },
 		plain: { type: Boolean, default: true },
 		deep: { type: Boolean, default: true },
 		width: { type: [Number, String], default: '100%' },
@@ -21,13 +21,13 @@ export default {
 	},
 	computed: {
 		getBackground: function(){
-			if( this.plain ) return;
+			if( this.plain || !this.types.length ) return;
 
 			const firstType = this.types[0].type.name;
 			return `bg-light--${firstType}`;
 		},
 		getSource: function(){
-			if( !Object.keys( this.src ).length ) return '';
+			if( !this.src || !Object.keys( this.src ).length ) return '';
 			if( this.deep && Object.keys( this.src ).length ) return this.src.other['official-artwork'].front_default;
 			return this.src;
 		}

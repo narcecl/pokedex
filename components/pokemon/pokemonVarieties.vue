@@ -1,0 +1,49 @@
+<template>
+	<div class="row total mini">
+		<div v-for="(variety, i) in fullVarieties" :key="i" :class="fullVarieties.length > 8 ? 'col-sm-2' : 'col-sm-3'" class="col-6">
+			<div class="box--light text-center">
+				<div class="d-flex align-items-center">
+					<!-- <pokemon-image :src="variety.sprites.front_default" :name="variety.name" :deep="false" :plain="true" width="96" />
+					<pokemon-image :src="variety.sprites.back_default" :name="variety.name" :deep="false" :plain="true" width="96" /> -->
+					<pokemon-image :src="variety.sprites" :name="variety.name" :plain="true" width="256" />
+				</div>
+				<p class="sub--title mt-4">
+					{{ $methods.capitalize( variety.name.split('-').join(' ') ) }}
+				</p>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import { mapActions } from 'vuex';
+
+export default {
+	name: 'PokemonVarieties',
+	props: {
+		varieties: { type: Array, default: () => ([]) }
+	},
+	data: function(){
+		return {
+			fullVarieties: []
+		};
+	},
+	computed: {
+		foundVarieties: function(){
+			if( !this.varieties.length ) return false;
+			// const varieties = this.varieties.filter( item => !item.is_default );
+			return this.varieties.map( item => item.pokemon );
+		}
+	},
+	created: async function(){
+		this.fullVarieties = await this.getVarietiesInfo( this.foundVarieties );
+	},
+	methods: {
+		...mapActions(['getVarietiesInfo'])
+	}
+};
+</script>
+
+<style lang="scss" scoped>
+
+</style>
