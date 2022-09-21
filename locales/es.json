@@ -3,7 +3,7 @@
     "pokemon_varieties_desc": "Estas son las variedades de {name} (normal incluida):",
     "pokemon_sprites_desc": "Estas son las capturas del modelo 3D de {name}:",
     "pokemon_abilies_desc": "Lista completa de las posibles habilidades de {name}.",
-    "pokemon_damage_relations_desc": "Relación de daño para el tipo {type}.",
+    "pokemon_damage_relations_desc": "Relación de daño para el tipo <mark>{type}</mark>.",
     "pokemon_evolution_chain_desc": "Lista completa de la cadena evolutiva de {name}.",
     "pokemon_stadistics_desc": "Estadísticas base de {name}.",
     "Meet the Starters": "Conoce a los iniciales",
