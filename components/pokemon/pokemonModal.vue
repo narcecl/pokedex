@@ -10,7 +10,7 @@
 								<font-awesome-icon icon="arrow-up-right-from-square" aria-hidden="true" />
 							</nuxt-link>
 						</li>
-						<li>
+						<li class="d-none">
 							<nuxt-link :to="{name: 'pokemon-slug', params: { slug: specie.name }}" class="hover--opacity" title="Add to favorites">
 								<font-awesome-icon icon="heart" aria-hidden="true" />
 							</nuxt-link>
@@ -117,6 +117,7 @@ export default {
 
 	&__actions-links{
 		padding: 16px 32px;
+
 		ul{
 			li{
 				margin-right: 24px;
@@ -126,7 +127,7 @@ export default {
 				}
 
 				a{
-					color: #fff;
+					color: $color-text;
 					font-size: 20px;
 				}
 			}
@@ -162,6 +163,16 @@ export default {
 .dark{
 	.pokemon-modal{
 		background: #1a202c;
+
+		&__actions-links{
+			ul{
+				li{
+					a{
+						color: #fff;
+					}
+				}
+			}
+		}
 	}
 }
 </style>

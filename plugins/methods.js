@@ -36,5 +36,21 @@ Vue.prototype.$methods = {
 		}
 
 		return list;
+	},
+	toSlug: function( str ){
+		if( !str ) return '';
+
+		let text = str.replace( /^\s+|\s+$/g, '' ).toLowerCase().trim();
+		const from = 'ÀÁÄÂÀÃÅČÇĆĎÈÉĚËÈÊẼĔȆÌÍÌÎÏŇÑÒÓÖÒÔÕØŘŔŠŤÙÚŮÜÙÛÝŸŽàáäâàãåčçćďèéěëèéêẽĕȇìíìîïňñòóöòôõøðřŕšťùúůüùûýÿžþÞĐđßÆ/·_,:;';
+		const to = 'AAAAAAACCCDEEEEEEEEEIIIIINNOOOOOOORRSTUUUUUUYYZaaaaaaacccdeeeeeeeeeeiiiiinnoooooooorrstuuuuuuyyzbBDdBA-';
+
+		for( let i = 0, l = from.length; i < l; i++ ){
+			const word = from.charAt( i );
+			const replace = to.charAt( i );
+			text = text.split( word ).join( replace );
+		}
+
+		text = text.split(' ').join('-').split('--').join('-').split('/').join('-').split('?').join('').split('¿').join('').split('!').join('').split('¡').join('').split('(').join('').split(')').join(''); // eslint-disable-line space-in-parens
+		return text;
 	}
 };

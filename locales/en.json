@@ -1,7 +1,11 @@
 {
     "region_title": "The {name} Region",
-    "pokemon_varieties_title": "These are the varieties from {name} (default included):",
-    "pokemon_sprites_title": "There are the sprites from {name}:",
+    "pokemon_varieties_desc": "These are the varieties of {name} (default included):",
+    "pokemon_sprites_desc": "There are the sprites of {name}:",
+    "pokemon_abilies_desc": "Full list of {name} abilities.",
+    "pokemon_damage_relations_desc": "Damage relation for {type} type.",
+    "pokemon_evolution_chain_desc": "Full evolution chain of {name}.",
+    "pokemon_stadistics_desc": "Base stadistics of {name}.",
     "kanto_starters_description": "At the beginning of their quest, Trainers are given a starter Pokémon or first partner Pokémon. In Pokémon Yellow, Oak instead gives a Pikachu to the player character while the player character's rival receives an Eevee. In Pokémon: Let's Go, Pikachu! and Pokémon: Let's Go, Eevee!, player characters will start with Pikachu or Eevee, depending on which version of the game they are in.",
     "kanto_region_description": "Kanto (Kanto in English, カントー Kantō in Japanese) is a region of the Pokémon world located east of Johto and south of Sinnoh. Its landscape is inspired by the area of Japan of the same name, the Kantō region.",
     "johto_starters_description": "In Pokémon Gold, Pokémon Silver, Pokémon Crystal, Pokémon HeartGold, and Pokémon SoulSilver, Professor Elm will have an errand for the player character to run and will give the choice between Chikorita, Cyndaquil, or Totodile for protection on this errand. The player character will keep the selected Pokémon after completion.",

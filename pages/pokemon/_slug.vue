@@ -30,54 +30,86 @@
 			</div>
 		</section>
 
-		<section v-if="Object.keys(sprites).length" class="section section--sm">
+		<section class="section">
 			<div class="container">
-				<div class="mb-32">
-					<h2 class="heading--5">
-						{{ $t('Sprites') }}
-					</h2>
-					<p>{{ $t('pokemon_sprites_title', { name: $methods.capitalize(specie.name) }) }}</p>
-				</div>
-				<pokemon-sprites :sprites="sprites" :name="specie.name" />
-			</div>
-		</section>
+				<tabs v-model="selectedTab">
+					<tab-content id="info" :label="$t('Info')">
+						<div class="row total">
+							<div class="col-12 col-sm-6">
+								<div class="section__block">
+									<h2 class="heading--4">
+										{{ $t('Stadistics') }}
+									</h2>
+									<p>{{ $t('pokemon_stadistics_desc', { name: prettyName }) }}</p>
+								</div>
+								<div class="section__block">
+									<div class="w-100 w-sm-80">
+										<pokemon-stats :stats="pokemon.stats" />
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-sm-6">
+								<div class="section__block">
+									<h2 class="heading--4">
+										{{ $t('Abilities') }}
+									</h2>
+									<p>{{ $t('pokemon_abilies_desc', { name: prettyName }) }}</p>
+								</div>
+								<div class="section__block">
+									<pokemon-abilities :abilities="pokemon.abilities" />
+								</div>
+							</div>
+						</div>
+					</tab-content>
 
-		<section v-if="specie.varieties.length > 1" class="section section--sm">
-			<div class="container">
-				<div class="mb-32">
-					<h2 class="heading--5">
-						{{ $t('Varieties') }}
-					</h2>
-					<p>{{ $t('pokemon_varieties_title', { name: $methods.capitalize(specie.name) }) }}</p>
-				</div>
-				<pokemon-varieties :varieties="specie.varieties" />
-			</div>
-		</section>
+					<tab-content v-if="Object.keys(sprites).length" id="sprites" :label="$t('Sprites')">
+						<div class="section__block">
+							<h2 class="heading--4">
+								{{ $t('Sprites') }}
+							</h2>
+							<p>{{ $t('pokemon_sprites_desc', { name: prettyName }) }}</p>
+						</div>
+						<div class="section__block">
+							<pokemon-sprites :sprites="sprites" :name="specie.name" />
+						</div>
+					</tab-content>
 
-		<section class="section section--sm">
-			<div class="container">
-				<h2 class="heading--5 mb-32">
-					{{ $t('Abilities') }}
-				</h2>
-				<pokemon-abilities :abilities="pokemon.abilities" />
-			</div>
-		</section>
+					<tab-content v-if="specie.varieties.length > 1" id="varieties" :label="$t('Varieties')">
+						<div class="section__block">
+							<h2 class="heading--4">
+								{{ $t('Varieties') }}
+							</h2>
+							<p>{{ $t('pokemon_varieties_desc', { name: prettyName }) }}</p>
+						</div>
+						<div class="section__block">
+							<pokemon-varieties :varieties="specie.varieties" />
+						</div>
+					</tab-content>
 
-		<section v-if="pokemonTypes.length" class="section section--sm">
-			<div class="container">
-				<h2 class="heading--5 mb-32">
-					{{ $t('Damage relations') }}
-				</h2>
-				<pokemon-damage-relation :type="pokemon.types[0].type.name" />
-			</div>
-		</section>
+					<tab-content id="damage-relations" :label="$t('Damage relations')">
+						<div class="section__block">
+							<h2 class="heading--4">
+								{{ $t('Damage relations') }}
+							</h2>
+							<p>{{ $t('pokemon_damage_relations_desc', { type: firstType }) }}</p>
+						</div>
+						<div class="section__block">
+							<pokemon-damage-relation :type="pokemon.types[0].type.name" />
+						</div>
+					</tab-content>
 
-		<section v-if="evolutionChain" class="section section--sm">
-			<div class="container">
-				<h2 class="heading--5 mb-32">
-					Evolution Chain
-				</h2>
-				<pokemon-evolution-chain :evolution-chain="evolutionChain" />
+					<tab-content id="evolution-chain" :label="$t('Evolution chain')">
+						<div class="section__block">
+							<h2 class="heading--4">
+								{{ $t('Evolution chain') }}
+							</h2>
+							<p>{{ $t('pokemon_evolution_chain_desc', { name: prettyName }) }}</p>
+						</div>
+						<div class="section__block">
+							<pokemon-evolution-chain v-if="evolutionChain" :evolution-chain="evolutionChain" />
+						</div>
+					</tab-content>
+				</tabs>
 			</div>
 		</section>
 	</main>
@@ -100,18 +132,25 @@ export default {
 			name: null,
 			specie: null,
 			pokemon: null,
-			evolutionChain: null
+			evolutionChain: null,
+			selectedTab: 'info'
 		};
 	},
 	head: function(){
 		return {
-			title: `${this.$methods.capitalize( this.specie.name )} -  ${this.$methods.pad( this.specie.id )} | Pokédex Entry`
+			title: `${this.$methods.pad( this.specie.id )} - ${this.$methods.capitalize( this.specie.name )} | Pokédex Entry`
 		};
 	},
 	computed: {
-		...mapGetters(['getGenerationInfo']),
+		...mapGetters(['getGenerationInfo', 'getLocaleTypeName']),
 		...mapState(['pokemonTypes', 'regions']),
 
+		prettyName: function(){
+			return this.$methods.capitalize( this.specie.name );
+		},
+		firstType: function(){
+			return this.getLocaleTypeName({ lang: this.$i18n.locale, type: this.pokemon.types[0].type.name });
+		},
 		sprites: function(){
 			const sprites = {};
 

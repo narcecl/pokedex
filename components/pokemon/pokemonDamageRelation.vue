@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="damageRelation">
 		<div v-for="(item, key, i) in damageRelation" :key="i" class="damage-relation__group">
 			<p class="sub--title d-block mb-8">
 				{{ $t(key.replaceAll('_', ' ')) }}
@@ -23,6 +23,7 @@ export default {
 		damageRelation: function(){
 			const damageRelationTemp = this.getTypeInfo( this.type );
 			const damageRelation = {};
+			if( !damageRelationTemp ) return false;
 
 			Object.entries( damageRelationTemp ).forEach(([key, value]) => {
 				const mappedArr = value.map( item => ({ type: { name: item.name } }));
