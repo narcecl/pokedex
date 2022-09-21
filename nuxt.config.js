@@ -8,7 +8,11 @@ export default {
 	target: 'server',
 
 	router: {
-		base: process.env.NODE_ENV === 'production' ? PRODUCTION_BASE_PATH : '/'
+		base: '/t'
+	},
+
+	static: {
+		prefix: false
 	},
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
@@ -159,10 +163,5 @@ export default {
 				implementation: require('sass'),
 			},
 		}
-	},
-
-	generate: {
-		fallback: '404.html',
-		routes: ['kanto']
 	}
 }
