@@ -8,51 +8,48 @@ export default {
 		});
 	},
 	getAllPokemons: async function( context ){
-		const response = await this.$axios( 'https://pokeapi.co/api/v2/pokedex/1' )
+		const pokemons = await this.$axios( 'https://pokeapi.co/api/v2/pokedex/1' ).then( response => response.data.pokemon_entries )
 			.catch( error => console.error( 'getAllPokemons =>', error ));
 
-		if( response.data && response.data?.pokemon_entries.length ){
-			const fullList = response.data.pokemon_entries.map( item => ({ ...item.pokemon_species, id: item.entry_number }));
-			context.commit( 'SET_POKEMONS', fullList );
-		}
+		if( !pokemons.length ) return false;
+		const fullList = pokemons.map( item => ({ ...item.pokemon_species, id: item.entry_number }));
+		context.commit( 'SET_POKEMONS', fullList );
 	},
 	getRegionalPokemons: async function( context, region ){
-		const response = await this.$axios( `https://pokeapi.co/api/v2/pokedex/${region.dexNumber}` )
+		const regionalPokemons = await this.$axios( `https://pokeapi.co/api/v2/pokedex/${region.dexNumber}` ).then( response => response.data.pokemon_entries )
 			.catch( error => console.error( 'getRegionalPokemons =>', error ));
 
-		if( response.data && response.data?.pokemon_entries.length ){
-			context.commit( 'SET_CURRENT_REGION', region );
-			return response.data.pokemon_entries;
-		}
+		if( !regionalPokemons.length ) return false;
+		context.commit( 'SET_CURRENT_REGION', region );
+		return regionalPokemons;
 	},
 	getPokemonSpecie: async function( context, name ){
-		const response = await this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${name}` )
+		const pokemonSpecie = await this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${name}` ).then( response => response.data )
 			.catch( error => console.error( 'getPokemonInfo =>', error ));
 
-		if( !response ) return false;
-		return response.data;
+		if( !pokemonSpecie ) return false;
+		return pokemonSpecie;
 	},
 	getPokemonInfo: async function( context, id ){
-		const response = await this.$axios( `https://pokeapi.co/api/v2/pokemon/${id}` )
+		const pokemonInfo = await this.$axios( `https://pokeapi.co/api/v2/pokemon/${id}` ).then( response => response.data )
 			.catch( error => console.error( 'getPokemonInfo =>', error ));
 
-		if( !response ) return false;
-		return response.data;
+		if( !pokemonInfo ) return false;
+		return pokemonInfo;
 	},
 	getPokemonsData: async function( context, result ){
 		const pokemons = [];
 
 		await Promise.allSettled(
-			result.map( pokemonItem => {
-				return context.dispatch( 'getPokemonSpecie', pokemonItem.pokemon_species.name ).then( specieResponse => {
-					return context.dispatch( 'getPokemonInfo', specieResponse.id ).then( infoResponse => {
-						pokemons.push({
-							...specieResponse,
-							...infoResponse,
-							entry_number: pokemonItem.entry_number,
-							specie_name: specieResponse.name
-						});
-					});
+			result.map( async pokemonItem => {
+				const specieResponse = await context.dispatch( 'getPokemonSpecie', pokemonItem.pokemon_species.name );
+				const infoResponse = await context.dispatch( 'getPokemonInfo', specieResponse.id );
+
+				pokemons.push({
+					...specieResponse,
+					...infoResponse,
+					entry_number: pokemonItem.entry_number,
+					specie_name: specieResponse.name
 				});
 			})
 		);
@@ -61,23 +58,21 @@ export default {
 		return pokemons;
 	},
 	getPokemonTypes: async function( context ){
-		const response = await this.$axios( 'https://pokeapi.co/api/v2/type/' )
+		const allTypes = await this.$axios( 'https://pokeapi.co/api/v2/type/' ).then( response => response.data.results )
 			.catch( error => console.error( 'getPokemonTypes =>', error ));
 
-		if( response.data && response.data?.results ){
-			const results = response.data.results;
+		if( allTypes.length ){
 			const types = [];
 
 			await Promise.allSettled(
-				results.map( item => {
-					return this.$axios( item.url ).then( response => {
-						if( response.data && response.data?.damage_relations ){
-							types.push({
-								name: item.name,
-								names: response.data.names,
-								damage_relations: response.data.damage_relations
-							});
-						}
+				allTypes.map( async type => {
+					const typeDetail = await this.$axios( type.url ).then( response => response.data )
+						.catch( error => console.error( 'getPokemonTypes =>', error ));
+
+					types.push({
+						name: type.name,
+						names: typeDetail.names,
+						damage_relations: typeDetail.damage_relations
 					});
 				})
 			);
@@ -86,88 +81,74 @@ export default {
 		}
 	},
 	getEvolutionChain: async function( context, url ){
-		const evolutionChain = await this.$axios( url )
+		const evolutionChain = await this.$axios( url ).then( response => response.data.chain )
 			.catch( error => console.error( 'getEvolutionChain =>', error ));
 
+		const evoChain = [];
+
 		if( evolutionChain ){
-			let evoData = evolutionChain.data?.chain;
-			const evoChain = [];
+			let evoData = { ...evolutionChain };
 
-			if( evoData ){
-				do {
-					const evoDetails = evoData.evolution_details[0];
-					const numberOfEvolutions = evoData.evolves_to.length;
+			do {
+				const evoDetails = evoData.evolution_details[0];
+				const numberOfEvolutions = evoData.evolves_to.length;
 
-					evoChain.push({
-						species_name: evoData.species.name,
-						min_level: !evoDetails ? 1 : evoDetails.min_level,
-						trigger_name: !evoDetails ? null : evoDetails.trigger.name,
-						item: !evoDetails ? null : evoDetails.item,
-						require_hapiness: !evoDetails ? false : evoDetails.min_happiness > 0,
-						known_move: !evoDetails ? false : evoDetails?.known_move?.name
-					});
+				evoChain.push({
+					species_name: evoData.species.name,
+					min_level: !evoDetails ? 1 : evoDetails.min_level,
+					trigger_name: !evoDetails ? null : evoDetails.trigger.name,
+					item: !evoDetails ? null : evoDetails.item,
+					require_hapiness: !evoDetails ? false : evoDetails.min_happiness > 0,
+					known_move: !evoDetails ? false : evoDetails?.known_move?.name
+				});
 
-					if( numberOfEvolutions > 1 ){
-						for( let i = 1; i < numberOfEvolutions; i++ ){
-							evoChain.push({
-								species_name: evoData.evolves_to[i].species.name,
-								min_level: !evoData.evolves_to[i] ? 1 : evoData.evolves_to[i].min_level,
-								trigger_name: !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[0].trigger.name,
-								item: evoData.evolves_to[i].evolution_details[0].trigger.name === 'level-up' ? null : evoData.evolves_to[i].evolution_details[0].item?.name,
-								require_hapiness: evoData.evolves_to[i].evolution_details[0].min_happiness
-							});
-						}
+				if( numberOfEvolutions > 1 ){
+					for( let i = 1; i < numberOfEvolutions; i++ ){
+						evoChain.push({
+							species_name: evoData.evolves_to[i].species.name,
+							min_level: !evoData.evolves_to[i] ? 1 : evoData.evolves_to[i].min_level,
+							trigger_name: !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[0].trigger.name,
+							item: evoData.evolves_to[i].evolution_details[0].trigger.name === 'level-up' ? null : evoData.evolves_to[i].evolution_details[0].item?.name,
+							require_hapiness: evoData.evolves_to[i].evolution_details[0].min_happiness
+						});
 					}
-
-					evoData = evoData.evolves_to[0];
-				} while( !!evoData && evoData.hasOwnProperty( 'evolves_to' )); // eslint-disable-line no-prototype-builtins
-
-				if( evoChain.length ){
-					await Promise.allSettled(
-						evoChain.map( item => {
-							return this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${item.species_name}` ).then( specieResponse => {
-								const pokemon = specieResponse.data;
-								const pokemonFound = evoChain.findIndex( item => item.species_name === pokemon.name );
-								return context.dispatch( 'getPokemonInfo', pokemon.id ).then( infoResponse => {
-									evoChain[pokemonFound] = {
-										...evoChain[pokemonFound],
-										id: pokemon.id,
-										sprites: infoResponse.sprites
-									};
-								});
-							});
-						})
-					);
-
-					return evoChain;
 				}
+
+				evoData = evoData.evolves_to[0];
+			} while( !!evoData && evoData.hasOwnProperty( 'evolves_to' )); // eslint-disable-line no-prototype-builtins
+
+			if( evoChain.length ){
+				await Promise.allSettled(
+					evoChain.map( async item => {
+						const pokemonSpecie = await this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${item.species_name}` )
+							.then( response => response.data );
+						const pokemonFound = evoChain.findIndex( item => item.species_name === pokemonSpecie.name );
+						const pokemonInfo = await context.dispatch( 'getPokemonInfo', pokemonSpecie.id ).then( response => response.sprites );
+
+						evoChain[pokemonFound] = {
+							...evoChain[pokemonFound],
+							id: pokemonSpecie.id,
+							sprites: pokemonInfo
+						};
+					})
+				);
 			}
 		}
 
-		return null;
+		return evoChain;
 	},
 	getAbilities: async function( context, abilities ){
 		const fullAbilities = [];
 
 		await Promise.allSettled(
-			abilities.map( item => {
-				let ability = {
-					is_hidden: item.is_hidden,
-					name: item.ability.name,
-					url: item.ability.url,
-					slot: item.slot
-				};
-
-				return this.$axios( ability.url ).then( response => {
-					if( response.data ){
-						ability = {
-							...ability,
-							names: response.data.names,
-							effect_entries: response.data.flavor_text_entries,
-							effect_changes: response.data.effect_changes
-						};
-						fullAbilities.push( ability );
-					}
+			abilities.map( async item => {
+				const ability = { is_hidden: item.is_hidden, name: item.ability.name, url: item.ability.url, slot: item.slot };
+				const abilityInfo = await this.$axios( ability.url ).then( response => response.data );
+				fullAbilities.push({
+					...ability,
+					names: abilityInfo.names,
+					effect_entries: abilityInfo.flavor_text_entries,
+					effect_changes: abilityInfo.effect_changes
 				});
 			})
 		);
@@ -179,18 +160,13 @@ export default {
 		const fullVarieties = [];
 
 		await Promise.allSettled(
-			varieties.map( variety => {
-				return this.$axios( variety.url ).then( response => {
-					if( response.data ) fullVarieties.push( response.data );
-				});
+			varieties.map( async variety => {
+				const varietyInfo = await this.$axios( variety.url ).then( response => response.data );
+				if( varietyInfo ) fullVarieties.push( varietyInfo );
 			})
 		);
 
 		fullVarieties.sort(( a, b ) => ( a.id > b.id ) ? 1 : (( b.id > a.id ) ? -1 : 0 ));
-		return fullVarieties.map( variety => ({
-			id: variety.id,
-			name: variety.name,
-			sprites: variety.sprites
-		}));
+		return fullVarieties.map( variety => ({ id: variety.id, name: variety.name, sprites: variety.sprites }));
 	}
 };

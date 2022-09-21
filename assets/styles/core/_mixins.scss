@@ -13,6 +13,12 @@
 	box-sizing: border-box;
 }
 
+@mixin subtitle(){
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 600;
+}
+
 @function rgbaToHex($color, $percent){
 	$new-color: rgba($color, $percent);
 	$percent: alpha($new-color) * 100%;
