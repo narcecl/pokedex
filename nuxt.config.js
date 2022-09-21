@@ -8,7 +8,7 @@ export default {
 	target: 'server',
 
 	router: {
-		base: '/t'
+		base: process.env.NODE_ENV === 'production' ? PRODUCTION_BASE_PATH : '/'
 	},
 
 	static: {
