@@ -4,7 +4,7 @@
 			<li v-for="(item, i) in stats" :key="i" class="stadistics__item">
 				<div class="d-flex align-items-center justify-content-between mb-4">
 					<p class="sub--title">
-						{{ item.stat.name }}
+						{{ $methods.normalizeString(item.stat.name) }}
 					</p>
 					<p class="f--sm">
 						{{ item.base_stat }}
@@ -46,7 +46,7 @@ export default {
 	.stadistics{
 		&__item{
 			&__percent{
-				background: rgba(#fff, .1);
+				background: rgba(255, 255, 255, .03)
 			}
 		}
 	}

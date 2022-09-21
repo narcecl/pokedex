@@ -1,7 +1,7 @@
 <template>
 	<transition name="fade">
-		<div v-if="value" class="pokemon-filter">
-			<div class="pokemon-filter__cont" :class="{'pokemon-filter__cont--active': panelActive}">
+		<div v-if="value" class="pokemon-filter" @click="closeOutside">
+			<div ref="panel_content" class="pokemon-filter__cont" :class="{'pokemon-filter__cont--active': panelActive}">
 				<div class="d-flex justify-content-end mb-16">
 					<a class="d-block text--white hover--opacity" href="#" aria-label="close filter" @click.prevent="closeFilter">
 						<font-awesome-icon class="f-24" icon="xmark" aria-hidden="true" />
@@ -82,6 +82,9 @@ export default {
 			if( val ) this.showPanel();
 		}
 	},
+	mounted: function(){
+		this.addEscEvent();
+	},
 	methods: {
 		showPanel: function(){
 			setTimeout(() => {
@@ -94,6 +97,29 @@ export default {
 				this.query = '';
 				this.$emit( 'input', !this.value );
 			}, 300 );
+		},
+		closeOutside: function( event ){
+			let parentModal = null;
+			const parents = this.$methods.getParents( event.target, '.pokemon-filter' );
+
+			parents.forEach( item => {
+				if( item === this.$refs.panel_content ) parentModal = true;
+			});
+
+			if( !event.target.classList.contains( 'pokemon-filter__cont' ) && parentModal === null ){
+				this.closeFilter();
+			}
+		},
+		closeFilterByEsc: function( e ){
+			if( e.keyCode === 27 ) this.closeFilter();
+		},
+		addEscEvent: function(){
+			// Agregamos el evento keyup para cerrar la modal
+			window.addEventListener( 'keyup', this.closeFilterByEsc );
+		},
+		rmEscEvent: function(){
+			// Eliminamos el evento keyup para cerrar la modal
+			window.removeEventListener( 'keyup', this.closeFilterByEsc );
 		}
 	}
 };
@@ -114,7 +140,7 @@ export default {
 	&__cont{
 		width: 100%;
 		max-width: 85%;
-		background: $dark-mode-primary;
+		background: #fff;
 		transform: translate(100%, 0);
 		height: 100%;
 		padding: 32px 20px;
@@ -140,11 +166,11 @@ export default {
 					margin-bottom: 8px;
 					padding: 10px 12px;
 					border-radius: 8px;
-					border: 1px solid rgba(255,255,255, .2);
+					border: 1px solid rgba(#000, .2);
 					@include transition;
 
 					&:hover{
-						border-color: #fff;
+						border-color: rgba(#000, .4);
 					}
 
 					&:last-of-type{
@@ -154,6 +180,26 @@ export default {
 					a{
 						text-decoration: none;
 						display: block;
+					}
+				}
+			}
+		}
+	}
+}
+
+.dark{
+	.pokemon-filter{
+		&__cont{
+			background: $dark-mode-primary;
+
+			&__results{
+				ul{
+					li{
+						border-color: rgba(255,255,255, .2);
+
+						&:hover{
+							border-color: #fff;
+						}
 					}
 				}
 			}

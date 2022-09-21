@@ -5,7 +5,7 @@
 				<picture>
 					<nuxt-img :src="sprite" :alt="`Sprite ${name}`" width="96" height="96" />
 				</picture>
-				<p class="f--xs text-uppercase">
+				<p class="f--xs text-uppercase mt-4">
 					{{ $t(key) }}
 				</p>
 			</div>

@@ -24,7 +24,7 @@
 						<font-awesome-icon icon="magnifying-glass" />
 					</a>
 
-					<a href="#" class="d-inline d-sm-none search-toggle f-20 hover--opacity" @click.prevent="toggleMenu">
+					<a href="#" class="d-inline d-sm-none nav-toggle f-20 hover--opacity" @click.prevent="toggleMenu">
 						<font-awesome-icon icon="bars" />
 					</a>
 				</div>

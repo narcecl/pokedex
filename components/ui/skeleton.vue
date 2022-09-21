@@ -12,12 +12,21 @@
 				<div class="skeleton--element skeleton--text w-30 ml-4" />
 			</div>
 		</div>
+		<div v-else-if="type === 'evolution'" class="skeleton--type__evo" v-bind="{ class: $attrs['data-class'] }">
+			<figure class="skeleton--element skeleton--image w-100 w-sm-auto mb-12">
+				<canvas :width="120" :height="120" />
+			</figure>
+			<div class="w-100" v-bind="{ class: $attrs['data-class'] }">
+				<div class="skeleton--element skeleton--title w-40 w-sm-80" />
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
 export default {
 	name: 'UiSkeleton',
+	inheritAttrs: false,
 	props: {
 		type: { type: String, default: 'card' }
 	}

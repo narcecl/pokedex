@@ -37,6 +37,10 @@ Vue.prototype.$methods = {
 
 		return list;
 	},
+	normalizeString: function( str ){
+		if( !str ) return '';
+		return this.capitalize( str.split( '-' ).join( ' ' ));
+	},
 	toSlug: function( str ){
 		if( !str ) return '';
 

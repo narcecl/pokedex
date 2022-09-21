@@ -1,12 +1,19 @@
 <template>
 	<div class="abilities">
 		<div v-for="(ability, index) in abilitiesDetail" :key="index" class="abilities__item">
-			<p class="sub--title">
-				{{ getName(index) }}  <span v-if="ability.is_hidden">({{ $t('hidden') }})</span>
-			</p>
-			<p class="f--sm">
-				{{ getDescription(index) }}
-			</p>
+			<div :class="{'box--light': !simple}">
+				<div :class="{'justify-content-between': !simple }" class="d-flex align-items-center">
+					<p class="sub--title">
+						{{ getName(index) }}
+					</p>
+					<span v-if="ability.is_hidden" class="f--xs text--muted text-uppercase ml-12">
+						{{ $t('hidden') }}
+					</span>
+				</div>
+				<p>
+					{{ getDescription(index) }}
+				</p>
+			</div>
 		</div>
 	</div>
 </template>
@@ -17,7 +24,8 @@ import { mapActions } from 'vuex';
 export default {
 	name: 'PokemonAbilities',
 	props: {
-		abilities: { type: Array, required: true }
+		abilities: { type: Array, required: true },
+		simple: { type: Boolean, default: false }
 	},
 	data: function(){
 		return {

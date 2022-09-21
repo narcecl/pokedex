@@ -1,25 +1,25 @@
 .text{
     &--white{
+        color: white;
         * {
-            color: white;
             fill: white;
         }
     }
     &--black{
+        color: black;
         * {
-            color: black;
             fill: white;
         }
     }
     &--normal{
+        color: $color-text;
         * {
-            color: $color-text;
             fill: $color-text;
         }
     }
     &--muted{
+        color: $color-muted-text;
         * {
-            color: $color-muted-text;
             fill: $color-muted-text;
         }
     }

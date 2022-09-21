@@ -8,7 +8,7 @@ export default {
 	target: 'server',
 
 	router: {
-		base: process.env.NODE_ENV === 'development' ? '/' : PRODUCTION_BASE_PATH
+		base: '/'
 	},
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
