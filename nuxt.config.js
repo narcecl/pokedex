@@ -163,5 +163,10 @@ export default {
 				implementation: require('sass'),
 			},
 		}
+	},
+
+	generate: {
+		fallback: '404.html',
+		routes: ['kanto']
 	}
 }
