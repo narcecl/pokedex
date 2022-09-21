@@ -153,7 +153,7 @@ export default {
 							border: none;
 							width: 100%;
 							background: transparent;
-							color: rgba($color-text, .4);
+							color: rgba($color-text, .7);
 							cursor: pointer;
 							@include transition;
 							@include subtitle;
@@ -170,7 +170,7 @@ export default {
 	}
 
 	&__content{
-		padding-top: 32px;
+		padding-top: 48px;
 		> .tab-pane{
 			display: none;
 			outline: 0;

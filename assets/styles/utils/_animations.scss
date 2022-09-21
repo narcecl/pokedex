@@ -73,11 +73,44 @@
         animation-name: fadeInRight;
     }
 
+	&__fadeInUp {
+		-webkit-animation-name: fadeInUp;
+		animation-name: fadeInUp;
+	}
+
 	&__bounce {
 		-webkit-animation-name: bounce;
 		animation-name: bounce;
 		-webkit-transform-origin: center bottom;
 		transform-origin: center bottom;
+	}
+}
+
+@-webkit-keyframes fadeInUp {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 32px, 0);
+		transform: translate3d(0, 32px, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		-webkit-transform: translate3d(0, 32px, 0);
+		transform: translate3d(0, 32px, 0);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
 	}
 }
 

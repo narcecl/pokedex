@@ -19,9 +19,30 @@
 						</div>
 					</div>
 				</div>
-				<h1 v-else>
-					An error occurred
-				</h1>
+				<div v-else>
+					<div class="row total align-items-center">
+						<div class="col-12 col-sm-6 order-2 order-sm-1 text-center text-sm-left">
+							<h1 class="heading--3 mb-4">
+								Oh no!
+							</h1>
+							<p class="f--md">
+								We're sorry, something happen and we could'nt display the page correctly.
+							</p>
+
+							<p class="f--muted f--xs mt-24">
+								Error Reference:
+								<mark class="d-block">
+									{{ error.message }}
+								</mark>
+							</p>
+						</div>
+						<div class="col-12 col-sm-6 order-1 order-sm-2">
+							<picture>
+								<nuxt-img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/500.png" />
+							</picture>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 	</main>

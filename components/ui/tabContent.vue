@@ -1,5 +1,5 @@
 <template>
-	<div v-show="isActive" :class="{ animated: isActive }" class="fadeInUp">
+	<div v-show="isActive" :class="{ animated: isActive }" class="animate__fadeInUp">
 		<div v-show="isActive" :id="tabId" role="tabpanel" class="tab-pane" :aria-labelledby="`${tabId}-control`" :class="{ active: isActive }">
 			<slot />
 		</div>
@@ -20,11 +20,10 @@ export default {
 	},
 	computed: {
 		tabId: function(){
-			// 't' + (Math.random() * 1000 | 1);
 			return ( typeof this.id === 'undefined' || this.id === null ) ? this.$methods.toSlug( this.label ) : this.id;
 		}
 	},
-	created: function () {
+	created: function(){
 		this.$parent.tabs.push( this );
 	}
 };

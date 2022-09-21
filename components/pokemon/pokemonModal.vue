@@ -40,7 +40,7 @@
 					</accordion>
 
 					<accordion :title="$t('Abilities')" group="pokemon-details">
-						<pokemon-abilities :abilities="pokemon.abilities" />
+						<pokemon-abilities :abilities="pokemon.abilities" :simple="true" />
 					</accordion>
 
 					<accordion :title="$t('Damage relations')" group="pokemon-details">
@@ -48,7 +48,7 @@
 					</accordion>
 
 					<accordion v-if="evolutionChain" :title="$t('Evolution chain')" group="pokemon-details">
-						<pokemon-evolution-chain :evolution-chain="evolutionChain" />
+						<pokemon-evolution-chain :evolution-chain="evolutionChain" :compact="true" />
 					</accordion>
 				</div>
 			</div>

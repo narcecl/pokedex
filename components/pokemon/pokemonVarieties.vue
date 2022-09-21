@@ -5,8 +5,8 @@
 				<div class="d-flex align-items-center">
 					<pokemon-image :src="variety.sprites" :name="variety.name" :plain="true" width="256" />
 				</div>
-				<p class="sub--title mt-4">
-					{{ $methods.capitalize( variety.name.split('-').join(' ') ) }}
+				<p class="f--xs text-uppercase mt-12">
+					{{ variety.is_default ? 'Default' : '' }} {{ $methods.normalizeString( variety.name ) }}
 				</p>
 			</div>
 		</div>

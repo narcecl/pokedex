@@ -52,7 +52,12 @@ export default {
 		border: 1px solid #eee;
 		font-size: 16px;
 		line-height: normal;
+		background: #f7f7f7;
 		@include transition;
+
+		&:focus{
+			border-color: $primary-color;
+		}
 	}
 }
 

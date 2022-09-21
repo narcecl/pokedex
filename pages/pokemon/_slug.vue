@@ -91,7 +91,7 @@
 							<h2 class="heading--4">
 								{{ $t('Damage relations') }}
 							</h2>
-							<p v-html="$t('pokemon_damage_relations_desc', { type: firstType })"></p>
+							<p v-html="$t('pokemon_damage_relations_desc', { type: firstType })" />
 						</div>
 						<div class="section__block">
 							<pokemon-damage-relation :type="pokemon.types[0].type.name" />
@@ -106,7 +106,7 @@
 							<p>{{ $t('pokemon_evolution_chain_desc', { name: prettyName }) }}</p>
 						</div>
 						<div class="section__block">
-							<pokemon-evolution-chain v-if="evolutionChain" :evolution-chain="evolutionChain" />
+							<pokemon-evolution-chain :evolution-chain="evolutionChain" />
 						</div>
 					</tab-content>
 				</tabs>
@@ -132,7 +132,7 @@ export default {
 			name: null,
 			specie: null,
 			pokemon: null,
-			evolutionChain: null,
+			evolutionChain: false,
 			selectedTab: 'info'
 		};
 	},
