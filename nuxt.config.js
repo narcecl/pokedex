@@ -1,9 +1,16 @@
+import webpack from 'webpack';
+const PRODUCTION_BASE_PATH = '/pokedex';
+
 export default {
 	// Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
 	ssr: true,
 
 	// Target: https://go.nuxtjs.dev/config-target
 	target: 'server',
+
+	router: {
+		base: process.env.NODE_ENV === 'production' ? PRODUCTION_BASE_PATH : '/'
+	},
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
@@ -35,7 +42,8 @@ export default {
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
-		{ src: '~plugins/methods.js' }
+		{ src: '~/plugins/methods.js' },
+		{ src: '~/plugins/static-mixin.js' }
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
@@ -114,11 +122,11 @@ export default {
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
 		// Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-		baseURL: process.env.NODE_ENV === 'development' ? '/' : '/pokedex'
+		baseURL: process.env.NODE_ENV === 'production' ? PRODUCTION_BASE_PATH : '/'
 	},
 
 	i18n: {
-		baseUrl: process.env.NODE_ENV === 'development' ? '/' : '/pokedex',
+		baseUrl: process.env.NODE_ENV === 'production' ? PRODUCTION_BASE_PATH : '/',
 		strategy: 'no_prefix',
 		locales: [ 
 			{ code: 'en', iso: 'en-EN', name: 'EN', file: 'en.json', },
@@ -152,6 +160,11 @@ export default {
 				implementation: require('sass'),
 			},
 		},
+		extend( config, { isDev }){
+			config.plugins.push( new webpack.DefinePlugin({
+				STATIC_PATH: JSON.stringify( isDev ? '' : PRODUCTION_BASE_PATH )
+			}))
+		}
 	},
 
 	generate: {

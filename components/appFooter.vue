@@ -4,7 +4,10 @@
 			<div class="row total mini align-items-center justify-content-between">
 				<div class="col-12 col-sm text-center text-sm-left">
 					<p class="f--sm">
-						{{ $t('copyright_personal') }} <mark>Nicolás Arce</mark>.
+						{{ $t('copyright_personal') }}
+						<a href="https://www.narce.cl" target="_blank">
+							<mark>Nicolás Arce</mark>
+						</a>.
 					</p>
 				</div>
 				<div class="col-12 col-sm text-center text-sm-right">
