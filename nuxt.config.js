@@ -1,4 +1,3 @@
-import webpack from 'webpack';
 const PRODUCTION_BASE_PATH = '/pokedex';
 
 export default {
@@ -159,11 +158,6 @@ export default {
 			scss: {
 				implementation: require('sass'),
 			},
-		},
-		extend( config, { isDev }){
-			config.plugins.push( new webpack.DefinePlugin({
-				STATIC_PATH: JSON.stringify( isDev ? '' : PRODUCTION_BASE_PATH )
-			}))
 		}
 	},
 

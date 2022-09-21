@@ -91,7 +91,7 @@
 							<h2 class="heading--4">
 								{{ $t('Damage relations') }}
 							</h2>
-							<p>{{ $t('pokemon_damage_relations_desc', { type: firstType }) }}</p>
+							<p v-html="$t('pokemon_damage_relations_desc', { type: firstType })"></p>
 						</div>
 						<div class="section__block">
 							<pokemon-damage-relation :type="pokemon.types[0].type.name" />
