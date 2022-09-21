@@ -36,8 +36,18 @@ export default {
 			width: 100%;
 			height: 16px;
 			display: block;
-			background: rgba(#fff, .1);
+			background: rgba(#000, .1);
 			border-radius: 8px;
+		}
+	}
+}
+
+.dark{
+	.stadistics{
+		&__item{
+			&__percent{
+				background: rgba(#fff, .1);
+			}
 		}
 	}
 }

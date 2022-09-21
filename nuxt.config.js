@@ -8,11 +8,7 @@ export default {
 	target: 'server',
 
 	router: {
-		base: process.env.NODE_ENV === 'production' ? PRODUCTION_BASE_PATH : '/'
-	},
-
-	static: {
-		prefix: false
+		base: process.env.NODE_ENV === 'development' ? '/' : PRODUCTION_BASE_PATH
 	},
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
@@ -45,8 +41,7 @@ export default {
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
-		{ src: '~/plugins/methods.js' },
-		{ src: '~/plugins/static-mixin.js' }
+		{ src: '~/plugins/methods.js' }
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
@@ -125,11 +120,11 @@ export default {
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
 	axios: {
 		// Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-		baseURL: process.env.NODE_ENV === 'production' ? PRODUCTION_BASE_PATH : '/'
+		baseURL: process.env.NODE_ENV === 'development' ? '/' : PRODUCTION_BASE_PATH
 	},
 
 	i18n: {
-		baseUrl: process.env.NODE_ENV === 'production' ? PRODUCTION_BASE_PATH : '/',
+		baseUrl: process.env.NODE_ENV === 'development' ? '/' : PRODUCTION_BASE_PATH,
 		strategy: 'no_prefix',
 		locales: [ 
 			{ code: 'en', iso: 'en-EN', name: 'EN', file: 'en.json', },

@@ -24,6 +24,7 @@ export default {
 	},
 	watch: {
 		$route: function(){
+			console.info( 'route =>', this.$router.options.base );
 			this.SET_POKEMON_MODAL( false );
 			this.SELECT_POKEMON( null );
 		}
