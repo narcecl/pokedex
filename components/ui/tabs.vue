@@ -208,7 +208,7 @@ export default {
 
 				&__list{
 					li {
-						min-width: 180px;
+						min-width: 200px;
 					}
 				}
 

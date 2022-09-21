@@ -58,6 +58,13 @@ nav{
 		}
 
 		.nav__item{
+			border-bottom: 1px solid rgba(#fff, .05);
+			&:last-of-type{border-bottom: 0;}
+
+			@media screen and (min-width: $break-sm){
+				border-bottom: 0;
+			}
+
 			a{
 				color: $color-text;
 				text-transform: uppercase;
@@ -66,6 +73,11 @@ nav{
 				font-size: 14px;
 				@include transition;
 				display: block;
+				padding: 12px;
+
+				@media screen and (min-width: $break-sm){
+					padding: 0;
+				}
 
 				&:hover{
 					opacity: .6;

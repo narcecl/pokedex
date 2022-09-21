@@ -4,7 +4,7 @@
 			<div class="row total align-items-center justify-content-between">
 				<div class="col-12 col-sm text-center text-sm-left">
 					<div class="d-flex align-items-center justify-content-center justify-content-sm-start">
-						<nuxt-img :src="`${$router.options.base}/pokemon-logo.png`" alt="Logo Pokémon" width="130" />
+						<nuxt-img src="/pokemon-logo.png" alt="Logo Pokémon" width="130" />
 						<p class="f--xs text--muted ml-32">
 							Regional Pokédex
 						</p>
