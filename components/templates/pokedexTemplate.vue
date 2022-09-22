@@ -22,7 +22,7 @@
 
 				<div v-if="startersPokemons.length" class="row total mini">
 					<div v-for="(starter, index) in startersPokemons" :key="index" class="col-6 col-sm-2">
-						<pokemon-card :details="starter" />
+						<pokemon-card :details="starter" :permalink="isMobileViewport" />
 					</div>
 				</div>
 				<div v-else class="row total mini">
@@ -47,7 +47,7 @@
 				<div v-if="pokemons.length">
 					<div class="row total mini">
 						<div v-for="pokemon in pokemons" :key="pokemon.id" class="col-6 col-sm-2">
-							<pokemon-card :details="pokemon" />
+							<pokemon-card :details="pokemon" :permalink="isMobileViewport" />
 						</div>
 					</div>
 					<div v-if="pokemons.length < fullDex.length" class="btn--holder d-flex justify-content-center mt-32">
@@ -68,10 +68,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import mobile from '~/mixins/mobile';
 
 export default {
 	name: 'MainTemplate',
-	layout: 'default',
+	mixins: [mobile],
 	props: {
 		region: { type: Object, required: true }
 	},

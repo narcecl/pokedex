@@ -3,8 +3,8 @@
 		<ul class="stadistics">
 			<li v-for="(stat, i) in fullStats" :key="i" class="stadistics__item">
 				<div class="d-flex align-items-center mb-4">
-					<p class="sub--title" >
-						{{ $methods.normalizeString(stat.name) }}
+					<p class="sub--title">
+						{{ $t($methods.normalizeString(stat.name)) }}
 					</p>
 					<p class="f--xs ml-12">
 						BASE {{ stat.base }}
@@ -19,8 +19,8 @@
 			</li>
 		</ul>
 		<p class="f--xs mt-24">
-			Min stat calculated at <mark>level 100</mark>, <mark>neutral nature</mark> and <mark>0 EV</mark> and <mark>0 IV</mark>.<br>
-			Max stat calculated at <mark>level 100</mark>, <mark>neutral nature</mark> and <mark>255 EV</mark> and <mark>31 IV</mark>.
+			{{ $t('min_stat_desc', {level: 100, nature: 'neutral', ev: 0, iv: 0}) }}<br>
+			{{ $t('max_stat_desc', {level: 100, nature: 'neutral', ev: 255, iv: 31}) }}
 		</p>
 	</div>
 </template>

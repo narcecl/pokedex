@@ -1,16 +1,18 @@
 <template>
 	<main v-if="pokemon" class="single">
-		<section :class="getBackground" class="single--cover">
+		<section :class="getBackground" class="single__cover">
 			<div class="container">
 				<div class="d-flex justify-content-center justify-content-sm-start">
-					<pokemon-image width="350" height="350" :name="specie.name" :types="pokemon.types" :src="pokemon.sprites" />
+					<div class="single__cover__image">
+						<pokemon-image width="350" height="350" :name="specie.name" :types="pokemon.types" :src="pokemon.sprites" />
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<section>
 			<div class="container">
-				<div class="single--info">
+				<div class="single__info">
 					<div class="section__block">
 						<div class="d-sm-flex align-items-center mb-8">
 							<pokemon-types :types="pokemon.types" size="md" class="order-sm-2 mb-16 mb-sm-0" />
@@ -174,7 +176,6 @@ export default {
 		this.pokemon = await this.getPokemonInfo( this.specie.id );
 		if( !this.specie.evolution_chain ) this.evolutionChain = [];
 		else this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
-		console.info( 'evolutionChain =>', this.evolutionChain );
 	},
 	methods: {
 		...mapActions(['getPokemonInfo', 'getPokemonSpecie', 'getEvolutionChain'])
@@ -184,17 +185,17 @@ export default {
 
 <style lang="scss" scoped>
 .single{
-	&--cover{
+	&__cover{
 		padding: 24px 0 64px;
 		@include transition;
 
-		picture{
+		&__image{
 			z-index: 9;
 			position: relative;
 		}
 	}
 
-	&--info{
+	&__info{
 		padding: 78px 32px 48px;
 		background: white;
 		margin-top: -132px;
@@ -209,7 +210,7 @@ export default {
 
 .dark{
 	.single{
-		&--info{
+		&__info{
 			background: $dark-mode-secondary;
 		}
 	}
