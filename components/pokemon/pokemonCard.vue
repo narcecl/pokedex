@@ -1,6 +1,6 @@
 <template>
 	<a href="#" class="pokemon__card" @click.prevent="selectPokemon">
-		<pokemon-image :name="details.name" :types="details.types" :src="details.sprites" :plain="false" />
+		<pokemon-image :name="details.name" :types="details.types" :src="details.sprites" :plain="false" width="200" />
 
 		<div class="pokemon__card__info">
 			<h3 class="heading--6 fw--medium">

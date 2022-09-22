@@ -45,12 +45,14 @@ export default {
 				const specieResponse = await context.dispatch( 'getPokemonSpecie', pokemonItem.pokemon_species.name );
 				const infoResponse = await context.dispatch( 'getPokemonInfo', specieResponse.id );
 
-				pokemons.push({
-					...specieResponse,
-					...infoResponse,
-					entry_number: pokemonItem.entry_number,
-					specie_name: specieResponse.name
-				});
+				if( specieResponse && infoResponse ){
+					pokemons.push({
+						...specieResponse,
+						...infoResponse,
+						entry_number: pokemonItem.entry_number,
+						specie_name: specieResponse.name
+					});
+				}
 			})
 		);
 
@@ -69,11 +71,13 @@ export default {
 					const typeDetail = await this.$axios( type.url ).then( response => response.data )
 						.catch( error => console.error( 'getPokemonTypes =>', error ));
 
-					types.push({
-						name: type.name,
-						names: typeDetail.names,
-						damage_relations: typeDetail.damage_relations
-					});
+					if( typeDetail ){
+						types.push({
+							name: type.name,
+							names: typeDetail.names,
+							damage_relations: typeDetail.damage_relations
+						});
+					}
 				})
 			);
 
@@ -125,11 +129,13 @@ export default {
 						const pokemonFound = evoChain.findIndex( item => item.species_name === pokemonSpecie.name );
 						const pokemonInfo = await context.dispatch( 'getPokemonInfo', pokemonSpecie.id ).then( response => response.sprites );
 
-						evoChain[pokemonFound] = {
-							...evoChain[pokemonFound],
-							id: pokemonSpecie.id,
-							sprites: pokemonInfo
-						};
+						if( pokemonSpecie && pokemonInfo ){
+							evoChain[pokemonFound] = {
+								...evoChain[pokemonFound],
+								id: pokemonSpecie.id,
+								sprites: pokemonInfo
+							};
+						}
 					})
 				);
 			}
@@ -144,12 +150,15 @@ export default {
 			abilities.map( async item => {
 				const ability = { is_hidden: item.is_hidden, name: item.ability.name, url: item.ability.url, slot: item.slot };
 				const abilityInfo = await this.$axios( ability.url ).then( response => response.data );
-				fullAbilities.push({
-					...ability,
-					names: abilityInfo.names,
-					effect_entries: abilityInfo.flavor_text_entries,
-					effect_changes: abilityInfo.effect_changes
-				});
+
+				if( abilityInfo ){
+					fullAbilities.push({
+						...ability,
+						names: abilityInfo.names,
+						effect_entries: abilityInfo.flavor_text_entries,
+						effect_changes: abilityInfo.effect_changes
+					});
+				}
 			})
 		);
 

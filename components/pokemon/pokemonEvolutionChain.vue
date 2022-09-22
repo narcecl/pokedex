@@ -35,7 +35,7 @@
 				</div>
 			</div>
 		</div>
-		<p v-else-if="evolutionChain && !evolutionChain.length">
+		<p v-else-if="evolutionChain && evolutionChain.length === 1">
 			{{ $t('without_evolution_chain') }}
 		</p>
 		<div v-else class="evolution-chain__skeleton d-block d-sm-flex flex-wrap align-items-center">
