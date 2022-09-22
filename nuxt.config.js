@@ -88,9 +88,9 @@ export default {
 	},
 
 	// Middleware to images
-	serverMiddleware: [
-		{ path: '/_ipx', handler: '~/server/middleware/ipx.js' }
-	],
+	// serverMiddleware: [
+	// 	{ path: '/_ipx', handler: '~/server/middleware/ipx.js' }
+	// ],
 
 	vite: {
 		/* options for vite */
