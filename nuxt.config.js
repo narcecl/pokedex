@@ -11,6 +11,10 @@ export default {
 		base: process.env.NODE_ENV === 'development' ? '/' : PRODUCTION_BASE_PATH
 	},
 
+	static: {
+		prefix: false
+	},
+
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		title: 'Regional Pokédex',
