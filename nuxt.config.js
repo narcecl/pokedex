@@ -89,7 +89,8 @@ export default {
 
 	// Middleware to images
 	serverMiddleware: [
-		{ path: '/_ipx', handler: '~/server/middleware/ipx.js' }
+		{ path: '/_ipx', handler: '~/server/middleware/ipx.js' },
+		{ path: '/_nuxt', handler: '~/server/middleware/ipx.js' }
 	],
 
 	vite: {
@@ -162,6 +163,6 @@ export default {
 
 	generate: {
 		fallback: '404.html',
-		routes: ['kanto']
+		routes: ['500.html']
 	}
 }
