@@ -2,7 +2,7 @@
 	<div class="abilities">
 		<div v-for="(ability, index) in abilitiesDetail" :key="index" class="abilities__item">
 			<div :class="{'box--light': !simple}">
-				<div :class="{'justify-content-between': !simple }" class="d-flex align-items-center">
+				<div class="d-flex align-items-center">
 					<p class="sub--title">
 						{{ getName(index) }}
 					</p>
@@ -10,7 +10,7 @@
 						{{ $t('hidden') }}
 					</span>
 				</div>
-				<p>
+				<p class="f--sm">
 					{{ getDescription(index) }}
 				</p>
 			</div>

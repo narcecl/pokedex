@@ -163,7 +163,7 @@ export default {
 		description: function(){
 			if( !this.specie ) return false;
 			const description = this.specie.flavor_text_entries.find( item => item.language.name === this.$i18n.locale );
-			return description.flavor_text;
+			return description ? description.flavor_text : false;
 		},
 		getBackground: function(){
 			const firstType = this.pokemon.types[0].type.name;
@@ -172,7 +172,9 @@ export default {
 	},
 	created: async function(){
 		this.pokemon = await this.getPokemonInfo( this.specie.id );
-		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
+		if( !this.specie.evolution_chain ) this.evolutionChain = [];
+		else this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
+		console.info( 'evolutionChain =>', this.evolutionChain );
 	},
 	methods: {
 		...mapActions(['getPokemonInfo', 'getPokemonSpecie', 'getEvolutionChain'])

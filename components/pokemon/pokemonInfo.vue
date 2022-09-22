@@ -84,7 +84,7 @@ export default {
 		specieName: function(){
 			if( !this.specie ) return false;
 			const specie = this.specie.genera.find( item => item.language.name === this.$i18n.locale );
-			return specie.genus;
+			return specie ? specie.genus : false;
 		},
 		pokedexNumbers: function(){
 			if( !this.specie ) return false;

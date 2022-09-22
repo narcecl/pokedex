@@ -2,7 +2,8 @@
 	<modal v-model="$store.state.pokemonModal" :size="7" :ready="ready" @close="closeModal">
 		<div v-if="pokemon && ready" class="pokemon-modal">
 			<div class="pokemon-modal__cover">
-				<pokemon-image :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" :plain="false" />
+				<pokemon-image :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" :plain="false" width="200" />
+
 				<div class="pokemon-modal__actions-links d-flex justify-content-end">
 					<ul class="d-flex align-items-center">
 						<li>
@@ -89,12 +90,13 @@ export default {
 		description: function(){
 			if( !this.specie ) return false;
 			const description = this.specie.flavor_text_entries.find( item => item.language.name === this.$i18n.locale );
-			return description.flavor_text;
+			return description ? description.flavor_text : false;
 		}
 	},
 	created: async function(){
 		this.specie = await this.getPokemonSpecie( this.pokemon.id ).then( response => response );
-		this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url ).then( response => response );
+		if( !this.specie.evolution_chain ) this.evolutionChain = [];
+		else this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
 		this.ready = true;
 	},
 	methods: {

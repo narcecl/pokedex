@@ -8,7 +8,7 @@ export default {
 	target: 'server',
 
 	router: {
-		base: '/'
+		base: process.env.NODE_ENV === 'development' ? '/' : PRODUCTION_BASE_PATH
 	},
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
@@ -20,7 +20,7 @@ export default {
 		meta: [
 			{ charset: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no' },
-			{ hid: 'description', name: 'description', content: '' },
+			{ hid: 'description', name: 'description', content: 'Enciclopedia virtual portátil de alta tecnología que los entrenadores Pokémon llevan consigo para registrar las fichas de todas las diversas especies Pokémon con las que se encuentran durante su viaje como entrenadores.' },
 			{ name: 'format-detection', content: 'telephone=no' }
 		],
 		link: [
