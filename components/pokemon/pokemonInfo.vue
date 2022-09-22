@@ -2,6 +2,14 @@
 	<div class="pokemon-info">
 		<div class="section__block">
 			<div class="row total mini align-items-center">
+				<div v-if="compact" :class="classController">
+					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
+						National Dex
+					</h6>
+					<p>
+						N.º {{ $methods.pad(specie.id) }}
+					</p>
+				</div>
 				<div :class="classController">
 					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
 						{{ $t('weight') }}
@@ -36,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="dex-entries section__block">
+		<div v-if="!compact" class="dex-entries section__block">
 			<div class="row total mini align-items-center">
 				<div :class="classController">
 					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">

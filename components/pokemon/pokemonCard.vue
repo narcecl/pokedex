@@ -1,6 +1,6 @@
 <template>
-	<a href="#" class="pokemon__card" @click.prevent="selectPokemon">
-		<pokemon-image :name="details.name" :types="details.types" :src="details.sprites" :plain="false" width="200" />
+	<div class="pokemon__card" @click.prevent="selectPokemon">
+		<pokemon-image :name="details.specie_name" :types="details.types" :src="details.sprites" :plain="false" width="200" />
 
 		<div class="pokemon__card__info">
 			<h3 class="heading--6 fw--medium">
@@ -12,24 +12,23 @@
 
 			<pokemon-types :types="details.types" class="mt-16" />
 		</div>
-	</a>
+	</div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
-import mobile from '~/mixins/mobile';
 
 export default {
 	name: 'PokemonCard',
-	mixins: [mobile],
 	props: {
-		details: { type: Object, required: true }
+		details: { type: Object, required: true },
+		permalink: { type: Boolean, default: true }
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
 
 		selectPokemon: function(){
-			if( this.isMobileViewport ){
+			if( this.permalink ){
 				this.$router.push({ name: 'pokemon-slug', params: { slug: this.details.specie_name } });
 			} else{
 				this.SET_POKEMON_MODAL( true );
@@ -41,48 +40,51 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pokemon{
-	&__card{
-		width: 100%;
-		height: 100%;
-		border-radius: 8px;
-		overflow: hidden;
-		text-decoration: none;
-		display: block;
-		background: #fff;
-		border: 1px solid #eee;
-		@include transition;
+.pokemon__card{
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+	text-decoration: none;
+	display: block;
+	background: #fff;
+	border: 1px solid #eee;
+	cursor: pointer;
+	@include transition;
 
-		&:hover{
+	&:hover{
+		border-color: #ddd;
+
+		&_info{
 			border-color: #ddd;
-
-			&_info{
-				border-color: #ddd;
-			}
 		}
+	}
 
-		picture{
-			width: 100%;
-			padding: 12px;
+	picture{
+		width: 100%;
+		padding: 12px;
+		height: 190px;
+		position: relative;
+
+		@media screen and (min-width: $break-sm){
 			height: 110px;
-			position: relative;
-
-			&:deep(img){
-				position: absolute;
-				left: 12px;
-				bottom: -30px;
-				max-width: 70%;
-				z-index: 1;
-			}
 		}
 
-		&__info{
-			padding: 42px 12px 16px 12px;
-			border-radius: 0 0 8px 8px;
+		&:deep(img){
+			position: absolute;
+			left: 12px;
+			bottom: -30px;
+			max-width: 70%;
+			z-index: 1;
+		}
+	}
 
-			h3{
-				text-transform: capitalize;
-			}
+	&__info{
+		padding: 42px 12px 16px 12px;
+		border-radius: 0 0 8px 8px;
+
+		h3{
+			text-transform: capitalize;
 		}
 	}
 }

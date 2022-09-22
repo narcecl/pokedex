@@ -127,13 +127,16 @@ export default {
 						const pokemonSpecie = await this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${item.species_name}` )
 							.then( response => response.data );
 						const pokemonFound = evoChain.findIndex( item => item.species_name === pokemonSpecie.name );
-						const pokemonInfo = await context.dispatch( 'getPokemonInfo', pokemonSpecie.id ).then( response => response.sprites );
+						const pokemonInfo = await context.dispatch( 'getPokemonInfo', pokemonSpecie.id ).then( response => response );
 
 						if( pokemonSpecie && pokemonInfo ){
 							evoChain[pokemonFound] = {
 								...evoChain[pokemonFound],
+								specie_name: pokemonSpecie.name,
 								id: pokemonSpecie.id,
-								sprites: pokemonInfo
+								entry_number: pokemonSpecie.id,
+								sprites: pokemonInfo.sprites,
+								types: pokemonInfo.types
 							};
 						}
 					})

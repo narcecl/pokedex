@@ -1,9 +1,9 @@
 <template>
 	<picture :class="getBackground" class="pokemon-image hidden--caption">
 		<div :style="{ height: `${height}px` }">
-			<nuxt-img v-if="getSource" :src="getSource" :alt="`Official Artwork for ${$methods.normalizeString( name )}`" :lazy="true" :width="width" :height="height" />
+			<nuxt-img v-if="getSource" :src="getSource" :alt="`${normalizeName} Official Artwork`" :lazy="true" :width="width" :height="height" />
 		</div>
-		<figcaption>{{ `Official Artwork for ${name}` }}</figcaption>
+		<figcaption>{{ `${normalizeName} Official Artwork` }}</figcaption>
 	</picture>
 </template>
 
@@ -11,7 +11,7 @@
 export default {
 	name: 'PokemonImage',
 	props: {
-		name: { type: String, required: true },
+		name: { type: String, default: '' },
 		types: { type: Array, default: () => ([]) },
 		src: { type: [Object, String], default: () => ({}) },
 		plain: { type: Boolean, default: true },
@@ -25,6 +25,9 @@ export default {
 
 			const firstType = this.types[0].type.name;
 			return `bg-light--${firstType}`;
+		},
+		normalizeName: function(){
+			return this.$methods.normalizeString( this.name );
 		},
 		getSource: function(){
 			if( !this.src || !Object.keys( this.src ).length ) return '';

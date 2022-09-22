@@ -24,6 +24,8 @@
     "galar_region_description": "Galar (Galar in English, ガラル Galar in Japanese) is a region of the Pokémon world where the plot of the eighth generation Pokémon Sword and Pokémon Shield video games will take place.",
     "hisui_starters_description": "The starters Pokémon are Rowlet, Cyndaquil, and Oshawott.",
     "hisui_region_description": "Hisui (Hisui in English; ヒスイ地方 Hisui Region in Japanese) is the name given to the Sinnoh region around the time the first human settlements took place. It develops Pokémon Legends: Arceus.",
+    "min_stat_desc": "Min stat calculated at level {level}, {nature} nature, {ev} EV and {iv} IV.",
+    "max_stat_desc": "Min stat calculated at level {level}, {nature} nature, {ev} EV and {iv} IV.",
     "without_evolution_chain": "This Pokémon does not have an evolution chain.",
     "dex_description": "{name} Pokédex has {count} Pokémons in total.",
     "front_default": "normal",
