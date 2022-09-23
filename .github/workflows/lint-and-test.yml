@@ -1,0 +1,76 @@
+name: Linters and Test
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+    types: [opened, edited, reopened, synchronize]
+jobs:
+  install-node-modules:
+    name: Install Node Modules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+          registry-url: "https://npm.pkg.github.com"
+          cache: yarn
+      - name: Cache Node_modules for parallels executions
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ./node_modules
+          key: ${{ github.sha }}-node-modules
+      - name: Install packages
+        run: yarn
+  lint-js:
+    name: Linter Javascript Files
+    runs-on: ubuntu-latest
+    needs: install-node-modules
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+          registry-url: "https://npm.pkg.github.com"
+          cache: yarn
+      - name: Get node_modules cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ./node_modules
+          key: ${{ github.sha }}-node-modules
+      - name: Execute lint JS
+        run: yarn lint
+  lint-css:
+    name: Linter Css Files
+    runs-on: ubuntu-latest
+    needs: install-node-modules
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+          registry-url: "https://npm.pkg.github.com"
+          cache: yarn
+      - name: Get node_modules cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-modules
+        with:
+          path: ./node_modules
+          key: ${{ github.sha }}-node-modules
+      - name: Execute lint JS
+        run: yarn lint:style

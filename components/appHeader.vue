@@ -3,12 +3,14 @@
 		<div class="container">
 			<div class="row total align-items-center justify-content-between">
 				<div class="col-12 col-sm text-center text-sm-left">
-					<div class="d-flex align-items-center justify-content-center justify-content-sm-start">
-						<img :src="require('~/static/images/pokemon.svg')" alt="Logo Pokémon" width="130">
-						<p class="f--xs text--muted ml-32">
-							Regional Pokédex
-						</p>
-					</div>
+					<nuxt-link to="/">
+						<div class="d-flex align-items-center justify-content-center justify-content-sm-start">
+							<img :src="require('~/static/images/pokemon.svg')" alt="Logo Pokémon" width="130">
+							<p class="f--xs text--muted ml-32">
+								Regional Pokédex
+							</p>
+						</div>
+					</nuxt-link>
 				</div>
 				<div class="col-12 col-sm d-flex align-items-center justify-content-center justify-content-sm-end">
 					<div v-for="locale in availableLocales" :key="locale.code" class="locale-switch">
