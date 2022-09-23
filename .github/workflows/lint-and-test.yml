@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - master
-      - develop
+      - development
     types: [opened, edited, reopened, synchronize]
 jobs:
   install-node-modules:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "14.x"
           registry-url: "https://npm.pkg.github.com"
-          cache: yarn
+          cache: npm
       - name: Cache Node_modules for parallels executions
         uses: actions/cache@v2
         env:
@@ -28,7 +28,7 @@ jobs:
           path: ./node_modules
           key: ${{ github.sha }}-node-modules
       - name: Install packages
-        run: yarn
+        run: npm i
   lint-js:
     name: Linter Javascript Files
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: "14.x"
           registry-url: "https://npm.pkg.github.com"
-          cache: yarn
+          cache: npm
       - name: Get node_modules cache
         uses: actions/cache@v2
         env:
@@ -51,7 +51,7 @@ jobs:
           path: ./node_modules
           key: ${{ github.sha }}-node-modules
       - name: Execute lint JS
-        run: yarn lint
+        run: npm lint
   lint-css:
     name: Linter Css Files
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
         with:
           node-version: "14.x"
           registry-url: "https://npm.pkg.github.com"
-          cache: yarn
+          cache: npm
       - name: Get node_modules cache
         uses: actions/cache@v2
         env:
@@ -73,4 +73,4 @@ jobs:
           path: ./node_modules
           key: ${{ github.sha }}-node-modules
       - name: Execute lint JS
-        run: yarn lint:style
+        run: npm lint:style
