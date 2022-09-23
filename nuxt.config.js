@@ -8,7 +8,11 @@ export default {
 	target: 'server',
 
 	router: {
-		base: process.env.NODE_ENV === 'development' ? '/' : PRODUCTION_BASE_PATH
+		base: '/'
+	},
+
+	loading: {
+		height: '4px'
 	},
 
 	static: {
@@ -28,7 +32,7 @@ export default {
 			{ name: 'format-detection', content: 'telephone=no' }
 		],
 		link: [
-			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+			{ rel: 'shortcut icon', href: '/favicon.png' }
 		]
 	},
 
@@ -89,28 +93,6 @@ export default {
 
 	image: {
 		domains: ['raw.githubusercontent.com']
-	},
-
-	// Middleware to images
-	// serverMiddleware: [
-	// 	{ path: '/_ipx', handler: '~/server/middleware/ipx.js' }
-	// ],
-
-	vite: {
-		/* options for vite */
-		css: {
-            preprocessorOptions: {
-                scss: {
-                    additionalData: `
-						@import "@/assets/styles/core/_variables.scss";
-						@import "@/assets/styles/core/_mixins.scss";
-					`
-                },
-            },
-        },
-		vue: {
-			/* options for vite-plugin-vue2 */
-		},
 	},
 
 	// Modules: https://go.nuxtjs.dev/config-modules
