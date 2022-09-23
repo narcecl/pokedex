@@ -3,7 +3,7 @@ tag-template: '$RESOLVED_VERSION'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 commitish: 'master'
 template: |
-  ## What’s Changed
+  ## What's Changed
   $CHANGES
   ## Contributors
   $CONTRIBUTORS

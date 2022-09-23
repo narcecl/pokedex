@@ -1,40 +1,66 @@
-# .github/labeler.yml
-
 version: v1
 
 labels:
-  - label: "feat"
-    sync: true # remove label if match failed, default: false (pull_request/issue only)
+  - label: "chore"
     matcher:
-      # Matcher will match on any 8 matchers
-      title: "^feat:.*"
-      body: "/feat"
-      comment: "/feat"
-      branch: "^feat/.*"
-      baseBranch: "^feat/.*"
-      commits: "^feat:.*"
-      author:
-        - github-actions
-        - fuxingloh
-      files:
-        any: [ "app/*" ]
-        all: [ "!app/config/**" ]
-        count:
-          gte: 1
-          lte: 1000
+      title: "^chore: .*"
+      branch: "chore/.*"
+      commits: "^chore.*"
 
-# Optional, if you want labels to generate a success/failure status check
+  - label: "ci"
+    matcher:
+      title: "^ci: .*"
+      branch: "ci/.*"
+      commits: "^ci.*"
+
+  - label: "docs"
+    matcher:
+      title: "^docs: .*"
+      branch: "docs/.*"
+      commits: "^docs.*"
+
+  - label: "feat"
+    matcher:
+      title: "^feat: .*"
+      branch: "feat/.*"
+      commits: "^feat.*"
+
+  - label: "fix"
+    matcher:
+      title: "^fix: .*"
+      branch: "fix/.*"
+      commits: "^fix.*"
+
+  - label: "refactor"
+    matcher:
+      title: "^refactor: .*"
+      branch: "refactor/.*"
+      commits: "^refactor.*"
+
+  - label: "style"
+    matcher:
+      title: "^style: .*"
+      branch: "style/.*"
+      commits: "^style.*"
+
+  - label: "test"
+    matcher:
+      title: "^test: .*"
+      branch: "test/.*"
+      commits: "^test.*"
+
 checks:
-  - context: "Status Check"
-    url: "https://go.to/detail"
+  - context: "Semantic Pull Request"
+    url: "https://github.com/fuxingloh/multi-labeler/blob/main/.github/labeler.yml"
     description:
-      success: "Ready for review & merge."
-      failure: "Missing labels for release."
+      success: Ready for review & merge.
+      failure: Missing semantic label for merge.
     labels:
       any:
-        - any
-        - have
-      all:
-        - all
-        - must
-        - have
+        - ci
+        - docs
+        - feat
+        - fix
+        - refactor
+        - style
+        - test
