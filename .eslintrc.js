@@ -36,7 +36,8 @@ module.exports = {
 		"object-shorthand": ["error", "never"],
 		"space-in-parens": ["error", "always", { "exceptions": ["{}", "[]", "()"] }],
 		"arrow-parens": ["error", "as-needed"],
-		"no-console": ["error", { "allow": ["warn", "error", "info"] }],
+		"no-console": ["error", { "allow": ["warn", "error", "info", "log"] }],
+		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
 		"vue/html-indent": ["error", "tab", {
 			"baseIndent": 1,
 			"closeBracket": 0,

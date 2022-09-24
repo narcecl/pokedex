@@ -1,18 +1,25 @@
 <template>
 	<div class="abilities">
-		<div v-for="(ability, index) in abilitiesDetail" :key="index" class="abilities__item">
-			<div :class="{'box--light': !simple}">
-				<div class="d-flex align-items-center">
-					<p class="sub--title">
-						{{ getName(index) }}
+		<div v-if="abilitiesDetail">
+			<div v-for="(ability, index) in abilitiesDetail" :key="index" class="abilities__item">
+				<div :class="{'box--light': !simple}">
+					<div class="d-flex align-items-center">
+						<p class="sub--title">
+							{{ getName(index) }}
+						</p>
+						<span v-if="ability.is_hidden" class="f--xs text--muted text-uppercase ml-12">
+							{{ $t('hidden') }}
+						</span>
+					</div>
+					<p class="f--sm">
+						{{ getDescription(index) }}
 					</p>
-					<span v-if="ability.is_hidden" class="f--xs text--muted text-uppercase ml-12">
-						{{ $t('hidden') }}
-					</span>
 				</div>
-				<p class="f--sm">
-					{{ getDescription(index) }}
-				</p>
+			</div>
+		</div>
+		<div v-else>
+			<div v-for="n in abilities.length" :key="n">
+				<skeleton type="ability" />
 			</div>
 		</div>
 	</div>
@@ -24,12 +31,12 @@ import { mapActions } from 'vuex';
 export default {
 	name: 'PokemonAbilities',
 	props: {
-		abilities: { type: Array, required: true },
+		abilities: { type: Array, required: true, default: () => ([]) },
 		simple: { type: Boolean, default: false }
 	},
 	data: function(){
 		return {
-			abilitiesDetail: null
+			abilitiesDetail: false
 		};
 	},
 	created: async function(){

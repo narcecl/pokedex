@@ -41,7 +41,8 @@ export default {
 				if( stat.stat.name === 'hp' ){
 					min = Math.floor( 0.01 * ( 2 * base + 0 + Math.floor( 0.25 * 0 )) * level ) + level + 10;
 					max = Math.floor( 0.01 * ( 2 * base + 31 + Math.floor( 0.25 * 255 )) * level ) + level + 10;
-				} else{
+				}
+				else{
 					min = ( Math.floor( 0.01 * ( 2 * base + 0 + Math.floor( 0.25 * 0 )) * level ) + 5 );
 					max = ( Math.floor( 0.01 * ( 2 * base + 31 + Math.floor( 0.25 * 255 )) * level ) + 5 );
 				}

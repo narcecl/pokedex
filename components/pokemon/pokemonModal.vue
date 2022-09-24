@@ -22,7 +22,7 @@
 			<div class="pokemon-modal__content">
 				<div class="section__block">
 					<div class="d-flex align-items-center mb-12">
-						<h6 class="heading--4 mr-16">
+						<h6 class="heading--3 mr-16">
 							{{ specie.name }}
 						</h6>
 						<pokemon-types :types="pokemon.types" size="md" />
