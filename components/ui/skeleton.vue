@@ -1,23 +1,21 @@
 <template>
 	<div class="skeleton">
-		<div v-if="type === 'card'" class="skeleton--type__card">
-			<figure class="skeleton--element skeleton--image mb-12">
+		<div v-if="type === 'card'" class="skeleton__type--card">
+			<figure class="skeleton__element skeleton--image mb-12">
 				<canvas :width="120" :height="120" />
 			</figure>
-			<div class="skeleton--element skeleton--title w-80" />
-			<div class="skeleton--element skeleton--text w-30 mt-4" />
+			<div class="skeleton__element skeleton--title w-80" />
+			<div class="skeleton__element skeleton--text w-30 mt-4" />
 
 			<div class="d-flex align-items-center mt-16">
-				<div class="skeleton--element skeleton--text w-30" />
-				<div class="skeleton--element skeleton--text w-30 ml-4" />
+				<div class="skeleton__element skeleton--text w-30" />
+				<div class="skeleton__element skeleton--text w-30 ml-4" />
 			</div>
 		</div>
-		<div v-else-if="type === 'evolution'" class="skeleton--type__evo" v-bind="{ class: $attrs['data-class'] }">
-			<figure class="skeleton--element skeleton--image w-100 w-sm-auto mb-12">
-				<canvas :width="120" :height="120" />
-			</figure>
-			<div class="w-100" v-bind="{ class: $attrs['data-class'] }">
-				<div class="skeleton--element skeleton--title w-40 w-sm-80" />
+		<div v-else-if="type === 'ability'" class="skeleton__type--ability">
+			<div class="w-100">
+				<div class="skeleton__element skeleton--title w-30 mb-8" />
+				<div class="skeleton__element skeleton--text w-80" />
 			</div>
 		</div>
 	</div>
@@ -26,7 +24,6 @@
 <script>
 export default {
 	name: 'UiSkeleton',
-	inheritAttrs: false,
 	props: {
 		type: { type: String, default: 'card' }
 	}
@@ -59,16 +56,22 @@ $animation-duration: 1.2s;
 		border: 1px solid $base-color;
 	}
 
-	&--type{
-		&__card{
+	&__type{
+		&--card{
 			border: 1px solid $base-color;
 			height: 100%;
 			border-radius: 8px;
 			padding: 16px 12px;
 		}
+		&--ability{
+			padding: 16px;
+			border-radius: 8px;
+			border: 1px solid $base-color;
+			margin-bottom: 16px;
+		}
 	}
 
-	&--element{
+	&__element{
 		position:relative;
 		background: $base-color;
 		overflow:hidden;
@@ -101,13 +104,16 @@ $animation-duration: 1.2s;
 			border-color: rgba(255, 255, 255, .1);
 		}
 
-		&--type{
-			&__card{
+		&__type{
+			&--card{
+				border-color: rgba(255, 255, 255, .1);
+			}
+			&--ability{
 				border-color: rgba(255, 255, 255, .1);
 			}
 		}
 
-		&--element{
+		&__element{
 			background: #313742;
 
 			&:after{

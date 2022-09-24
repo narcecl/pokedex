@@ -1,8 +1,15 @@
 <template>
-	<div class="pokemon__card" @click.prevent="selectPokemon">
-		<pokemon-image :name="details.specie_name" :types="details.types" :src="details.sprites" :plain="false" width="200" />
+	<div class="card" @click.prevent="selectPokemon">
+		<div class="card__cover">
+			<div class="card__cover__action-links d-flex justify-content-end">
+				<nuxt-link ref="permalink" :to="{name: 'pokemon-slug', params: { slug: details.specie_name }}" class="hover--opacity" title="Permalink">
+					<font-awesome-icon icon="arrow-up-right-from-square" aria-hidden="true" />
+				</nuxt-link>
+			</div>
+			<pokemon-image :name="details.specie_name" :types="details.types" :src="details.sprites" :plain="false" width="200" />
+		</div>
 
-		<div class="pokemon__card__info">
+		<div class="card__info">
 			<h3 class="heading--6 fw--medium">
 				{{ details.specie_name }}
 			</h3>
@@ -27,10 +34,11 @@ export default {
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
 
-		selectPokemon: function(){
+		selectPokemon: function( $event ){
 			if( this.permalink ){
 				this.$router.push({ name: 'pokemon-slug', params: { slug: this.details.specie_name } });
-			} else{
+			}
+			else if( $event.target !== this.$refs.permalink.$el ){
 				this.SET_POKEMON_MODAL( true );
 				this.SELECT_POKEMON( this.details );
 			}
@@ -40,7 +48,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pokemon__card{
+.card{
 	width: 100%;
 	height: 100%;
 	border-radius: 8px;
@@ -54,28 +62,52 @@ export default {
 
 	&:hover{
 		border-color: #ddd;
+		.card{
+			&__info{
+				border-color: #ddd;
+			}
 
-		&_info{
-			border-color: #ddd;
+			&__cover{
+				&__action-links{opacity: 1;}
+			}
 		}
 	}
 
-	picture{
-		width: 100%;
-		padding: 12px;
-		height: 190px;
+	&__cover{
 		position: relative;
 
-		@media screen and (min-width: $break-sm){
-			height: 110px;
+		&__action-links{
+			width: 100%;
+			padding: 8px;
+			position: absolute;
+			z-index: 9;
+			opacity: 0;
+			color: $color-text;
+			@include transition;
+
+			&:deep(svg){
+				user-select: none;
+				pointer-events: none;
+			}
 		}
 
-		&:deep(img){
-			position: absolute;
-			left: 12px;
-			bottom: -30px;
-			max-width: 70%;
-			z-index: 1;
+		picture{
+			width: 100%;
+			padding: 12px;
+			height: 190px;
+			position: relative;
+
+			@media screen and (min-width: $break-sm){
+				height: 110px;
+			}
+
+			&:deep(img){
+				position: absolute;
+				left: 12px;
+				bottom: -30px;
+				max-width: 70%;
+				z-index: 1;
+			}
 		}
 	}
 
@@ -90,7 +122,7 @@ export default {
 }
 
 .dark{
-	.pokemon__card{
+	.card{
 		background: transparent;
 		border-color: rgba(255, 255, 255, .1);
 

@@ -84,7 +84,9 @@ export default {
 		overwriting: false,
 		preload: true,
 		families: {
-			'Open Sans': true,
+			'Open Sans': {
+				wght: [400, 600, 700]
+			},
 			Raleway: {
 				wght: [400, 500, 700]
 			}

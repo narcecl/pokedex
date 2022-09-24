@@ -50,8 +50,8 @@ jobs:
           # npm cache files are stored in `~/.npm` on Linux/macOS
           path: ./node_modules
           key: ${{ github.sha }}-node-modules
-      - name: Execute lint JS
-  #       run: npm run lint
+          name: Execute lint JS
+          run: npm run lint
   # lint-css:
   #   name: Linter Css Files
   #   runs-on: ubuntu-latest

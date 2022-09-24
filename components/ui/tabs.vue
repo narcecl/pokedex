@@ -234,7 +234,7 @@ export default {
 								button{ color: #fff; }
 							}
 							button{
-								color: rgba(#fff, .4);
+								color: rgba(#fff, .7);
 							}
 						}
 					}

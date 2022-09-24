@@ -1,8 +1,9 @@
 <template>
 	<div class="pokemon-type">
-		<span :class="[`bg--${type}`, `size--${size}`]">
-			{{ getLocaleName }}
-		</span>
+		<div :class="[`bg--${type}`, `size--${size}`]" class="d-flex align-items-center">
+			<img v-if="size === 'md'" :src="require(`~/assets/images/svg/${type}.svg`)" :alt="getLocaleName" aria-hidden="true">
+			<span>{{ getLocaleName }}</span>
+		</div>
 	</div>
 </template>
 
@@ -27,20 +28,32 @@ export default {
 
 <style lang="scss" scoped>
 .pokemon-type{
-	span{
+	div{
 		border-radius: 6px;
 		text-transform: uppercase;
 		color: #fff;
 		display: inline-block;
+		letter-spacing: .3px;
+
+		img{
+			width: 14px;
+			margin-right: 6px;
+		}
 
 		&.size{
 			&--xs{
-				padding: 4px 8px;
+				min-width: 60px;
+				padding: 6px 8px;
 				font-size: 10px;
+
+				span{
+					text-align: center;
+					width: 100%;
+				}
 			}
 
 			&--md{
-				padding: 6px 12px;
+				padding: 8px 14px;
 				font-size: 12px;
 			}
 		}
