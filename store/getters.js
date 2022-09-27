@@ -31,6 +31,6 @@ export default {
 	},
 	getRegionNames: (state) => {
 		const actives = state.regions.filter( item => item.active );
-		return actives.map( item => ({ name: item.name, slug: item.slug }) );
+		return actives.map( item => ({ name: item.name, slug: item.slug, code: item.code }) );
 	}
 };

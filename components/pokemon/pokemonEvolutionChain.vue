@@ -5,15 +5,12 @@
 				<pokemon-evolution-chain-item :pokemon="pokemon" :compact="compact" />
 
 				<div v-if="pokemon.evolutionSplit.length" class="d-flex d-sm-block justify-content-between evolution-chain__item__split">
-					<div v-for="evo in pokemon.evolutionSplit" :key="evo.id"  class="evolution-chain__item__split__item">
+					<div v-for="evo in pokemon.evolutionSplit" :key="evo.id" class="evolution-chain__item__split__item">
 						<pokemon-evolution-chain-item :pokemon="evo" :compact="compact" />
 					</div>
 				</div>
 			</div>
 		</div>
-		<p v-else-if="evolutionChain && evolutionChain.length === 1">
-			{{ $t('without_evolution_chain') }}
-		</p>
 		<div v-else class="evolution-chain__skeleton d-block d-sm-flex flex-wrap align-items-center">
 			<div v-for="n in 3" :key="n">
 				<skeleton type="card" />
@@ -40,6 +37,7 @@ export default {
 			margin-top: 24px;
 
 			@media screen and (min-width: $break-sm){
+				margin-top: 0;
 				margin-left: 32px;
 			}
 		}

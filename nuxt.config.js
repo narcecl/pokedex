@@ -43,7 +43,7 @@ export default {
 	styleResources: {
 		scss: [
 			'~assets/styles/core/_variables.scss',
-			'~assets/styles/core/_mixins.scss',
+			'~assets/styles/core/_mixins.scss'
 		]
 	},
 
@@ -59,7 +59,7 @@ export default {
 			'~/components',
 			'~/components/ui',
 			'~/components/pokemon',
-			'~/components/templates',
+			'~/components/templates'
 		]
 	},
 
@@ -117,7 +117,7 @@ export default {
 		strategy: 'no_prefix',
 		locales: [ 
 			{ code: 'en', iso: 'en-EN', name: 'EN', file: 'en.json', },
-			{ code: 'es', iso: 'en-EN', name: 'ES', file: 'es.json', },
+			{ code: 'es', iso: 'en-EN', name: 'ES', file: 'es.json', }
 		],
 		defaultLocale: 'en',
 		langDir: '~/locales/',
@@ -141,10 +141,10 @@ export default {
 		postcss: null,
 		loaders: {
 			sass: {
-				implementation: require('sass'),
+				implementation: require('sass')
 			},
 			scss: {
-				implementation: require('sass'),
+				implementation: require('sass')
 			},
 		}
 	},

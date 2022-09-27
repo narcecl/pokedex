@@ -12,9 +12,15 @@ module.exports = {
 		'@nuxtjs',
 		'plugin:nuxt/recommended'
 	],
+	ignorePatterns: [
+		"nuxt.config.js",
+		"plugins/*.js",
+		".eslintrc.js",
+		"server/middleware/*.js",
+		"store/getters.js"
+	],
 	plugins: [
 	],
-	// add your custom rules here
 	rules: {
 		"indent": ["error", "tab"],
 		"no-tabs": 0,

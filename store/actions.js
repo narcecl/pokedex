@@ -32,19 +32,16 @@ export default {
 
 		await Promise.allSettled(
 			array.map( async pokemonId => {
-				if( context.state.allPokemons.length ){
-					const specieFound = context.state.allPokemons.find( pokemon => pokemon.id === pokemonId );
-					const specieResponse = await context.dispatch( 'getPokemonSpecie', specieFound.name );
-					const infoResponse = await context.dispatch( 'getPokemonInfo', specieResponse.id );
+				const infoResponse = await context.dispatch( 'getPokemonInfo', pokemonId );
+				const specieResponse = await context.dispatch( 'getPokemonSpecie', infoResponse.species.name );
 
-					if( specieResponse && infoResponse ){
-						pokemons.push({
-							...specieResponse,
-							...infoResponse,
-							entry_number: specieFound.id,
-							specie_name: specieFound.name
-						});
-					}
+				if( specieResponse && infoResponse ){
+					pokemons.push({
+						...specieResponse,
+						...infoResponse,
+						entry_number: specieResponse.id,
+						specie_name: specieResponse.name
+					});
 				}
 			})
 		);
@@ -74,15 +71,16 @@ export default {
 		await Promise.allSettled(
 			result.map( async pokemonItem => {
 				const specieResponse = await context.dispatch( 'getPokemonSpecie', pokemonItem.pokemon_species.name );
-				const infoResponse = await context.dispatch( 'getPokemonInfo', specieResponse.id );
-
-				if( specieResponse && infoResponse ){
-					pokemons.push({
-						...specieResponse,
-						...infoResponse,
-						entry_number: pokemonItem.entry_number,
-						specie_name: specieResponse.name
-					});
+				if( specieResponse ){
+					const infoResponse = await context.dispatch( 'getPokemonInfo', specieResponse.id );
+					if( infoResponse ){
+						pokemons.push({
+							...specieResponse,
+							...infoResponse,
+							entry_number: pokemonItem.entry_number,
+							specie_name: specieResponse.name
+						});
+					}
 				}
 			})
 		);
@@ -186,8 +184,6 @@ export default {
 					})
 				);
 			}
-
-			console.log( 'evoChain =>', evoChain );
 			return evoChain;
 		}
 	},

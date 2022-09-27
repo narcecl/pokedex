@@ -5,6 +5,9 @@
 				<li v-for="(region, index) in getRegionNames" :key="index" class="nav__item">
 					<nuxt-link :to="`/${region.slug}`" @click.native="chooseRegion">
 						{{ region.name }}
+						<span v-if="region.code" class="f--xs d-block d-sm-none text-uppercase">
+							{{ $methods.normalizeString(region.code) }}
+						</span>
 					</nuxt-link>
 				</li>
 			</ul>
@@ -74,6 +77,11 @@ nav{
 				@include transition;
 				display: block;
 				padding: 12px;
+
+				span{
+					font-weight: normal;
+					opacity: .7;
+				}
 
 				@media screen and (min-width: $break-sm){
 					padding: 0;

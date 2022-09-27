@@ -29,7 +29,7 @@
 			</p>
 		</div>
 		<div v-if="!compact" class="evolution__item__card">
-			<pokemonCard :details="pokemon" :permalink="false" />
+			<pokemonCard :details="pokemon" />
 		</div>
 		<div v-else class="box--light">
 			<nuxt-link :to="{name: 'pokemon-slug', params: { slug: pokemon.species_name }}">
