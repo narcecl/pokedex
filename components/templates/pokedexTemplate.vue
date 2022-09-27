@@ -33,6 +33,30 @@
 			</div>
 		</section>
 
+		<section v-if="region.legendaries.length" class="section bg--secondary">
+			<div class="container">
+				<div class="mb-32">
+					<h1 class="heading--3 mb-4">
+						{{ $t('Meet the legendaries') }}
+					</h1>
+					<p>
+						{{ $t(`${region.slug}_legendaries_description`) }}
+					</p>
+				</div>
+
+				<div v-if="legendariesPokemons.length" class="row total mini">
+					<div v-for="(starter, index) in legendariesPokemons" :key="index" class="col-6 col-sm-2">
+						<pokemon-card :details="starter" :permalink="isMobileViewport" />
+					</div>
+				</div>
+				<div v-else class="row total mini">
+					<div v-for="n in region.legendaries.length" :key="n" class="col-6 col-sm-2">
+						<skeleton />
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<section class="section">
 			<div class="container">
 				<div v-if="region" class="mb-32">
@@ -80,6 +104,8 @@ export default {
 		return {
 			fullDex: [],
 			pokemons: [],
+			startersPokemons: [],
+			legendariesPokemons: [],
 			featuredLimit: 24,
 			currentPage: 1,
 			ready: false,
@@ -94,16 +120,6 @@ export default {
 	computed: {
 		...mapState(['regions', 'darkMode', 'pokemonModal', 'selectedPokemon']),
 
-		startersPokemons: function(){
-			if( !this.region.starters ) return false;
-			const starters = this.region.starters;
-			return this.pokemons.filter( pokemon => starters.includes( pokemon.id ));
-		},
-		legendariesPokemons: function(){
-			if( !this.region.legendaries ) return false;
-			const legendaries = this.region.legendaries;
-			return this.pokemons.filter( pokemon => legendaries.includes( pokemon.id ));
-		},
 		regionName: function(){
 			const region = this.region.dexName.split( '-' ).join( ' ' );
 			return this.$methods.capitalize( region );
@@ -112,11 +128,24 @@ export default {
 	created: async function(){
 		this.fullDex = await this.getRegionalPokemons( this.region );
 		this.pokemons = await this.getPokemonsData( this.fullDex.slice( 0, this.featuredLimit ));
+
+		this.getStartersPokemons();
+		this.getLegendariesPokemons();
 	},
 	methods: {
-		...mapActions(['getRegionalPokemons', 'getPokemonsData']),
+		...mapActions(['getRegionalPokemons', 'getPokemonsData', 'getPokemonsByIds']),
 
+		getStartersPokemons: async function(){
+			if( !this.region.starters.length ) return false;
+			this.startersPokemons = await this.getPokemonsByIds( this.region.starters );
+		},
+		getLegendariesPokemons: async function(){
+			if( !this.region.legendaries.length ) return false;
+			this.legendariesPokemons = await this.getPokemonsByIds( this.region.legendaries );
+		},
 		getPaginationNext: async function(){
+			if( this.loadingMore ) return false;
+
 			if( this.pokemons.length < this.fullDex.length ){
 				this.currentPage = this.currentPage + 1;
 				this.loadingMore = true;

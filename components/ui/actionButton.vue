@@ -29,7 +29,7 @@ button{
 	color: #fff;
 	text-transform: uppercase;
 	border-radius: 8px;
-	font-weight: 700;
+	font-weight: 600;
 	cursor: pointer;
 	background: #63b3ed;
 	position: relative;

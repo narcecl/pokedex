@@ -68,7 +68,7 @@ nav{
 			a{
 				color: $color-text;
 				text-transform: uppercase;
-				font-weight: 700;
+				font-weight: 600;
 				text-decoration: none;
 				font-size: 14px;
 				@include transition;
