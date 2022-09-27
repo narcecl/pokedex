@@ -14,8 +14,8 @@ export default () => ({
 			code: 'generation-i',
 			dexName: 'kanto',
 			dexNumber: 2,
-			starters: [1, 4, 7],
-			legendaries: [144, 145, 146],
+			starters: [1, 4, 7, 25, 133],
+			legendaries: [144, 145, 146, 150],
 			offset: 0,
 			limit: 151,
 			active: true

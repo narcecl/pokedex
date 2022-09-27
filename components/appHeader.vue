@@ -74,7 +74,7 @@ header{
 		a{
 			color: $color-text;
 			text-decoration: none;
-			font-weight: 700;
+			font-weight: 600;
 			@include transition;
 
 			&:hover{

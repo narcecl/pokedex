@@ -15,7 +15,7 @@
 			<font-awesome-icon class="d-none d-sm-inline next color--normal f-28" icon="arrow-right" aria-hidden="true" />
 			<p class="evolution__item__info">
 				<picture>
-					<img :src="require(`~/assets/images/evolution/${pokemon.item}.png`)" :alt="$t(itemName)" width="24" />
+					<img :src="require(`~/assets/images/evolution/${pokemon.item}.png`)" :alt="$t(itemName)" width="24">
 				</picture>
 				<span class="d-block f--xs mb-4 mt-sm-4 mb-sm-0">{{ $t('Using') }} <span class="fw--bold">{{ $t(itemName) }}</span></span>
 				<font-awesome-icon class="d-inline d-sm-none next color--normal f-28" icon="arrow-down" aria-hidden="true" />
