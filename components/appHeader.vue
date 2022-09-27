@@ -6,7 +6,7 @@
 					<nuxt-link to="/">
 						<div class="d-flex align-items-center justify-content-center justify-content-sm-start">
 							<img :src="require('~/static/images/pokemon.svg')" alt="Logo Pokémon" width="130">
-							<p class="f--xs text--muted ml-32">
+							<p class="f--xs color--muted ml-32">
 								Regional Pokédex
 							</p>
 						</div>

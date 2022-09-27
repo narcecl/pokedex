@@ -19,7 +19,7 @@
 						</div>
 					</div>
 				</div>
-				<div v-else>
+				<div v-else-if="error.statusCode === 500">
 					<div class="row total align-items-center">
 						<div class="col-12 col-sm-6 order-2 order-sm-1 text-center text-sm-left">
 							<h1 class="heading--3 mb-4">
@@ -30,7 +30,7 @@
 							</p>
 
 							<p class="f--muted f--xs mt-24">
-								Error Reference:
+								Error reference:
 								<mark class="d-block">
 									{{ error.message }}
 								</mark>

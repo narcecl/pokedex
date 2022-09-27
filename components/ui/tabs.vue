@@ -109,7 +109,7 @@ export default {
 		position: relative;
 
 		&__nav-content{
-			border-bottom: 1px solid rgba(#000, .1);
+			border-bottom: 1px solid $color-border--dark;
 			position: relative;
 
 			&__list{
@@ -157,6 +157,10 @@ export default {
 							cursor: pointer;
 							@include transition;
 							@include subtitle;
+
+							&:hover{
+								background: rgba(#000, .025);
+							}
 
 							&:focus{
 								outline-style: solid;
@@ -226,7 +230,7 @@ export default {
 	.tab{
 		&__hold{
 			&__nav-content{
-				border-bottom: 1px solid rgba(#fff, .1);
+				border-bottom: 1px solid $color-border--light;
 				&__list{
 					> li{
 						> div{
@@ -235,6 +239,10 @@ export default {
 							}
 							button{
 								color: rgba(#fff, .7);
+
+								&:hover{
+									background: rgba(#fff, .025);
+								}
 							}
 						}
 					}

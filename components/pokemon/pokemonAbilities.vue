@@ -7,7 +7,7 @@
 						<p class="sub--title">
 							{{ getName(index) }}
 						</p>
-						<span v-if="ability.is_hidden" class="f--xs text--muted text-uppercase ml-12">
+						<span v-if="ability.is_hidden" class="f--xs color--muted text-uppercase ml-12">
 							{{ $t('hidden') }}
 						</span>
 					</div>

@@ -1,4 +1,4 @@
-.text{
+.color{
     &--white{
         color: white;
         * {
@@ -21,6 +21,15 @@
         color: $color-muted-text;
         * {
             fill: $color-muted-text;
+        }
+    }
+}
+
+.dark{
+    &--normal{
+        color: white;
+        * {
+            fill: white;
         }
     }
 }
