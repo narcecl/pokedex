@@ -1,7 +1,7 @@
 <template>
-	<div class="card" :class="{'card--permalink': permalink}" @click.prevent="selectPokemon">
+	<div class="card" :class="{'card--permalink': permalink || modal}" @click.prevent="selectPokemon">
 		<div class="card__cover">
-			<div class="card__cover__action-links d-flex justify-content-end">
+			<div class="card__cover__action-links d-none d-sm-flex justify-content-end">
 				<nuxt-link ref="permalink" :to="{name: 'pokemon-slug', params: { slug: details.specie_name }}" class="hover--opacity" title="Permalink">
 					<font-awesome-icon icon="arrow-up-right-from-square" aria-hidden="true" />
 				</nuxt-link>
@@ -24,12 +24,15 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import mobile from '~/mixins/mobile';
 
 export default {
 	name: 'PokemonCard',
+	mixins: [mobile],
 	props: {
 		details: { type: Object, required: true },
-		permalink: { type: Boolean, default: true }
+		permalink: { type: Boolean, default: true },
+		modal: { type: Boolean, default: false }
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
@@ -97,12 +100,8 @@ export default {
 		picture{
 			width: 100%;
 			padding: 12px;
-			height: 190px;
+			height: 110px;
 			position: relative;
-
-			@media screen and (min-width: $break-sm){
-				height: 110px;
-			}
 
 			&:deep(img){
 				position: absolute;

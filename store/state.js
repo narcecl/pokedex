@@ -107,7 +107,7 @@ export default () => ({
 		{
 			name: 'hisui',
 			slug: 'hisui',
-			code: 'generation-ii',
+			code: '',
 			dexName: 'hisui',
 			dexNumber: 30,
 			starters: [722, 155, 501],
