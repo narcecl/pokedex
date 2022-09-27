@@ -1,5 +1,5 @@
 <template>
-	<div class="card" @click.prevent="selectPokemon">
+	<div class="card" :class="{'card--permalink': permalink}" @click.prevent="selectPokemon">
 		<div class="card__cover">
 			<div class="card__cover__action-links d-flex justify-content-end">
 				<nuxt-link ref="permalink" :to="{name: 'pokemon-slug', params: { slug: details.specie_name }}" class="hover--opacity" title="Permalink">
@@ -57,8 +57,11 @@ export default {
 	display: block;
 	background: #fff;
 	border: 1px solid #eee;
-	cursor: pointer;
 	@include transition;
+
+	&--permalink{
+		cursor: pointer;
+	}
 
 	&:hover{
 		border-color: #ddd;
@@ -124,7 +127,7 @@ export default {
 .dark{
 	.card{
 		background: transparent;
-		border-color: rgba(255, 255, 255, .1);
+		border-color: $color-border--light;
 
 		&:hover{
 			border-color: rgba(255, 255, 255, .3);

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-viewport="setReady">
 		<ul class="stadistics">
 			<li v-for="(stat, i) in fullStats" :key="i" class="stadistics__item">
 				<div class="d-flex align-items-center mb-4">
@@ -11,7 +11,7 @@
 					</p>
 				</div>
 				<div class="stadistics__item__percent">
-					<span class="min" :style="{width: `${((stat.min / stat.max) * 100)}%` }">
+					<span :class="{ready: ready}" class="min" :style="{width: (ready ? `${((stat.min / stat.max) * 100)}%`: 0) }">
 						{{ stat.min }}
 					</span>
 					<span class="max">{{ stat.max }}</span>
@@ -30,6 +30,11 @@ export default {
 	name: 'PokemonStats',
 	props: {
 		stats: { type: Array, default: () => ([]) }
+	},
+	data: function(){
+		return {
+			ready: false
+		};
 	},
 	computed: {
 		fullStats: function(){
@@ -54,6 +59,13 @@ export default {
 					max: max
 				};
 			});
+		}
+	},
+	methods: {
+		setReady: function(){
+			setTimeout(() => {
+				this.ready = true;
+			}, 300 );
 		}
 	}
 };
@@ -81,6 +93,12 @@ export default {
 				padding-right: 8px;
 				font-size: 12px;
 				color: #fff;
+				opacity: 0;
+				@include transition(width);
+
+				&.ready{
+					opacity: 1;
+				}
 			}
 
 			.max{

@@ -1,3 +1,5 @@
+import $methods from '~/plugins/utils';
+
 export default {
 	googleAnalytics: function( context, { pageTitle, pageLocation }){
 		if( !gtag ) return; // eslint-disable-line no-undef
@@ -88,50 +90,61 @@ export default {
 		const evolutionChain = await this.$axios( url ).then( response => response.data.chain )
 			.catch( error => console.error( 'getEvolutionChain =>', error ));
 
-		const evoChain = [];
-
 		if( evolutionChain ){
+			const evoChain = [];
 			let evoData = { ...evolutionChain };
+			let index = 0;
 
 			do {
-				const evoDetails = evoData.evolution_details[0];
+				// const evoDetails = evoData.evolution_details;
 				const numberOfEvolutions = evoData.evolves_to.length;
-
-				evoChain.push({
-					species_name: evoData.species.name,
-					min_level: !evoDetails ? 1 : evoDetails.min_level,
-					trigger_name: !evoDetails ? null : evoDetails.trigger.name,
-					item: !evoDetails ? null : evoDetails.item,
-					require_hapiness: !evoDetails ? false : evoDetails.min_happiness > 0,
-					known_move: !evoDetails ? false : evoDetails?.known_move?.name
-				});
+				evoChain.push( $methods.parseEvolution( evoData ));
 
 				if( numberOfEvolutions > 1 ){
-					for( let i = 1; i < numberOfEvolutions; i++ ){
-						evoChain.push({
-							species_name: evoData.evolves_to[i].species.name,
-							min_level: !evoData.evolves_to[i] ? 1 : evoData.evolves_to[i].min_level,
-							trigger_name: !evoData.evolves_to[i] ? null : evoData.evolves_to[i].evolution_details[0].trigger.name,
-							item: evoData.evolves_to[i].evolution_details[0].trigger.name === 'level-up' ? null : evoData.evolves_to[i].evolution_details[0].item?.name,
-							require_hapiness: evoData.evolves_to[i].evolution_details[0].min_happiness
-						});
+					// Evolution splits
+					for( let i = 0; i < numberOfEvolutions; i++ ){
+						const subEvoDetails = evoData.evolves_to[i];
+						const subEvo = $methods.parseSubEvolution( subEvoDetails );
+						evoChain[index].evolutionSplit.push( subEvo );
 					}
 				}
 
-				evoData = evoData.evolves_to[0];
+				if( numberOfEvolutions === 1 ){
+					evoData = evoData.evolves_to[0];
+					index++;
+				}
+				else evoData = {};
 			} while( !!evoData && evoData.hasOwnProperty( 'evolves_to' )); // eslint-disable-line no-prototype-builtins
 
 			if( evoChain.length ){
 				await Promise.allSettled(
-					evoChain.map( async item => {
-						const pokemonSpecie = await this.$axios( `https://pokeapi.co/api/v2/pokemon-species/${item.species_name}` )
-							.then( response => response.data );
-						const pokemonFound = evoChain.findIndex( item => item.species_name === pokemonSpecie.name );
-						const pokemonInfo = await context.dispatch( 'getPokemonInfo', pokemonSpecie.id ).then( response => response );
-
+					evoChain.map( async ( pokemon, index ) => {
+						// Info for 1st level pokemons
+						const pokemonSpecie = await context.dispatch( 'getPokemonSpecie', pokemon.species_name );
+						const pokemonInfo = await context.dispatch( 'getPokemonInfo', pokemonSpecie.id );
+						// If pokemon has a evolution split
+						if( pokemon.evolutionSplit.length ){
+							await Promise.allSettled(
+								pokemon.evolutionSplit.map( async ( evo, evoIndex ) => {
+									const evoSpecie = await context.dispatch( 'getPokemonSpecie', evo.species_name );
+									const evoInfo = await context.dispatch( 'getPokemonInfo', evoSpecie.id );
+									if( evoSpecie && evoInfo ){
+										evoChain[index].evolutionSplit[evoIndex] = {
+											...evo,
+											specie_name: evoSpecie.name,
+											id: evoSpecie.id,
+											entry_number: evoSpecie.id,
+											sprites: evoInfo.sprites,
+											types: evoInfo.types
+										};
+									}
+								})
+							);
+						}
+						// Add info to current pokemon
 						if( pokemonSpecie && pokemonInfo ){
-							evoChain[pokemonFound] = {
-								...evoChain[pokemonFound],
+							evoChain[index] = {
+								...evoChain[index],
 								specie_name: pokemonSpecie.name,
 								id: pokemonSpecie.id,
 								entry_number: pokemonSpecie.id,
@@ -142,9 +155,10 @@ export default {
 					})
 				);
 			}
-		}
 
-		return evoChain;
+			console.log( 'evoChain =>', evoChain );
+			return evoChain;
+		}
 	},
 	getAbilities: async function( context, abilities ){
 		const fullAbilities = [];

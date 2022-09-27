@@ -3,7 +3,7 @@
 		<div v-if="value" class="pokemon-filter" @click="closeOutside">
 			<div ref="panel_content" class="pokemon-filter__cont" :class="{'pokemon-filter__cont--active': panelActive}">
 				<div class="d-flex justify-content-end mb-16">
-					<a class="d-block text--white hover--opacity" href="#" aria-label="close filter" @click.prevent="closeFilter">
+					<a class="d-block color--white hover--opacity" href="#" aria-label="close filter" @click.prevent="closeFilter">
 						<font-awesome-icon class="f-24" icon="xmark" aria-hidden="true" />
 					</a>
 				</div>

@@ -101,15 +101,15 @@ $animation-duration: 1.2s;
 .dark{
 	.skeleton{
 		.border-cont{
-			border-color: rgba(255, 255, 255, .1);
+			border-color: $color-border--light;;
 		}
 
 		&__type{
 			&--card{
-				border-color: rgba(255, 255, 255, .1);
+				border-color: $color-border--light;;
 			}
 			&--ability{
-				border-color: rgba(255, 255, 255, .1);
+				border-color: $color-border--light;;
 			}
 		}
 

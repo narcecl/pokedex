@@ -169,12 +169,12 @@ export default {
 
 		&.active{
 			.accordion-title{
-				border-bottom-color: rgba(255, 255, 255, .1);
+				border-bottom-color: $color-border--light;;
 			}
 		}
 
 		&.formatted{
-			border-color: rgba(255, 255, 255, .1);
+			border-color: $color-border--light;;
 		}
 
 		.accordion-title{

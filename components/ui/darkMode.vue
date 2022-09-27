@@ -53,7 +53,7 @@ export default {
 		width: 55px;
 		height: 26px;
 		transition: all .3s ease;
-		border: 1px solid rgba(255, 255, 255, .1);
+		border: 1px solid $color-border--light;
 	}
 
 	.label.dark {

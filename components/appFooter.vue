@@ -5,6 +5,7 @@
 				<div class="row total mini align-items-center justify-content-between">
 					<div class="col-12 col-sm text-center text-sm-left">
 						<p class="f--sm">
+							<font-awesome-icon class="animated animate__heartBeat animated__infinite mr-12" icon="heart" aria-hidden="true" />
 							{{ $t('copyright_personal') }}
 							<a href="https://www.narce.cl" target="_blank">
 								<mark>Nicolás Arce</mark>

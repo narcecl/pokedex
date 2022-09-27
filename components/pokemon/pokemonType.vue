@@ -1,6 +1,6 @@
 <template>
 	<div class="pokemon-type">
-		<div :class="[`bg--${type}`, `size--${size}`]" class="d-flex align-items-center">
+		<div :class="[`bg--${type}`, `size--${size}`]" class="d-flex align-items-center justify-content-center">
 			<img v-if="size === 'md'" :src="require(`~/assets/images/svg/${type}.svg`)" :alt="getLocaleName" aria-hidden="true">
 			<span>{{ getLocaleName }}</span>
 		</div>
@@ -55,6 +55,7 @@ export default {
 			&--md{
 				padding: 8px 14px;
 				font-size: 12px;
+				min-width: 110px;
 			}
 		}
 	}
