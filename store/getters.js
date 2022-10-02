@@ -32,5 +32,9 @@ export default {
 	getRegionNames: (state) => {
 		const actives = state.regions.filter( item => item.active );
 		return actives.map( item => ({ name: item.name, slug: item.slug, code: item.code }) );
+	},
+	isFavorite: (state) => (specie_name) => {
+		const found = state.favoritesPokemons.find( item => item.pokemon_species.name === specie_name ) || false;
+		return (typeof found === 'object');
 	}
 };

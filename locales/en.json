@@ -46,5 +46,8 @@
     "front_shiny_female": "shiny female",
     "no_description_pokemon": "Couldn't get the description for this Pokémon.",
     "copyright_personal": "Developed with love by",
-    "query_placeholder": "Search by name or ID"
+    "query_placeholder": "Search by name or ID",
+    "favorites_title": "Favorite Pokémon",
+    "favorites_description": " You have selected {count} Pokémon as favorite. What a great choise.",
+    "favorites_description_empty": "You don't have favorites Pokémons, go and add some."
 }

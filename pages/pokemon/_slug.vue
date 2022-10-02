@@ -13,7 +13,9 @@
 		<section>
 			<div class="container">
 				<div class="single__info">
-					<div class="section__block">
+					<pokemon-actions :permalink="false" :single="true" :specie="{ id: specie.id, name: specie.name }" />
+
+					<div class="section__block mt-32">
 						<div class="d-sm-flex align-items-center mb-8">
 							<pokemon-types :types="pokemon.types" size="md" class="order-sm-2 mb-16 mb-sm-0" />
 							<h1 class="heading--1 mr-16 order-sm-1">
@@ -26,7 +28,7 @@
 					</div>
 
 					<div class="section__block">
-						<pokemon-info :specie="specie" :weight="pokemon.weight" :height="pokemon.height" />
+						<pokemon-info :specie="specie" :weight="pokemon.weight" :height="pokemon.height" :habitat="habitat" />
 					</div>
 				</div>
 			</div>
@@ -134,6 +136,7 @@ export default {
 			name: null,
 			specie: null,
 			pokemon: null,
+			habitat: null,
 			evolutionChain: false,
 			selectedTab: 'info'
 		};
@@ -174,11 +177,17 @@ export default {
 	},
 	created: async function(){
 		this.pokemon = await this.getPokemonInfo( this.specie.id );
-		if( !this.specie.evolution_chain ) this.evolutionChain = [];
-		else this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
+
+		if( !this.specie.evolution_chain ){
+			this.evolutionChain = [];
+		}
+		else{
+			this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
+			if( this.specie.habitat ) this.habitat = await this.getHabitat( this.specie.habitat );
+		}
 	},
 	methods: {
-		...mapActions(['getPokemonInfo', 'getPokemonSpecie', 'getEvolutionChain'])
+		...mapActions(['getPokemonInfo', 'getPokemonSpecie', 'getEvolutionChain', 'getHabitat'])
 	}
 };
 </script>
@@ -196,7 +205,7 @@ export default {
 	}
 
 	&__info{
-		padding: 78px 32px 48px;
+		padding: 32px 32px 48px;
 		background: white;
 		margin-top: -132px;
 		border-radius: 8px;

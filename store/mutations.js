@@ -20,5 +20,17 @@ export default {
 	},
 	SET_CURRENT_REGION: function( state, payload ){
 		state.currentRegion = payload;
+	},
+	SET_EGG_GROUPS: function( state, payload ){
+		state.eggGroups = payload;
+	},
+	SET_FAVORITES: function( state, payload ){
+		state.favoritesPokemons = payload;
+	},
+	ADD_TO_FAVORITES: function( state, payload ){
+		const pokemonFound = state.favoritesPokemons.findIndex( item => item.pokemon_species.name === payload.pokemon_species.name );
+		console.log( 'pokemonFound =>', payload, pokemonFound );
+		if( pokemonFound === -1 ) state.favoritesPokemons = [...state.favoritesPokemons, payload];
+		else state.favoritesPokemons = state.favoritesPokemons.filter(( item, index ) => index !== pokemonFound );
 	}
 };

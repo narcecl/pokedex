@@ -1,6 +1,6 @@
 export default {
-	pad: function( number ){
-		return String( number ).padStart( 3, '0' );
+	pad: function( number, pad = 3 ){
+		return String( number ).padStart( pad, '0' );
 	},
 	numRandom: function( min, max ){
 		return Math.floor( Math.random() * ( max - min )) + min;
@@ -79,5 +79,11 @@ export default {
 			item: subEvoDetails.trigger.name === 'level-up' ? null : subEvoDetails.item?.name,
 			require_hapiness: subEvoDetails.min_happiness
 		};
+	},
+	heightToFeet: function( height ){
+		const realFeet = (( height * 0.3280839895 ) * 100 ) / 100;
+		const feet = Math.floor( realFeet );
+		const inches = Math.round(( realFeet - feet ) * 12 );
+		return `${feet}'${this.pad( inches, 2 )}"`;
 	}
 };

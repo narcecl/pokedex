@@ -20,12 +20,15 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(['allPokemons', 'pokemonTypes'])
+		...mapState(['allPokemons', 'pokemonTypes', 'eggGroups', 'favoritesPokemons'])
 	},
 	watch: {
 		$route: function(){
 			this.SET_POKEMON_MODAL( false );
 			this.SELECT_POKEMON( null );
+		},
+		favoritesPokemons: function( value ){
+			localStorage.setItem( 'favorites', JSON.stringify( value ));
 		}
 	},
 	beforeMount: function(){
@@ -36,6 +39,13 @@ export default {
 		// Initial call to all pokemons and types
 		if( !this.allPokemons.length ) this.getAllPokemons();
 		if( !this.pokemonTypes.length ) this.getPokemonTypes();
+		if( !this.eggGroups.length ) this.getPokemonEggGroups();
+
+		// Favorites from localStorage
+		if( process.client ){
+			const favorites = JSON.parse( localStorage.getItem( 'favorites' ));
+			if( favorites.length ) this.SET_FAVORITES( favorites );
+		}
 	},
 	mounted: function(){
 		// Listen for changes in the color scheme
@@ -48,8 +58,8 @@ export default {
 		});
 	},
 	methods: {
-		...mapActions(['getAllPokemons', 'getPokemonTypes']),
-		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
+		...mapActions(['getAllPokemons', 'getPokemonTypes', 'getPokemonEggGroups']),
+		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON', 'SET_FAVORITES']),
 
 		checkCookieDarkMode: function(){
 			const darkMode = this.$methods.getCookie( 'dark_mode' );

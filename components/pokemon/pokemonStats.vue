@@ -10,8 +10,8 @@
 						BASE {{ stat.base }}
 					</p>
 				</div>
-				<div class="stadistics__item__percent">
-					<span :class="{ready: ready}" class="min" :style="{width: (ready ? `${((stat.min / stat.max) * 100)}%`: 0) }">
+				<div :class="{ ready: stadistics[`stadistics_${i}`] }" class="stadistics__item__percent">
+					<span class="min" :style="{width: (stadistics[`stadistics_${i}`] ? `${((stat.min / stat.max) * 100)}%`: 0) }">
 						{{ stat.min }}
 					</span>
 					<span class="max">{{ stat.max }}</span>
@@ -33,12 +33,13 @@ export default {
 	},
 	data: function(){
 		return {
-			ready: false
+			ready: false,
+			stadistics: {}
 		};
 	},
 	computed: {
 		fullStats: function(){
-			return this.stats.map( stat => {
+			return this.stats.map(( stat, index ) => {
 				const base = stat.base_stat;
 				const level = 100;
 				let min, max;
@@ -52,6 +53,8 @@ export default {
 					max = ( Math.floor( 0.01 * ( 2 * base + 31 + Math.floor( 0.25 * 255 )) * level ) + 5 );
 				}
 
+				this.$set( this.stadistics, `stadistics_${index}`, false );
+
 				return {
 					name: stat.stat.name,
 					base: base,
@@ -61,11 +64,17 @@ export default {
 			});
 		}
 	},
+	created: function(){
+		this.stadistics = {};
+	},
 	methods: {
 		setReady: function(){
-			setTimeout(() => {
-				this.ready = true;
-			}, 300 );
+			const time = 200;
+			this.fullStats.forEach(( item, index ) => {
+				setTimeout(() => {
+					this.stadistics[`stadistics_${index}`] = true;
+				}, time * index );
+			});
 		}
 	}
 };
@@ -83,6 +92,13 @@ export default {
 			border-radius: 8px;
 			position: relative;
 
+			&.ready{
+				.min{
+					@include transition(width);
+					opacity: 1;
+				}
+			}
+
 			.min{
 				display: block;
 				border-radius: 8px;
@@ -94,11 +110,6 @@ export default {
 				font-size: 12px;
 				color: #fff;
 				opacity: 0;
-				@include transition(width);
-
-				&.ready{
-					opacity: 1;
-				}
 			}
 
 			.max{

@@ -194,7 +194,7 @@ export default {
 				width: 40px;
 				height: 100%;
 				font-size: 18px;
-				color: #555;
+				color: #fff;
 				background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 100%);
 				background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 100%);
 				background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 100%);

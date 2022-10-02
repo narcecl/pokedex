@@ -1,5 +1,7 @@
 export default () => ({
 	allPokemons: [],
+	eggGroups: [],
+	favoritesPokemons: [],
 	currentRegion: null,
 	pokemonTypes: [],
 	selectedPokemon: null,

@@ -76,9 +76,9 @@ section{
 }
 
 .cursor{
-	&-pointer{cursor:pointer;}
-	&-default{cursor:default;}
-	&-disabled{cursor: not-allowed;}
+	&--pointer{cursor:pointer;}
+	&--default{cursor:default;}
+	&--disabled{cursor: not-allowed;}
 }
 
 [v-cloak] > * {display:none;}

@@ -1,11 +1,7 @@
 <template>
 	<div class="card" :class="{'card--permalink': permalink || modal}" @click.prevent="selectPokemon">
 		<div class="card__cover">
-			<div class="card__cover__action-links d-none d-sm-flex justify-content-end">
-				<nuxt-link ref="permalink" :to="{name: 'pokemon-slug', params: { slug: details.specie_name }}" class="hover--opacity" title="Permalink">
-					<font-awesome-icon icon="arrow-up-right-from-square" aria-hidden="true" />
-				</nuxt-link>
-			</div>
+			<pokemon-actions ref="actions" view="card" :permalink="actionPermalink" :specie="{ id: details.id, name: details.specie_name }" />
 			<pokemon-image :name="details.specie_name" :types="details.types" :src="details.sprites" :plain="false" width="200" />
 		</div>
 
@@ -32,16 +28,20 @@ export default {
 	props: {
 		details: { type: Object, required: true },
 		permalink: { type: Boolean, default: true },
+		actionPermalink: { type: Boolean, default: true },
 		modal: { type: Boolean, default: false }
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
 
 		selectPokemon: function( $event ){
-			if( this.permalink ){
+			const actionItem = this.$methods.getParents( $event.target, this.$refs.actions.$el );
+			const isAction = actionItem.includes( this.$refs.actions.$el );
+
+			if( this.permalink && !this.modal ){
 				this.$router.push({ name: 'pokemon-slug', params: { slug: this.details.specie_name } });
 			}
-			else if( $event.target !== this.$refs.permalink.$el ){
+			else if( !isAction ){
 				this.SET_POKEMON_MODAL( true );
 				this.SELECT_POKEMON( this.details );
 			}
@@ -74,7 +74,7 @@ export default {
 			}
 
 			&__cover{
-				&__action-links{opacity: 1;}
+				&:deep(.actions_links){opacity: 1;}
 			}
 		}
 	}
@@ -82,19 +82,13 @@ export default {
 	&__cover{
 		position: relative;
 
-		&__action-links{
+		.actions_links{
 			width: 100%;
-			padding: 8px;
+			padding: 6px 12px;
 			position: absolute;
 			z-index: 9;
 			opacity: 0;
-			color: $color-text;
 			@include transition;
-
-			&:deep(svg){
-				user-select: none;
-				pointer-events: none;
-			}
 		}
 
 		picture{
