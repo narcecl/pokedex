@@ -88,6 +88,23 @@ export default {
 		pokemons.sort(( a, b ) => ( a.entry_number > b.entry_number ) ? 1 : (( b.entry_number > a.entry_number ) ? -1 : 0 ));
 		return pokemons;
 	},
+	getPokemonEggGroups: async function( context ){
+		const eggGroups = await this.$axios( 'https://pokeapi.co/api/v2/egg-group/' )
+			.then( response => response.data.results )
+			.catch( error => console.error( 'getPokemonEggGroups =>', error ));
+		const fullEggGroups = [];
+
+		if( !eggGroups.length ) return false;
+
+		await Promise.allSettled(
+			eggGroups.map( async eggGroup => {
+				const eggGroupInfo = await this.$axios( eggGroup.url ).then( response => response.data );
+				if( eggGroupInfo ) fullEggGroups.push( eggGroupInfo );
+			})
+		);
+
+		context.commit( 'SET_EGG_GROUPS', fullEggGroups );
+	},
 	getPokemonTypes: async function( context ){
 		const allTypes = await this.$axios( 'https://pokeapi.co/api/v2/type/' )
 			.then( response => response.data.results )
@@ -221,5 +238,13 @@ export default {
 
 		fullVarieties.sort(( a, b ) => ( a.id > b.id ) ? 1 : (( b.id > a.id ) ? -1 : 0 ));
 		return fullVarieties.map( variety => ({ id: variety.id, name: variety.name, sprites: variety.sprites, is_default: variety.is_default }));
+	},
+	getHabitat: async function( context, { url }){
+		const habitat = await this.$axios( url )
+			.then( response => response.data )
+			.catch( error => console.error( 'getHabitat =>', error ));
+
+		if( !habitat ) return false;
+		return { id: habitat.id, name: habitat.name, names: habitat.names };
 	}
 };

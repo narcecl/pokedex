@@ -53,9 +53,9 @@ export default {
 			}
 
 			&--md{
-				padding: 8px 14px;
+				padding: 6px 14px;
 				font-size: 12px;
-				min-width: 110px;
+				min-width: 100px;
 			}
 		}
 	}

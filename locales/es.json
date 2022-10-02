@@ -84,5 +84,11 @@
     "copyright_personal": "Desarrollado con amor por",
     "query_placeholder": "Busca por nombre o ID",
     "dex_description": "La Pokédex de {name} tiene {count} Pokémon en total.",
-    "Meet the legendaries": "Conoce a los legendarios"
+    "Meet the legendaries": "Conoce a los legendarios",
+    "Catch rate": "Ratio Captura",
+    "Egg Group": "Grupo Huevo",
+    "Base Happiness": "Felicidad Base",
+    "favorites_title": "Pokémon favoritos",
+    "favorites_description": "Has seleccionado {count} Pokémon como favorito(s). ¡Qué gran elección!.",
+    "favorites_description_empty": "No tienes Pokémons favoritos, ve y agrega algunos."
 }

@@ -3,21 +3,7 @@
 		<div v-if="pokemon && ready" class="pokemon-modal">
 			<div class="pokemon-modal__cover">
 				<pokemon-image :name="pokemon.name" :types="pokemon.types" :src="pokemon.sprites" :plain="false" width="200" />
-
-				<div class="pokemon-modal__actions-links d-flex justify-content-end">
-					<ul class="d-flex align-items-center">
-						<li>
-							<nuxt-link :to="{name: 'pokemon-slug', params: { slug: specie.name }}" class="hover--opacity" title="Permalink">
-								<font-awesome-icon icon="arrow-up-right-from-square" aria-hidden="true" />
-							</nuxt-link>
-						</li>
-						<li class="d-none">
-							<nuxt-link :to="{name: 'pokemon-slug', params: { slug: specie.name }}" class="hover--opacity" title="Add to favorites">
-								<font-awesome-icon icon="heart" aria-hidden="true" />
-							</nuxt-link>
-						</li>
-					</ul>
-				</div>
+				<pokemon-actions view="modal" :specie="{ id: specie.id, name: specie.name }" />
 			</div>
 			<div class="pokemon-modal__content">
 				<div class="section__block">
@@ -32,7 +18,7 @@
 				</div>
 
 				<div class="section__block">
-					<pokemon-info :specie="specie" :weight="pokemon.weight" :height="pokemon.height" :compact="true" />
+					<pokemon-info :specie="specie" :weight="pokemon.weight" :height="pokemon.height" :habitat="habitat" :compact="true" />
 				</div>
 
 				<div class="section__block">
@@ -73,6 +59,7 @@ export default {
 	data: function(){
 		return {
 			specie: null,
+			habitat: null,
 			evolutionChain: null,
 			ready: false
 		};
@@ -95,13 +82,20 @@ export default {
 	},
 	created: async function(){
 		this.specie = await this.getPokemonSpecie( this.pokemon.id ).then( response => response );
-		if( !this.specie.evolution_chain ) this.evolutionChain = [];
-		else this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
+
+		if( !this.specie.evolution_chain ){
+			this.evolutionChain = [];
+		}
+		else{
+			this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
+			if( this.specie.habitat ) this.habitat = await this.getHabitat( this.specie.habitat );
+		}
+
 		this.ready = true;
 	},
 	methods: {
 		...mapMutations(['SET_POKEMON_MODAL', 'SELECT_POKEMON']),
-		...mapActions(['getEvolutionChain', 'getPokemonSpecie', 'getEvolutionChain']),
+		...mapActions(['getEvolutionChain', 'getPokemonSpecie', 'getEvolutionChain', 'getHabitat']),
 
 		closeModal: function(){
 			this.SET_POKEMON_MODAL( false );
@@ -116,25 +110,6 @@ export default {
 	background-color: #fff;
 	border-radius: 8px;
 	overflow: hidden;
-
-	&__actions-links{
-		padding: 16px 32px;
-
-		ul{
-			li{
-				margin-right: 24px;
-
-				&:last-of-type{
-					margin-right: 0;
-				}
-
-				a{
-					color: $color-text;
-					font-size: 20px;
-				}
-			}
-		}
-	}
 
 	&__cover{
 		picture{
@@ -165,16 +140,6 @@ export default {
 .dark{
 	.pokemon-modal{
 		background: #1a202c;
-
-		&__actions-links{
-			ul{
-				li{
-					a{
-						color: #fff;
-					}
-				}
-			}
-		}
 	}
 }
 </style>
