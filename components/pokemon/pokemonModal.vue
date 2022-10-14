@@ -18,7 +18,7 @@
 				</div>
 
 				<div class="section__block">
-					<pokemon-info :specie="specie" :weight="pokemon.weight" :height="pokemon.height" :habitat="habitat" :compact="true" />
+					<pokemon-info :ready="ready" :specie="specie" :weight="pokemon.weight" :height="pokemon.height" :habitat="habitat" :compact="true" />
 				</div>
 
 				<div class="section__block">

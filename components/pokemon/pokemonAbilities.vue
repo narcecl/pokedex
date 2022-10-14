@@ -1,6 +1,6 @@
 <template>
 	<div class="abilities">
-		<div v-if="abilitiesDetail">
+		<div v-if="ready">
 			<div v-for="(ability, index) in abilitiesDetail" :key="index" class="abilities__item">
 				<div :class="{'box--light': !simple}">
 					<div class="d-flex align-items-center">
@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div v-else>
-			<div v-for="n in abilities.length" :key="n">
+			<div v-for="n in 2" :key="n">
 				<skeleton type="ability" />
 			</div>
 		</div>
@@ -36,11 +36,15 @@ export default {
 	},
 	data: function(){
 		return {
+			ready: false,
 			abilitiesDetail: false
 		};
 	},
 	created: async function(){
-		this.abilitiesDetail = await this.getAbilities( this.abilities );
+		if( this.abilities.length ){
+			this.abilitiesDetail = await this.getAbilities( this.abilities );
+			if( this.abilitiesDetail.length ) this.ready = true;
+		}
 	},
 	methods: {
 		...mapActions(['getAbilities']),

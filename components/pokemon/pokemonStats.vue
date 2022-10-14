@@ -1,6 +1,6 @@
 <template>
 	<div v-viewport="setReady">
-		<ul class="stadistics">
+		<ul v-if="ready" class="stadistics">
 			<li v-for="(stat, i) in fullStats" :key="i" class="stadistics__item">
 				<div class="d-flex align-items-center mb-4">
 					<p class="sub--title">
@@ -18,7 +18,15 @@
 				</div>
 			</li>
 		</ul>
-		<p class="f--xs mt-24">
+		<ul v-else>
+			<li v-for="n in 6" :key="n" :class="n < 6 ? 'mb-20' : ''">
+				<div class="mb-4">
+					<skeleton-item type="text" class="w-30 mb-4" />
+					<skeleton-item type="title" class="w-100" />
+				</div>
+			</li>
+		</ul>
+		<p v-if="ready" class="f--xs mt-24">
 			{{ $t('min_stat_desc', {level: 100, nature: 'neutral', ev: 0, iv: 0}) }}<br>
 			{{ $t('max_stat_desc', {level: 100, nature: 'neutral', ev: 255, iv: 31}) }}
 		</p>
@@ -65,16 +73,18 @@ export default {
 		}
 	},
 	created: function(){
-		this.stadistics = {};
+		if( this.stats ) this.ready = true;
 	},
 	methods: {
 		setReady: function(){
-			const time = 200;
-			this.fullStats.forEach(( item, index ) => {
-				setTimeout(() => {
-					this.stadistics[`stadistics_${index}`] = true;
-				}, time * index );
-			});
+			if( this.ready ){
+				const time = 200;
+				this.fullStats.forEach(( item, index ) => {
+					setTimeout(() => {
+						this.stadistics[`stadistics_${index}`] = true;
+					}, time * index );
+				});
+			}
 		}
 	}
 };
@@ -88,9 +98,10 @@ export default {
 		&__percent{
 			width: 100%;
 			display: block;
-			background: rgba(#000, .1);
+			background: rgba(#000, .05);
 			border-radius: 8px;
 			position: relative;
+			overflow: hidden;
 
 			&.ready{
 				.min{
@@ -101,12 +112,12 @@ export default {
 
 			.min{
 				display: block;
-				border-radius: 8px;
+				border-radius: 0 16px 16px 0;
 				background: $primary-color;
 				height: 100%;
 				text-align: right;
 				box-sizing: border-box;
-				padding-right: 8px;
+				padding-right: 10px;
 				font-size: 12px;
 				color: #fff;
 				opacity: 0;
