@@ -239,7 +239,9 @@ export default {
 		fullVarieties.sort(( a, b ) => ( a.id > b.id ) ? 1 : (( b.id > a.id ) ? -1 : 0 ));
 		return fullVarieties.map( variety => ({ id: variety.id, name: variety.name, sprites: variety.sprites, is_default: variety.is_default }));
 	},
-	getHabitat: async function( context, { url }){
+	getHabitat: async function( context, url){
+		if( !url ) return false;
+
 		const habitat = await this.$axios( url )
 			.then( response => response.data )
 			.catch( error => console.error( 'getHabitat =>', error ));
