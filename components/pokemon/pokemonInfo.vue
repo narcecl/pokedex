@@ -79,13 +79,13 @@
 			</div>
 			<div v-else class="row total mini align-items-center">
 				<div v-for="n in 8" :key="n" :class="classController">
-					<skeleton-item class="w-30 mb-4" />
-					<skeleton-item class="w-60" />
+					<skeleton-item class="w-40 mb-4" />
+					<skeleton-item size="lg" class="w-60" />
 				</div>
 			</div>
 		</div>
-		<div v-if="!compact && ready" class="dex-entries section__block">
-			<div class="row total mini align-items-center">
+		<div v-if="!compact" class="dex-entries section__block">
+			<div v-if="ready" class="row total mini align-items-center">
 				<div :class="classController">
 					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
 						National Dex
@@ -103,6 +103,12 @@
 					</p>
 				</div>
 			</div>
+			<div v-else class="row total mini align-items-center">
+				<div v-for="n in 4" :key="n" :class="classController">
+					<skeleton-item class="w-40 mb-4" />
+					<skeleton-item size="lg" class="w-60" />
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -113,16 +119,12 @@ import { mapState, mapGetters } from 'vuex';
 export default {
 	name: 'PokemonInfo',
 	props: {
+		ready: { type: Boolean, default: false },
 		specie: { type: [Boolean, Object], default: false },
 		habitat: { type: [Boolean, Object], default: false },
 		weight: { type: [String, Number, Boolean], default: false },
 		height: { type: [String, Number, Boolean], default: false },
 		compact: { type: Boolean, default: false }
-	},
-	data: function(){
-		return {
-			ready: false
-		};
 	},
 	computed: {
 		...mapState(['regions', 'eggGroups']),
@@ -165,9 +167,6 @@ export default {
 			}
 			return '';
 		}
-	},
-	created: function(){
-		if( this.specie && this.weight && this.height ) this.ready = true;
 	}
 };
 </script>

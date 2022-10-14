@@ -98,9 +98,10 @@ export default {
 		&__percent{
 			width: 100%;
 			display: block;
-			background: rgba(#000, .1);
+			background: rgba(#000, .05);
 			border-radius: 8px;
 			position: relative;
+			overflow: hidden;
 
 			&.ready{
 				.min{
@@ -111,12 +112,12 @@ export default {
 
 			.min{
 				display: block;
-				border-radius: 8px;
+				border-radius: 0 16px 16px 0;
 				background: $primary-color;
 				height: 100%;
 				text-align: right;
 				box-sizing: border-box;
-				padding-right: 8px;
+				padding-right: 10px;
 				font-size: 12px;
 				color: #fff;
 				opacity: 0;

@@ -38,23 +38,12 @@ export default {
 
 <style lang="scss" scoped>
 .footer{
-	padding: 32px 0 48px;
+	padding: 48px 0;
 
 	&__cont{
-		padding-top: 32px;
-		border-top: 1px solid rgba(#000, .1);
-
 		.link--regular{
 			font-weight: 700;
 			color: #00dc82;
-		}
-	}
-}
-
-.dark{
-	.footer{
-		&__cont{
-			border-top: 1px solid rgba(#fff, .1);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="type !== 'image'" :class="`skeleton--${type}`" class="skeleton__element" />
+		<div v-if="type !== 'image'" :class="`skeleton--${type} skeleton--${type}--${size}`" class="skeleton__element" />
 		<figure v-else class="skeleton__element skeleton--image">
 			<canvas :width="imageWidth" :height="imageHeight" />
 		</figure>
@@ -12,6 +12,7 @@ export default {
 	name: 'UiSkeletonItem',
 	props: {
 		type: { type: String, default: 'text' },
+		size: { type: String, default: 'md' },
 		imageHeight: { type: [String, Number], default: 0 },
 		imageWidth: { type: [String, Number], default: 0 }
 	}
@@ -55,8 +56,14 @@ export default {
 		}
 	}
 
-	&--title{height: 24px;}
-	&--text{height: 14px;}
+	&--title{
+		&--md{height: 24px;}
+		&--lg{height: 42px;}
+	}
+	&--text{
+		&--md{height: 14px;}
+		&--lg{height: 20px;}
+	}
 	&--image{display: inline-block}
 }
 

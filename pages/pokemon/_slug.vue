@@ -1,6 +1,9 @@
 <template>
 	<main class="single">
 		<section :class="getBackground" class="single__cover">
+			<div class="circles">
+				<div v-for="n in 10" :key="n" />
+			</div>
 			<div class="container">
 				<div class="d-flex justify-content-center justify-content-sm-start">
 					<div class="single__cover__image">
@@ -22,17 +25,17 @@
 							<h1 v-if="ready" class="heading--1 mr-16 order-sm-1">
 								{{ specie.name }}
 							</h1>
-							<skeleton-item v-else type="title" class="w-30" />
+							<skeleton-item v-else type="title" size="lg" class="w-30" />
 						</div>
 						<p v-if="ready">
 							{{ description || $t('no_description_pokemon') }}
 						</p>
-						<skeleton-item v-else class="w-70" />
+						<skeleton-item v-else size="lg" class="w-70" />
 					</div>
 
 					<div class="section__block">
 						<pokemon-info
-							:key="pokemon?.id"
+							:ready="ready"
 							:specie="specie"
 							:weight="pokemon?.weight"
 							:height="pokemon?.height"
@@ -157,13 +160,17 @@ export default {
 	},
 	head: function(){
 		return {
-			// title: `${this.$methods.pad( this.specie.id )} - ${this.$methods.capitalize( this.specie.name )} | Pokédex Entry`
+			title: `${this.getTitle} Regional Pokédex`
 		};
 	},
 	computed: {
 		...mapGetters(['getGenerationInfo', 'getLocaleTypeName']),
 		...mapState(['pokemonTypes', 'regions']),
 
+		getTitle: function(){
+			if( !this.specie ) return '';
+			return `${this.$methods.pad( this.specie.id )} - ${this.$methods.capitalize( this.specie.name )} |`;
+		},
 		prettyName: function(){
 			if( !this.specie ) return '';
 			return this.$methods.capitalize( this.specie.name );
@@ -208,6 +215,9 @@ export default {
 				this.habitat = await this.getHabitat( this.specie?.habitat?.url );
 			}
 		}
+		else{
+			return this.$nuxt.error({ statusCode: 404, message: 'Pokémon not found' });
+		}
 
 		if( this.specie && this.pokemon ) this.ready = true;
 	},
@@ -221,7 +231,104 @@ export default {
 .single{
 	&__cover{
 		padding: 24px 0 64px;
+		position: relative;
 		@include transition;
+
+		.circles{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+
+			div{
+				position: absolute;
+				display: block;
+				border-radius: 100%;
+				background: rgba(#000, .05);
+				animation: animate 25s linear infinite;
+				bottom: -150px;
+
+				&:nth-child(1){
+					left: 25%;
+					width: 80px;
+					height: 80px;
+					animation-delay: 0s;
+				}
+				&:nth-child(2){
+					left: 10%;
+					width: 20px;
+					height: 20px;
+					animation-delay: 2s;
+					animation-duration: 12s;
+				}
+				&:nth-child(3){
+					left: 70%;
+					width: 20px;
+					height: 20px;
+					animation-delay: 4s;
+				}
+				&:nth-child(4){
+					left: 40%;
+					width: 60px;
+					height: 60px;
+					animation-delay: 0s;
+					animation-duration: 18s;
+				}
+				&:nth-child(5){
+					left: 65%;
+					width: 20px;
+					height: 20px;
+					animation-delay: 0s;
+				}
+				&:nth-child(6){
+					left: 75%;
+					width: 110px;
+					height: 110px;
+					animation-delay: 3s;
+				}
+				&:nth-child(7){
+					left: 35%;
+					width: 150px;
+					height: 150px;
+					animation-delay: 7s;
+				}
+				&:nth-child(8){
+					left: 50%;
+					width: 25px;
+					height: 25px;
+					animation-delay: 15s;
+					animation-duration: 45s;
+				}
+				&:nth-child(9){
+					left: 20%;
+					width: 15px;
+					height: 15px;
+					animation-delay: 2s;
+					animation-duration: 35s;
+				}
+				&:nth-child(10){
+					left: 85%;
+					width: 150px;
+					height: 150px;
+					animation-delay: 0s;
+					animation-duration: 11s;
+				}
+			}
+		}
+
+		@keyframes animate {
+			0%{
+				transform: translateY(0) rotate(0deg);
+				opacity: 1;
+			}
+
+			100%{
+				transform: translateY(-1000px) rotate(720deg);
+				opacity: 0;
+			}
+		}
 
 		&__image{
 			z-index: 9;
