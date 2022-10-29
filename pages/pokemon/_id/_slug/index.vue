@@ -78,7 +78,7 @@
 						</div>
 					</tab-content>
 
-					<tab-content id="sprites" :label="$t('Sprites')">
+					<tab-content v-if="Object.keys(sprites).length" id="sprites" :label="$t('Sprites')">
 						<div class="section__block">
 							<h2 class="heading--4">
 								{{ $t('Sprites') }}
@@ -92,7 +92,7 @@
 						</div>
 					</tab-content>
 
-					<tab-content v-if="ready && specie.varieties.length > 1" id="varieties" :label="$t('Varieties')">
+					<tab-content v-if="specie?.varieties.length > 1" id="varieties" :label="$t('Varieties')">
 						<div class="section__block">
 							<h2 class="heading--4">
 								{{ $t('Varieties') }}
@@ -116,7 +116,7 @@
 						</div>
 					</tab-content>
 
-					<tab-content id="evolution-chain" :label="$t('Evolution chain')">
+					<tab-content v-if="evolutionChain.length" id="evolution-chain" :label="$t('Evolution chain')">
 						<div class="section__block">
 							<h2 class="heading--4">
 								{{ $t('Evolution chain') }}
@@ -141,15 +141,16 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
 	name: 'PokemonSingle',
 	asyncData: function({ store, params, error }){
-		const name = params.slug;
+		const { id, slug } = params;
 		// const specie = await store.dispatch( 'getPokemonSpecie', name );
 
 		// if( !specie ) return error({ statusCode: 404, message: 'Pokémon not found' });
-		return { name }; // eslint-disable-line object-shorthand
+		return { id, slug }; // eslint-disable-line object-shorthand
 	},
 	data: function(){
 		return {
-			name: null,
+			id: null,
+			slug: null,
 			ready: false,
 			specie: null,
 			pokemon: null,
@@ -169,7 +170,7 @@ export default {
 
 		getTitle: function(){
 			if( !this.specie ) return '';
-			return `${this.$methods.pad( this.specie.id )} - ${this.$methods.capitalize( this.specie.name )} |`;
+			return `${this.$methods.pad( this.id )} - ${this.$methods.capitalize( this.specie.name )} |`;
 		},
 		prettyName: function(){
 			if( !this.specie ) return '';
@@ -202,24 +203,20 @@ export default {
 		}
 	},
 	created: async function(){
-		this.specie = await this.getPokemonSpecie( this.name );
+		this.pokemon = await this.getPokemonInfo( this.id );
+		this.specie = await this.getPokemonSpecie( this.pokemon.species.name );
 
-		if( this.specie ){
-			this.pokemon = await this.getPokemonInfo( this.specie.id );
-
-			if( !this.specie.evolution_chain ){
-				this.evolutionChain = [];
-			}
-			else{
-				this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
-				this.habitat = await this.getHabitat( this.specie?.habitat?.url );
-			}
+		if( !this.specie.evolution_chain ){
+			this.evolutionChain = [];
 		}
 		else{
-			return this.$nuxt.error({ statusCode: 404, message: 'Pokémon not found' });
+			this.evolutionChain = await this.getEvolutionChain( this.specie.evolution_chain.url );
+			this.habitat = await this.getHabitat( this.specie?.habitat?.url );
 		}
 
+		// Retuning data
 		if( this.specie && this.pokemon ) this.ready = true;
+		else this.$nuxt.error({ statusCode: 404, message: 'Pokémon not found' });
 	},
 	methods: {
 		...mapActions(['getPokemonInfo', 'getPokemonSpecie', 'getEvolutionChain', 'getHabitat'])

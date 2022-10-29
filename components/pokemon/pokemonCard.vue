@@ -39,7 +39,13 @@ export default {
 			const isAction = actionItem.includes( this.$refs.actions.$el );
 
 			if( this.permalink && !this.modal ){
-				this.$router.push({ name: 'pokemon-slug', params: { slug: this.details.specie_name } });
+				this.$router.push({
+					name: 'pokemon-id-slug',
+					params: {
+						id: this.details.id,
+						slug: this.details.specie_name
+					}
+				});
 			}
 			else if( !isAction ){
 				this.SET_POKEMON_MODAL( true );

@@ -34,7 +34,7 @@
 						<pokemon-damage-relation :type="pokemon.types[0].type.name" />
 					</accordion>
 
-					<accordion v-if="evolutionChain" :title="$t('Evolution chain')" group="pokemon-details">
+					<accordion v-if="evolutionChain.length" :title="$t('Evolution chain')" group="pokemon-details">
 						<pokemon-evolution-chain :evolution-chain="evolutionChain" :compact="true" />
 					</accordion>
 				</div>
