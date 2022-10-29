@@ -33,6 +33,7 @@
     "galar_region_description": "Galar (Galar en inglés, ガラル Galar en japonés) es una región del mundo Pokémon donde se desarrollará la trama de los videojuegos Pokémon Espada y Pokémon Escudo de la octava generación.",
     "hisui_starters_description": "Los Pokémon iniciales a escoger son Rowlet, Cyndaquil y Oshawott.",
     "hisui_region_description": "Hisui (Hisui en inglés; ヒスイ地方 Región de Hisui en japonés) es el nombre que recibió la región de Sinnoh en la época en la que los primeros asentamientos de humanos tuvieron lugar. En ella se desarrolla Leyendas Pokémon: Arceus.",
+    "hisui_legendaries_description": "Aquí están todos los legendarios que se pueden encontrar en el juego.",
     "min_stat_desc": "Valor mínimo calculado al nivel {level}, naturaleza {nature}, {ev} PE y {iv} IV.",
     "max_stat_desc": "Valor máximo calculado al nivel {level}, naturaleza {nature}, {ev} PE y {iv} IV.",
     "Hp": "PS",

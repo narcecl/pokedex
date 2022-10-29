@@ -2,7 +2,7 @@
 	<div :class="`actions_links--${view}`" class="actions_links d-flex justify-content-end">
 		<ul class="d-flex align-items-center">
 			<li v-if="permalink">
-				<nuxt-link :to="{name: 'pokemon-slug', params: { slug: specie.name }}" class="hover--opacity" title="Permalink">
+				<nuxt-link :to="{name: 'pokemon-id-slug', params: { id: specie.id, slug: specie.name }}" class="hover--opacity" title="Permalink">
 					<font-awesome-icon icon="arrow-up-right-from-square" aria-hidden="true" />
 				</nuxt-link>
 			</li>

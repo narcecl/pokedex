@@ -68,7 +68,7 @@
 						{{ specieEggGroup }}
 					</p>
 				</div>
-				<div :class="classController">
+				<div v-if="specie.base_happiness" :class="classController">
 					<h6 class="f--sm text--uppercase fw--bold d-block text-uppercase">
 						{{ $t('Base Happiness') }}
 					</h6>

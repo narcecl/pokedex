@@ -113,7 +113,7 @@ export default () => ({
 			dexName: 'hisui',
 			dexNumber: 30,
 			starters: [722, 155, 501],
-			legendaries: [],
+			legendaries: [480, 481, 482, 485, 486, 488, 642, 641, 645, 905, 483, 484, 487, 493],
 			offset: 1133,
 			limit: 20,
 			active: true

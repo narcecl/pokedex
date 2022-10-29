@@ -19,6 +19,9 @@ export default {
 	props: {
 		sprites: { type: Object, required: true },
 		name: { type: String, default: '' }
+	},
+	created: function(){
+		console.log( 'sprites =>', this.sprites );
 	}
 };
 </script>

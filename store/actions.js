@@ -65,20 +65,26 @@ export default {
 		if( !pokemonInfo ) return false;
 		return pokemonInfo;
 	},
-	getPokemonsData: async function( context, result ){
+	getPokemonsData: async function( context, { array, region }){
 		const pokemons = [];
 
 		await Promise.allSettled(
-			result.map( async pokemonItem => {
+			array.map( async pokemonItem => {
 				const specieResponse = await context.dispatch( 'getPokemonSpecie', pokemonItem.pokemon_species.name );
 				if( specieResponse ){
-					const infoResponse = await context.dispatch( 'getPokemonInfo', specieResponse.id );
+
+					const foundSpecie = specieResponse.varieties.find( item => item.pokemon.name.includes(region) );
+					const pokemonName = foundSpecie ? foundSpecie.pokemon.name : specieResponse.name;
+					const pokemonId = foundSpecie ? foundSpecie.pokemon.name : specieResponse.id;
+
+					const infoResponse = await context.dispatch( 'getPokemonInfo', pokemonId );
 					if( infoResponse ){
 						pokemons.push({
 							...specieResponse,
 							...infoResponse,
 							entry_number: pokemonItem.entry_number,
-							specie_name: specieResponse.name
+							dex_number: infoResponse.id,
+							specie_name: pokemonName
 						});
 					}
 				}

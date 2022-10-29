@@ -127,7 +127,10 @@ export default {
 	},
 	created: async function(){
 		this.fullDex = await this.getRegionalPokemons( this.region );
-		this.pokemons = await this.getPokemonsData( this.fullDex.slice( 0, this.featuredLimit ));
+		this.pokemons = await this.getPokemonsData({
+			array: this.fullDex.slice( 0, this.featuredLimit ),
+			region: this.region.dexName
+		});
 
 		this.getStartersPokemons();
 		this.getLegendariesPokemons();
