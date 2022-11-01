@@ -65,7 +65,7 @@ export default {
 		if( !pokemonInfo ) return false;
 		return pokemonInfo;
 	},
-	getPokemonsData: async function( context, { array, region }){
+	getPokemonsData: async function( context, { array, region = 'kanto' }){
 		const pokemons = [];
 
 		await Promise.allSettled(

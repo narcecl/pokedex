@@ -58,7 +58,11 @@ export default {
 	},
 	created: async function(){
 		if( process.client ) this.favorites = JSON.parse( localStorage.getItem( 'favorites' ));
-		if( this.favorites.length ) this.pokemons = await this.getPokemonsData( this.favorites.slice( 0, this.featuredLimit ));
+		if( this.favorites.length ){
+			this.pokemons = await this.getPokemonsData({
+				array: this.favorites.slice( 0, this.featuredLimit )
+			});
+		}
 	},
 	methods: {
 		...mapActions(['getPokemonsData'])
