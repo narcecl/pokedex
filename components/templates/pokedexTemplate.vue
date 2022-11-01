@@ -157,7 +157,10 @@ export default {
 				const nextLimit = this.featuredLimit * this.currentPage;
 				const arrayNext = this.fullDex.slice( nextStart, nextLimit );
 
-				await this.getPokemonsData( arrayNext ).then( response => {
+				await this.getPokemonsData({
+					array: arrayNext,
+					region: this.region.dexName
+				}).then( response => {
 					this.pokemons = [...this.pokemons, ...response];
 					this.loadingMore = false;
 				});

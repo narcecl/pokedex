@@ -22,7 +22,7 @@
 				<div v-if="filterResults.length" class="pokemon-filter__cont__results">
 					<ul>
 						<li v-for="(pokemon, i) in filterResults" :key="i">
-							<nuxt-link :to="{name: 'pokemon-slug', params: { slug: pokemon.name }}" class="d-flex align-items-center" @click.native="closeFilter">
+							<nuxt-link :to="{name: 'pokemon-id-slug', params: { id: pokemon.id, slug: pokemon.name }}" class="d-flex align-items-center" @click.native="closeFilter">
 								<nuxt-img :src="`${imgSrc}/${pokemon.id}.png`" width="48" />
 								<div class="ml-16">
 									<p class="sub--title">

@@ -92,7 +92,7 @@
 						</div>
 					</tab-content>
 
-					<tab-content v-if="specie?.varieties.length > 1" id="varieties" :label="$t('Varieties')">
+					<tab-content v-if="hasVarieties" id="varieties" :label="$t('Varieties')">
 						<div class="section__block">
 							<h2 class="heading--4">
 								{{ $t('Varieties') }}
@@ -116,7 +116,7 @@
 						</div>
 					</tab-content>
 
-					<tab-content v-if="evolutionChain.length" id="evolution-chain" :label="$t('Evolution chain')">
+					<tab-content v-if="hasEvolutionChain" id="evolution-chain" :label="$t('Evolution chain')">
 						<div class="section__block">
 							<h2 class="heading--4">
 								{{ $t('Evolution chain') }}
@@ -200,6 +200,13 @@ export default {
 			if( !this.pokemon || !this.pokemon.types.length ) return false;
 			const firstType = this.pokemon.types[0].type.name;
 			return `bg-light--${firstType}`;
+		},
+		hasEvolutionChain: function(){
+			return this.evolutionChain.length > 1 || ( this.evolutionChain.length === 1 && this.evolutionChain[0].evolutionSplit.length );
+		},
+		hasVarieties: function(){
+			if( !this.specie ) return false;
+			return this.specie.varieties.length > 1;
 		}
 	},
 	created: async function(){
