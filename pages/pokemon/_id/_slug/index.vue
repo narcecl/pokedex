@@ -350,6 +350,10 @@ export default {
 		@media screen and (min-width: $break-sm){
 			margin: -132px -32px 0;
 		}
+
+		@media screen and (min-width: $break-lg){
+			margin: -132px -16px 0;
+		}
 	}
 }
 

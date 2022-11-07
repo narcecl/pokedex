@@ -26,7 +26,7 @@
 								Oh no!
 							</h1>
 							<p class="f--md">
-								We're sorry, something happen and we could'nt display the page correctly.
+								{{ $t('404_error_page') }}
 							</p>
 
 							<p class="f--muted f--xs mt-24">

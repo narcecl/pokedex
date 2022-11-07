@@ -21,12 +21,12 @@
 				</div>
 
 				<div v-if="startersPokemons.length" class="row total mini">
-					<div v-for="(starter, index) in startersPokemons" :key="index" class="col-6 col-sm-2">
+					<div v-for="(starter, index) in startersPokemons" :key="index" class="col-6 col-md-2 col-lg-3 col-xl-2">
 						<pokemon-card :details="starter" :permalink="isMobileViewport" :modal="!isMobileViewport" />
 					</div>
 				</div>
 				<div v-else class="row total mini">
-					<div v-for="n in region.starters.length" :key="n" class="col-6 col-sm-2">
+					<div v-for="n in region.starters.length" :key="n" class="col-6 col-md-2 col-lg-3 col-xl-2">
 						<skeleton />
 					</div>
 				</div>
@@ -45,12 +45,12 @@
 				</div>
 
 				<div v-if="legendariesPokemons.length" class="row total mini">
-					<div v-for="(starter, index) in legendariesPokemons" :key="index" class="col-6 col-sm-2">
+					<div v-for="(starter, index) in legendariesPokemons" :key="index" class="col-6 col-md-2 col-lg-3 col-xl-2">
 						<pokemon-card :details="starter" :permalink="isMobileViewport" :modal="!isMobileViewport" />
 					</div>
 				</div>
 				<div v-else class="row total mini">
-					<div v-for="n in region.legendaries.length" :key="n" class="col-6 col-sm-2">
+					<div v-for="n in region.legendaries.length" :key="n" class="col-6 col-md-2 col-lg-3 col-xl-2">
 						<skeleton />
 					</div>
 				</div>
@@ -70,7 +70,7 @@
 
 				<div v-if="pokemons.length">
 					<div class="row total mini">
-						<div v-for="pokemon in pokemons" :key="pokemon.id" class="col-6 col-sm-2">
+						<div v-for="pokemon in pokemons" :key="pokemon.id" class="col-6 col-md-2 col-lg-3 col-xl-2">
 							<pokemon-card :details="pokemon" :permalink="isMobileViewport" :modal="!isMobileViewport" />
 						</div>
 					</div>
@@ -79,7 +79,7 @@
 					</div>
 				</div>
 				<div v-else class="row total mini">
-					<div v-for="n in featuredLimit" :key="n" class="col-6 col-sm-2">
+					<div v-for="n in featuredLimit" :key="n" class="col-6 col-md-2 col-lg-3 col-xl-2">
 						<skeleton />
 					</div>
 				</div>
