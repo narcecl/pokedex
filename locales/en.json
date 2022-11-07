@@ -50,5 +50,6 @@
     "query_placeholder": "Search by name or ID",
     "favorites_title": "Favorite Pokémon",
     "favorites_description": " You have selected {count} Pokémon as favorite. What a great choise!",
-    "favorites_description_empty": "You don't have favorites Pokémons, go and add some."
+    "favorites_description_empty": "You don't have favorites Pokémons, go and add some.",
+    "404_error_page": "We're sorry, something happen and we could'nt display the page correctly."
 }

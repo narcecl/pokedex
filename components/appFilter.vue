@@ -156,6 +156,16 @@ export default {
 			padding: 48px 32px;
 		}
 
+		@media screen and (min-width: $break-lg){
+			max-width: 50%;
+			padding: 48px 32px;
+		}
+
+		@media screen and (min-width: $break-xl){
+			max-width: 30%;
+			padding: 48px 32px;
+		}
+
 		&--active{
 			transform: none;
 		}

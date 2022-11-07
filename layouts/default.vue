@@ -43,7 +43,7 @@ export default {
 
 		// Favorites from localStorage
 		if( process.client ){
-			const favorites = JSON.parse( localStorage.getItem( 'favorites' ));
+			const favorites = JSON.parse( localStorage.getItem( 'favorites' )) || [];
 			if( favorites.length ) this.SET_FAVORITES( favorites );
 		}
 	},

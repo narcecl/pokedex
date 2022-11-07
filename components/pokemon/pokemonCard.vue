@@ -103,12 +103,28 @@ export default {
 			height: 110px;
 			position: relative;
 
+			@media screen and (min-width: $break-lg){
+				height: 140px;
+			}
+
+			@media screen and (min-width: $break-xl){
+				height: 110px;
+			}
+
 			&:deep(img){
 				position: absolute;
 				left: 12px;
 				bottom: -30px;
 				max-width: 70%;
 				z-index: 1;
+
+				@media screen and (min-width: $break-lg){
+					max-width: 60%;
+				}
+
+				@media screen and (min-width: $break-xl){
+					max-width: 70%;
+				}
 			}
 		}
 	}

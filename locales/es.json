@@ -91,5 +91,6 @@
     "Base Happiness": "Felicidad Base",
     "favorites_title": "Pokémon favoritos",
     "favorites_description": "Has seleccionado {count} Pokémon como favorito(s). ¡Qué gran elección!.",
-    "favorites_description_empty": "No tienes Pokémons favoritos, ve y agrega algunos."
+    "favorites_description_empty": "No tienes Pokémons favoritos, ve y agrega algunos.",
+    "404_error_page": "Lo sentimos, algo pasó y no pudimos mostrar la página que estabas solicitando."
 }

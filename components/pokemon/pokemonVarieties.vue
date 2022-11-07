@@ -1,6 +1,6 @@
 <template>
 	<div class="row total mini">
-		<div v-for="(variety, i) in fullVarieties" :key="i" :class="fullVarieties.length > 8 ? 'col-sm-2' : 'col-sm-3'" class="col-6">
+		<div v-for="(variety, i) in fullVarieties" :key="i" :class="fullVarieties.length > 8 ? 'col-sm-4 col-xl-2' : 'col-sm-4 col-xl-3'" class="col-6 col-lg-3">
 			<div class="box--light text-center">
 				<div class="d-flex align-items-center">
 					<pokemon-image :src="variety.sprites" :name="variety.name" :plain="true" width="256" />
