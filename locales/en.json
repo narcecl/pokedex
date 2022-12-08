@@ -34,7 +34,7 @@
     "hisui_region_description": "Hisui (Hisui in English; ヒスイ地方 Hisui Region in Japanese) is the name given to the Sinnoh region around the time the first human settlements took place. It develops Pokémon Legends: Arceus.",
     "hisui_legendaries_description": "Here is a look at all the Legendary Pokémon in the game.",
     "min_stat_desc": "Min stat calculated at level {level}, {nature} nature, {ev} EV and {iv} IV.",
-    "max_stat_desc": "Min stat calculated at level {level}, {nature} nature, {ev} EV and {iv} IV.",
+    "max_stat_desc": "Max stat calculated at level {level}, {nature} nature, {ev} EV and {iv} IV.",
     "without_evolution_chain": "This Pokémon does not have an evolution chain.",
     "dex_description": "{name} Pokédex has {count} Pokémon in total.",
     "front_default": "normal",
