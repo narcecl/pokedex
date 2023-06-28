@@ -123,12 +123,12 @@ export default () => ({
 			slug: 'paldea',
 			code: 'generation-ii',
 			dexName: 'paldea',
-			dexNumber: null,
-			starters: [],
-			legendaries: [],
+			dexNumber: 31,
+			starters: [906, 909, 912],
+			legendaries: [1007, 1008, 1003, 1004, 1002, 1001],
 			offset: 1133,
 			limit: 20,
-			active: false
+			active: true
 		}
 	]
 });
