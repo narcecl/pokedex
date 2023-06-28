@@ -95,7 +95,10 @@ export default {
 	},
 
 	image: {
-		domains: ['raw.githubusercontent.com']
+		domains: [
+			'raw.githubusercontent.com',
+			'https://raw.githubusercontent.com',
+		]
 	},
 
 	// Modules: https://go.nuxtjs.dev/config-modules
